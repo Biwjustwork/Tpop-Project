@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PixelPulse Studio - ค่ายพัฒนาเกมอินดี้ขนาดเล็ก (Indie Game Development Studio) 2D Pixel Art & Mini Games บนเว็บ">
+  <title>PixelPulse Studio | ค่ายเกมอินดี้ & Game Showcase</title>
+
+  <!-- Favicon / Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="header" id="mainHeader">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M21,6H3A1,1,0,0,0,2,7V17a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM11,13H9v2H7V13H5V11H7V9H9v2h2Zm10,0H17V11h4Z"/></svg>
+        </div>
+        <span>PIXELPULSE <span style="color: var(--accent-cyan);">STUDIO</span></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">หน้าแรก (Home)</a>
+        <a href="#about" class="nav-link">เกี่ยวกับเรา (About)</a>
+        <a href="#showcase" class="nav-link">ศูนย์รวมเกม (Showcase)</a>
+        <a href="team.html" class="nav-link">ทีมงาน (Team)</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-icon" id="soundToggleBtn" title="เปิด/ปิด เสียงเอฟเฟกต์ (Audio SFX)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+        </button>
+        <button class="btn-icon" id="themeToggleBtn" title="สลับธีม สว่าง/มืด (Theme Toggle)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        </button>
+        <a href="team.html" class="btn btn-primary">ดูโปรไฟล์ทีม</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <span class="badge badge-purple">👾 INDIE GAME DEVELOPMENT STUDIO</span>
+        <h1 class="hero-title" style="margin-top: 14px;">
+          <span class="sub-pixel">CRAFTING RETRO FUN WITH MODERN CODE</span>
+          ค่ายพัฒนาเกมอินดี้ <br>
+          <span class="text-gradient">PixelPulse Studio</span>
+        </h1>
+        <p class="hero-desc">
+          เราเป็นทีมพัฒนาเกมจำลองขนาดเล็ก (Mini Games) ที่เน้นความสดใส สนุกสนาน และผสมผสานเสน่ห์ของ 2D Pixel Art กับเทคโนโลยีเว็บยุคใหม่ พร้อมให้คุณทดลองเล่นได้ทันทีผ่านเว็บบราวเซอร์!
+        </p>
+        <div class="hero-cta">
+          <a href="#showcase" class="btn btn-primary btn-pixel">🎮 ทดลองเล่นเกมทั้งหมด</a>
+          <a href="team.html" class="btn btn-outline">👥 ทำความรู้จักสมาชิกทีม</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card-display">
+          <div class="pixel-art-demo">
+            <canvas id="heroPixelCanvas" class="pixel-canvas-placeholder"></canvas>
+          </div>
+          <div style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <p style="font-weight: 700; font-size: 0.95rem;">PixelPulse Engine v1.0</p>
+              <p style="color: var(--text-muted); font-size: 0.8rem;">HTML5 Canvas & Web Audio API</p>
+            </div>
+            <span class="badge">ONLINE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-magenta">ABOUT PIXELPULSE</span>
+        <h2 class="section-title">วิสัยทัศน์และการพัฒนา (Studio Vision)</h2>
+        <p class="section-desc">
+          การรวมตัวกันของนักศึกษาเพื่อสร้างสรรค์ความบันเทิงรูปแบบใหม่ บนสถาปัตยกรรม Front-end Web Architecture
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px;">
+        <div class="glass-card">
+          <div style="font-size: 2rem; margin-bottom: 12px;">🕹️</div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Mini Games & Edutainment</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            มุ่งเน้นการสร้างเกมขนาดเล็กที่เล่นง่าย เข้าถึงได้ทุกเพศทุกวัย พร้อมเสริมสร้างทักษะและการตัดสินใจผ่านเกมเพลย์แบบโต้ตอบ
+          </p>
+        </div>
+
+        <div class="glass-card">
+          <div style="font-size: 2rem; margin-bottom: 12px;">⚡</div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Plug-and-Play Architecture</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            สถาปัตยกรรมโปรเจกต์ที่ออกแบบมาให้เชื่อมโยง Mini Game จากสมาชิกแต่ละคนผ่านระบบ HTML5 iframe และ Vite distribution แบบไร้รอยต่อ
+          </p>
+        </div>
+
+        <div class="glass-card">
+          <div style="font-size: 2rem; margin-bottom: 12px;">🎨</div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">2D Pixel Art Aesthetics</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            แต่งแต้มลวดลายกราฟิกและ UI สไตล์พิกเซลเรโทร พร้อมลูกเล่นแสงสี Neon Cyberpunk ผสมผสานความย้อนยุคและความทันสมัยอย่างลงตัว
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Game Showcase Section -->
+  <section class="section" id="showcase" style="background: rgba(0,0,0,0.2);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge">GAME SHOWCASE</span>
+        <h2 class="section-title">ศูนย์รวมเกมจำลอง (Playable Mini Games)</h2>
+        <p class="section-desc">
+          เลือกเล่นเกมจำลองของสมาชิกในทีมได้ทันทีผ่านระบบ Web View Center
+        </p>
+      </div>
+
+      <!-- Game Selection Tabs -->
+      <div class="game-tabs">
+        <button class="tab-btn active" data-game-src="games/game_pongpond/index.html" data-game-title="Pixel Rhythm Catch (โดย ปังปอนด์ - 170)">
+          🎵 Pixel Rhythm Catch (ปังปอนด์)
+        </button>
+        <button class="tab-btn" data-game-src="games/game_plu/index.html" data-game-title="Cyber Runner (โดย พลุ - 200)">
+          🏃 Cyber Runner (พลุ)
+        </button>
+        <button class="tab-btn" data-game-src="games/game_folk/index.html" data-game-title="Space Defender (โดย โฟล์ค - 193)">
+          🚀 Space Defender (โฟล์ค)
+        </button>
+      </div>
+
+      <!-- Viewport Frame -->
+      <div class="game-viewport-wrapper">
+        <div class="game-viewport-header">
+          <div class="window-dots">
+            <div class="dot dot-red"></div>
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-green"></div>
+          </div>
+          <div class="game-title-info" id="gameTitleDisplay">
+            Pixel Rhythm Catch (โดย ปังปอนด์ - 170)
+          </div>
+          <div style="font-size: 0.75rem; color: var(--accent-cyan);" class="pixel-text">HTML5 ENGINE</div>
+        </div>
+
+        <iframe id="gameIframe" src="games/game_pongpond/index.html" class="game-iframe" title="Playable Mini Game"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Team Section -->
+  <section class="section">
+    <div class="container">
+      <div class="glass-card" style="text-align: center; padding: 60px 24px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(0, 240, 255, 0.15)); border-color: rgba(0, 240, 255, 0.3);">
+        <h2 class="section-title">พร้อมที่จะพบกับทีมนักพัฒนาของเราหรือยัง?</h2>
+        <p class="section-desc" style="margin-bottom: 30px;">
+          ทำความรู้จักกับสมาชิกในทีม PixelPulse Studio ทั้ง 4 คน ดูผลงานและประวัติรายบุคคล
+        </p>
+        <a href="team.html" class="btn btn-primary btn-pixel">👥 ดูรายชื่อสมาชิกทีมงาน (Team Profile)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">
+              <svg viewBox="0 0 24 24"><path d="M21,6H3A1,1,0,0,0,2,7V17a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM11,13H9v2H7V13H5V11H7V9H9v2h2Zm10,0H17V11h4Z"/></svg>
+            </div>
+            <span>PIXELPULSE <span style="color: var(--accent-cyan);">STUDIO</span></span>
+          </a>
+          <p>เอกสารและเว็บไซต์แสดงผลงานจำลองสำหรับวิชาการพัฒนาโปรเจกต์ซอฟต์แวร์</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>การนำทาง (Navigation)</h4>
+          <ul>
+            <li><a href="index.html">หน้าแรก (Home)</a></li>
+            <li><a href="#about">เกี่ยวกับเรา (About)</a></li>
+            <li><a href="#showcase">ศูนย์รวมเกม (Showcase)</a></li>
+            <li><a href="team.html">ทีมงาน (Team)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>แฟ้มสะสมผลงาน (Portfolios)</h4>
+          <ul>
+            <li><a href="portfolios/my-profile.html">PM Profile (181)</a></li>
+            <li><a href="portfolios/pangpond.html">Pangpond Profile (170)</a></li>
+            <li><a href="portfolios/plu.html">Plu Profile (200)</a></li>
+            <li><a href="portfolios/folk.html">Folk Profile (193)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 PixelPulse Studio. All rights reserved.</div>
+        <div class="pixel-text" style="font-size: 0.7rem; color: var(--accent-cyan);">DEVELOPED FOR PROJECT PRESENTATION</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Central JavaScript -->
+  <script src="js/script.js"></script>
+</body>
+</html>

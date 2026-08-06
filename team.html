@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="รายชื่อสมาชิกทีมงาน PixelPulse Studio - ค่ายพัฒนาเกมอินดี้">
+  <title>ทีมงานของเรา (Team Profiles) | PixelPulse Studio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="header" id="mainHeader">
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M21,6H3A1,1,0,0,0,2,7V17a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM11,13H9v2H7V13H5V11H7V9H9v2h2Zm10,0H17V11h4Z"/></svg>
+        </div>
+        <span>PIXELPULSE <span style="color: var(--accent-cyan);">STUDIO</span></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">หน้าแรก (Home)</a>
+        <a href="index.html#about" class="nav-link">เกี่ยวกับเรา (About)</a>
+        <a href="index.html#showcase" class="nav-link">ศูนย์รวมเกม (Showcase)</a>
+        <a href="team.html" class="nav-link active">ทีมงาน (Team)</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn-icon" id="soundToggleBtn" title="เปิด/ปิด เสียงเอฟเฟกต์ (Audio SFX)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+        </button>
+        <button class="btn-icon" id="themeToggleBtn" title="สลับธีม สว่าง/มืด (Theme Toggle)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        </button>
+        <a href="index.html#showcase" class="btn btn-primary">เล่นเกม</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Team Header Section -->
+  <section class="section" style="padding-top: calc(var(--nav-height) + 60px);">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge badge-purple">OUR CREATIVE TEAM</span>
+        <h1 class="section-title">ทีมงานนักพัฒนา PixelPulse Studio</h1>
+        <p class="section-desc">
+          ทำความรู้จักกับสมาชิกผู้อยู่เบื้องหลังการออกแบบ การพัฒนาโค้ดโครงสร้างหลัก และ Mini Games ทั้งหมด
+        </p>
+      </div>
+
+      <!-- Team Members Grid -->
+      <div class="team-grid">
+        <!-- PM Card (181) -->
+        <div class="glass-card member-card">
+          <div class="member-avatar">
+            <div class="avatar-svg" style="display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">👑</div>
+          </div>
+          <span class="badge badge-magenta" style="margin-bottom: 8px;">PM / LEAD DEV</span>
+          <h3 class="member-name">Project Lead</h3>
+          <div class="member-role">Project Manager & Game Architect</div>
+          <div class="member-id">STUDENT ID: 181</div>
+          <p class="member-desc">
+            บริหารจัดการ Git Repository, ออกแบบโครงสร้างหลัก (`index.html`, `team.html`, `style.css`), รวมไฟล์โปรเจกต์
+          </p>
+          <a href="portfolios/my-profile.html" class="btn btn-outline" style="width: 100%;">ดู Portfolio รายบุคคล ➔</a>
+        </div>
+
+        <!-- Pangpond Card (170) -->
+        <div class="glass-card member-card">
+          <div class="member-avatar">
+            <div class="avatar-svg" style="display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">🎵</div>
+          </div>
+          <span class="badge" style="margin-bottom: 8px;">GAME DEV & SA</span>
+          <h3 class="member-name">ณัฐกรณ์ แท่นงาม</h3>
+          <div class="member-role">Game Developer & System Analyst</div>
+          <div class="member-id">STUDENT ID: 170 (ปังปอนด์)</div>
+          <p class="member-desc">
+            พัฒนา Mini Game ในโฟลเดอร์ `games/game_pongpond/` (Pixel Rhythm Catch) และจัดทำหน้า Portfolio
+          </p>
+          <a href="portfolios/pangpond.html" class="btn btn-outline" style="width: 100%;">ดู Portfolio รายบุคคล ➔</a>
+        </div>
+
+        <!-- Plu Card (200) -->
+        <div class="glass-card member-card">
+          <div class="member-avatar">
+            <div class="avatar-svg" style="display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">🎨</div>
+          </div>
+          <span class="badge badge-purple" style="margin-bottom: 8px;">LEAD UI/UX</span>
+          <h3 class="member-name">สุวรรณชัย ชัยสุวรรณศรี</h3>
+          <div class="member-role">Lead UI/UX & Game Developer</div>
+          <div class="member-id">STUDENT ID: 200 (พลุ)</div>
+          <p class="member-desc">
+            พัฒนา Mini Game ในโฟลเดอร์ `games/game_plu/` (Cyber Runner Jump) และจัดทำหน้า Portfolio
+          </p>
+          <a href="portfolios/plu.html" class="btn btn-outline" style="width: 100%;">ดู Portfolio รายบุคคล ➔</a>
+        </div>
+
+        <!-- Folk Card (193) -->
+        <div class="glass-card member-card">
+          <div class="member-avatar">
+            <div class="avatar-svg" style="display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">🚀</div>
+          </div>
+          <span class="badge badge-magenta" style="margin-bottom: 8px;">GAMEPLAY DEV</span>
+          <h3 class="member-name">ศรัณย์ กระจ่างแก้ว</h3>
+          <div class="member-role">Interactive Gameplay Developer</div>
+          <div class="member-id">STUDENT ID: 193 (โฟล์ค)</div>
+          <p class="member-desc">
+            พัฒนา Mini Game ในโฟลเดอร์ `games/game_folk/` (Retro Space Defender) และจัดทำหน้า Portfolio
+          </p>
+          <a href="portfolios/folk.html" class="btn btn-outline" style="width: 100%;">ดู Portfolio รายบุคคล ➔</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 PixelPulse Studio. All rights reserved.</div>
+        <div class="pixel-text" style="font-size: 0.7rem; color: var(--accent-cyan);"><a href="index.html">← กลับสู่หน้าหลัก</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

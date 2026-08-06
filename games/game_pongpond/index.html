@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Rhythm Catch - Pangpond Game</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #080a12;
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    #gameContainer {
+      position: relative;
+      border: 3px solid #00f0ff;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+      background: #0d111e;
+    }
+    canvas { display: block; background: #070913; }
+    .ui-overlay {
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      pointer-events: none;
+      color: #00f0ff;
+      text-shadow: 0 0 5px #00f0ff;
+    }
+    .instructions {
+      margin-top: 12px;
+      font-size: 0.6rem;
+      color: #8e9bb0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="gameContainer">
+  <div class="ui-overlay">
+    <div>SCORE: <span id="scoreText">0</span></div>
+    <div>DEV: PANGPOND (170)</div>
+  </div>
+  <canvas id="gameCanvas" width="600" height="400"></canvas>
+</div>
+<p class="instructions">🎮 Use LEFT & RIGHT Arrow keys / Mouse to move the paddle & catch falling pixel notes!</p>
+
+<script>
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  const scoreText = document.getElementById('scoreText');
+
+  let score = 0;
+  let paddleWidth = 90;
+  let paddleHeight = 14;
+  let paddleX = (canvas.width - paddleWidth) / 2;
+
+  let rightPressed = false;
+  let leftPressed = false;
+
+  const notes = [];
+  const noteColors = ['#00f0ff', '#ff007f', '#8a2be2', '#ffe600'];
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Right' || e.key === 'ArrowRight') rightPressed = true;
+    if (e.key === 'Left' || e.key === 'ArrowLeft') leftPressed = true;
+  });
+
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'Right' || e.key === 'ArrowRight') rightPressed = false;
+    if (e.key === 'Left' || e.key === 'ArrowLeft') leftPressed = false;
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const relativeX = e.clientX - rect.left;
+    if (relativeX > 0 && relativeX < canvas.width) {
+      paddleX = relativeX - paddleWidth / 2;
+    }
+  });
+
+  function spawnNote() {
+    notes.push({
+      x: Math.random() * (canvas.width - 20),
+      y: -20,
+      size: 16,
+      speed: 2.5 + Math.random() * 2,
+      color: noteColors[Math.floor(Math.random() * noteColors.length)]
+    });
+  }
+
+  setInterval(spawnNote, 800);
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw background grid lines
+    ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
+    for (let x = 0; x < canvas.width; x += 20) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+    }
+    for (let y = 0; y < canvas.height; y += 20) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+    }
+
+    // Move paddle
+    if (rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 7;
+    if (leftPressed && paddleX > 0) paddleX -= 7;
+
+    // Draw Paddle
+    ctx.fillStyle = '#00f0ff';
+    ctx.fillRect(paddleX, canvas.height - paddleHeight - 10, paddleWidth, paddleHeight);
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#00f0ff';
+
+    // Update and draw notes
+    for (let i = notes.length - 1; i >= 0; i--) {
+      const n = notes[i];
+      n.y += n.speed;
+
+      ctx.fillStyle = n.color;
+      ctx.fillRect(n.x, n.y, n.size, n.size);
+
+      // Check catch
+      if (
+        n.y + n.size >= canvas.height - paddleHeight - 10 &&
+        n.x + n.size >= paddleX &&
+        n.x <= paddleX + paddleWidth
+      ) {
+        score += 10;
+        scoreText.textContent = score;
+        notes.splice(i, 1);
+        continue;
+      }
+
+      // Remove offscreen
+      if (n.y > canvas.height) {
+        notes.splice(i, 1);
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+</script>
+
+</body>
+</html>

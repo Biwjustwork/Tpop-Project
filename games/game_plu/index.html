@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Runner - Plu Game</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #080a12;
+      color: #fff;
+      font-family: 'Press Start 2P', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    #gameContainer {
+      position: relative;
+      border: 3px solid #ff007f;
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+      background: #140a18;
+    }
+    canvas { display: block; background: #0b0610; }
+    .ui-overlay {
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      pointer-events: none;
+      color: #ff007f;
+      text-shadow: 0 0 5px #ff007f;
+    }
+    .instructions {
+      margin-top: 12px;
+      font-size: 0.6rem;
+      color: #8e9bb0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="gameContainer">
+  <div class="ui-overlay">
+    <div>DISTANCE: <span id="scoreText">0</span>m</div>
+    <div>DEV: PLU (200)</div>
+  </div>
+  <canvas id="gameCanvas" width="600" height="400"></canvas>
+</div>
+<p class="instructions">🎮 Press SPACEBAR or Click canvas to Jump over Cyber Obstacles!</p>
+
+<script>
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  const scoreText = document.getElementById('scoreText');
+
+  let score = 0;
+  let gameOver = false;
+
+  const player = {
+    x: 60,
+    y: 300,
+    width: 24,
+    height: 32,
+    vy: 0,
+    gravity: 0.8,
+    jumpPower: -13,
+    grounded: true
+  };
+
+  const obstacles = [];
+  let obstacleTimer = 0;
+
+  function jump() {
+    if (player.grounded && !gameOver) {
+      player.vy = player.jumpPower;
+      player.grounded = false;
+    } else if (gameOver) {
+      restart();
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      jump();
+    }
+  });
+
+  canvas.addEventListener('click', jump);
+
+  function restart() {
+    score = 0;
+    obstacles.length = 0;
+    player.y = 300;
+    player.vy = 0;
+    player.grounded = true;
+    gameOver = false;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Ground Line
+    const groundY = 332;
+    ctx.strokeStyle = '#ff007f';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(0, groundY);
+    ctx.lineTo(canvas.width, groundY);
+    ctx.stroke();
+
+    if (!gameOver) {
+      score++;
+      scoreText.textContent = Math.floor(score / 5);
+
+      // Player Gravity
+      player.vy += player.gravity;
+      player.y += player.vy;
+
+      if (player.y >= groundY - player.height) {
+        player.y = groundY - player.height;
+        player.vy = 0;
+        player.grounded = true;
+      }
+
+      // Spawn Obstacles
+      obstacleTimer++;
+      if (obstacleTimer > 90 + Math.random() * 60) {
+        obstacleTimer = 0;
+        obstacles.push({
+          x: canvas.width,
+          y: groundY - 24,
+          width: 18,
+          height: 24,
+          speed: 4 + (score / 400)
+        });
+      }
+    }
+
+    // Draw Player (Neon Cube Runner)
+    ctx.fillStyle = '#00f0ff';
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+
+    // Draw & Move Obstacles
+    for (let i = obstacles.length - 1; i >= 0; i--) {
+      const obs = obstacles[i];
+      if (!gameOver) obs.x -= obs.speed;
+
+      ctx.fillStyle = '#ff007f';
+      ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+
+      // Collision Check
+      if (
+        player.x < obs.x + obs.width &&
+        player.x + player.width > obs.x &&
+        player.y < obs.y + obs.height &&
+        player.y + player.height > obs.y
+      ) {
+        gameOver = true;
+      }
+
+      if (obs.x + obs.width < 0) {
+        obstacles.splice(i, 1);
+      }
+    }
+
+    if (gameOver) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#ff007f';
+      ctx.font = '16px "Press Start 2P"';
+      ctx.textAlign = 'center';
+      ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 10);
+
+      ctx.fillStyle = '#fff';
+      ctx.font = '10px "Press Start 2P"';
+      ctx.fillText('Press SPACE to Restart', canvas.width / 2, canvas.height / 2 + 24);
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+</script>
+
+</body>
+</html>
