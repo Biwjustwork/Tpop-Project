@@ -150,6 +150,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
+  // --- Game Showcase Fullscreen Toggle ---
+  const fullscreenToggleBtn = document.getElementById('fullscreenToggleBtn');
+  const gameViewportWrapper = document.querySelector('.game-viewport-wrapper');
+
+  if (fullscreenToggleBtn && gameViewportWrapper) {
+    fullscreenToggleBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        if (gameViewportWrapper.requestFullscreen) {
+          gameViewportWrapper.requestFullscreen();
+        } else if (gameViewportWrapper.webkitRequestFullscreen) {
+          gameViewportWrapper.webkitRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    });
   }
 
   // --- Header Scroll Effect ---
@@ -239,4 +257,4 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.classList.remove('show');
     }, 2800);
   }
-});
+}})

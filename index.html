@@ -7,6 +7,7 @@
   <title>PixelPulse Studio | ค่ายเกมอินดี้ & Game Showcase</title>
 
   <!-- Favicon / Fonts -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -146,6 +147,9 @@
         <button class="tab-btn" data-game-src="games/game_folk/index.html" data-game-title="Space Defender (โดย โฟล์ค - 193)">
           🚀 Space Defender (โฟล์ค)
         </button>
+        <button class="tab-btn" data-game-src="games/game_biw/index.html" data-game-title="Chaos Chess (โดย บิว - 181)">
+          ⚔️ Chaos Chess (บิว)
+        </button>
       </div>
 
       <!-- Viewport Frame -->
@@ -159,7 +163,10 @@
           <div class="game-title-info" id="gameTitleDisplay">
             Pixel Rhythm Catch (โดย ปังปอนด์ - 170)
           </div>
-          <div style="font-size: 0.75rem; color: var(--accent-cyan);" class="pixel-text">HTML5 ENGINE</div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="font-size: 0.75rem; color: var(--accent-cyan);" class="pixel-text">HTML5 ENGINE</div>
+            <button class="btn-icon" id="fullscreenToggleBtn" title="ขยายเต็มจอ (Toggle Fullscreen)" style="width: 30px; height: 30px; font-size: 0.9rem; border-radius: 6px; background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); color: var(--accent-cyan); cursor: pointer;">⛶</button>
+          </div>
         </div>
 
         <iframe id="gameIframe" src="games/game_pongpond/index.html" class="game-iframe" title="Playable Mini Game"></iframe>

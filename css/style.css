@@ -522,13 +522,14 @@ img {
 .game-viewport-wrapper {
   position: relative;
   width: 100%;
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   background: #000;
   border-radius: var(--radius-lg);
   border: 2px solid rgba(0, 240, 255, 0.3);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 240, 255, 0.15);
   overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .game-viewport-header {
@@ -562,9 +563,23 @@ img {
 
 .game-iframe {
   width: 100%;
-  height: 520px;
+  height: 760px;
   border: none;
   display: block;
+}
+
+/* Fullscreen Mode for Game Viewport */
+.game-viewport-wrapper:fullscreen {
+  max-width: 100vw !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.game-viewport-wrapper:fullscreen .game-iframe {
+  height: calc(100vh - 48px) !important;
 }
 
 /* --- Team Grid Section --- */
