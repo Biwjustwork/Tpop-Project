@@ -21,7 +21,7 @@ indie-game-studio/
 │   ├── images/
 │   └── audio/
 ├── portfolios/                # แฟ้มสะสมผลงานรายบุคคล
-│   ├── my-profile.html        # หน้า Portfolio ของ PM (181)
+│   ├── biw/                   # โฟลเดอร์ Portfolio ของ PM (181)
 │   ├── pangpond.html          # หน้า Portfolio ของปังปอนด์ (170)
 │   ├── plu.html               # หน้า Portfolio ของพลุ (200)
 │   └── folk.html              # หน้า Portfolio ของโฟล์ค (193)
