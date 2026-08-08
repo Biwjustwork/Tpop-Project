@@ -150,6 +150,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     });
+
+    // Deep-link: auto-select a game via ?game=<key> (e.g. index.html?game=plu#showcase)
+    const gameKey = new URLSearchParams(window.location.search).get('game');
+    if (gameKey) {
+      const target = document.querySelector(`.tab-btn[data-game-src*="game_${gameKey}"]`);
+      if (target) target.click();
+    }
   // --- Game Showcase Fullscreen Toggle ---
   const fullscreenToggleBtn = document.getElementById('fullscreenToggleBtn');
   const gameViewportWrapper = document.querySelector('.game-viewport-wrapper');
@@ -180,6 +187,31 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.remove('scrolled');
       }
     });
+  }
+
+  // --- Nav Scroll-Spy (underline the section currently in view) ---
+  const homeLink = document.querySelector('.nav-link[href="index.html"]');
+  const spySections = [...document.querySelectorAll('.nav-link[href^="#"]')]
+    .map(link => ({ link, section: document.querySelector(link.getAttribute('href')) }))
+    .filter(s => s.section);
+
+  if (spySections.length > 0) {
+    const updateActiveNav = () => {
+      const scrollPos = window.scrollY + window.innerHeight * 0.35;
+      let current = null;
+      spySections.forEach(s => {
+        if (s.section.offsetTop <= scrollPos) current = s;
+      });
+
+      if (homeLink) homeLink.classList.remove('active');
+      spySections.forEach(s => s.link.classList.remove('active'));
+
+      if (current) current.link.classList.add('active');
+      else if (homeLink) homeLink.classList.add('active');
+    };
+
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav();
   }
 
   // --- Hero Pixel Canvas Animation ---
