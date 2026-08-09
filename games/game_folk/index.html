@@ -3,14 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Space Defender - Folk Game</title>
+  <title>Neon Lane Racer - Folk Game</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Share+Tech+Mono&display=swap');
+    :root {
+      --bg: #071018;
+      --asphalt: #121820;
+      --lane: #f0b429;
+      --accent: #ff6a3d;
+      --mint: #3dfff0;
+      --hud: #f6e7c1;
+      --danger: #ff3b5c;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #080a12;
-      color: #fff;
-      font-family: 'Press Start 2P', monospace;
+      background:
+        radial-gradient(ellipse at 50% 0%, #163047 0%, transparent 55%),
+        linear-gradient(180deg, #0b1520 0%, #071018 45%, #04080d 100%);
+      color: var(--hud);
+      font-family: 'Orbitron', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -20,11 +31,19 @@
     }
     #gameContainer {
       position: relative;
-      border: 3px solid #8a2be2;
-      box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
-      background: #0f071a;
+      border: 2px solid rgba(240, 180, 41, 0.65);
+      box-shadow:
+        0 0 0 6px rgba(7, 16, 24, 0.9),
+        0 18px 50px rgba(0, 0, 0, 0.55),
+        inset 0 0 40px rgba(240, 180, 41, 0.05);
+      background: #0a1118;
+      clip-path: polygon(12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px);
     }
-    canvas { display: block; background: #07040e; }
+    canvas {
+      display: block;
+      background: #0a1118;
+      cursor: pointer;
+    }
     .ui-overlay {
       position: absolute;
       top: 12px;
@@ -32,16 +51,22 @@
       right: 16px;
       display: flex;
       justify-content: space-between;
-      font-size: 0.7rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
       pointer-events: none;
-      color: #c084fc;
-      text-shadow: 0 0 5px #8a2be2;
+      color: var(--hud);
+      text-shadow: 0 0 8px rgba(240, 180, 41, 0.45);
+      gap: 8px;
     }
+    .ui-overlay span { white-space: nowrap; }
     .instructions {
-      margin-top: 12px;
-      font-size: 0.6rem;
-      color: #8e9bb0;
+      margin-top: 14px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: #8fa3b8;
       text-align: center;
+      letter-spacing: 0.04em;
     }
   </style>
 </head>
@@ -49,95 +74,576 @@
 
 <div id="gameContainer">
   <div class="ui-overlay">
-    <div>KILLS: <span id="scoreText">0</span></div>
-    <div>DEV: FOLK (193)</div>
+    <div>DIST <span id="scoreText">0</span>m</div>
+    <div>MODE <span id="modeText">-</span></div>
+    <div>FOLK // 193</div>
   </div>
   <canvas id="gameCanvas" width="600" height="400"></canvas>
 </div>
-<p class="instructions">🎮 Move Mouse to aim spaceship, Click to shoot lasers at enemy drones!</p>
+<p class="instructions">LEFT / RIGHT or A / D — ride the big bike, switch lanes, dodge traffic</p>
 
 <script>
   const canvas = document.getElementById('gameCanvas');
   const ctx = canvas.getContext('2d');
   const scoreText = document.getElementById('scoreText');
+  const modeText = document.getElementById('modeText');
 
+  const LANE_COUNT = 3;
+  const ROAD_WIDTH = 360;
+  const ROAD_LEFT = (canvas.width - ROAD_WIDTH) / 2;
+  const LANE_WIDTH = ROAD_WIDTH / LANE_COUNT;
+
+  const DIFFICULTY = {
+    easy: {
+      label: 'EASY',
+      baseSpeed: 3.2,
+      speedGain: 160,
+      spawnStart: 95,
+      spawnMin: 42,
+      spawnRamp: 12,
+      doubleChance: 0.18,
+      scoreRate: 0.1
+    },
+    hard: {
+      label: 'HARD',
+      baseSpeed: 5.2,
+      speedGain: 90,
+      spawnStart: 55,
+      spawnMin: 22,
+      spawnRamp: 6,
+      doubleChance: 0.55,
+      scoreRate: 0.14
+    }
+  };
+
+  let state = 'menu';
+  let difficulty = null;
   let score = 0;
-  const ship = { x: canvas.width / 2, y: canvas.height - 40, size: 24 };
+  let speed = 4;
+  let spawnTimer = 0;
+  let roadOffset = 0;
+  let cityOffset = 0;
 
-  const lasers = [];
-  const enemies = [];
+  const player = {
+    lane: 1,
+    targetLane: 1,
+    x: 0,
+    y: canvas.height - 72,
+    width: 22,
+    height: 56
+  };
 
-  canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    ship.x = e.clientX - rect.left;
-  });
+  const cars = [];
+  const trafficPalette = ['#ff3b5c', '#3dfff0', '#ff8a3d', '#7aa2ff'];
 
-  canvas.addEventListener('click', () => {
-    lasers.push({ x: ship.x, y: ship.y - 10, speed: 8, radius: 4 });
-  });
+  const menuButtons = {
+    easy: { x: canvas.width / 2 - 150, y: 220, w: 140, h: 48 },
+    hard: { x: canvas.width / 2 + 10, y: 220, w: 140, h: 48 }
+  };
 
-  function spawnEnemy() {
-    enemies.push({
-      x: Math.random() * (canvas.width - 30) + 15,
-      y: -20,
-      size: 20,
-      speed: 1.5 + Math.random() * 1.5
-    });
+  const gameOverButtons = {
+    retry: { x: canvas.width / 2 - 150, y: 250, w: 140, h: 40 },
+    menu: { x: canvas.width / 2 + 10, y: 250, w: 140, h: 40 }
+  };
+
+  function laneCenterX(lane) {
+    return ROAD_LEFT + lane * LANE_WIDTH + LANE_WIDTH / 2;
   }
 
-  setInterval(spawnEnemy, 900);
+  player.x = laneCenterX(player.lane);
 
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  function hitButton(btn, mx, my) {
+    return mx >= btn.x && mx <= btn.x + btn.w && my >= btn.y && my <= btn.y + btn.h;
+  }
 
-    // Stars Background
-    ctx.fillStyle = '#ffffff';
-    for (let i = 0; i < 15; i++) {
-      ctx.fillRect((i * 47) % canvas.width, (Date.now() / 20 + i * 30) % canvas.height, 2, 2);
+  function startGame(mode) {
+    difficulty = DIFFICULTY[mode];
+    modeText.textContent = difficulty.label;
+    score = 0;
+    speed = difficulty.baseSpeed;
+    spawnTimer = 0;
+    cars.length = 0;
+    player.lane = 1;
+    player.targetLane = 1;
+    player.x = laneCenterX(1);
+    scoreText.textContent = '0';
+    state = 'playing';
+  }
+
+  function goToMenu() {
+    state = 'menu';
+    difficulty = null;
+    modeText.textContent = '-';
+    score = 0;
+    scoreText.textContent = '0';
+    cars.length = 0;
+  }
+
+  function moveLane(dir) {
+    if (state !== 'playing') return;
+    player.targetLane = Math.max(0, Math.min(LANE_COUNT - 1, player.targetLane + dir));
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (state === 'menu') {
+      if (e.key === '1' || e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
+        e.preventDefault();
+        startGame('easy');
+      }
+      if (e.key === '2' || e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
+        e.preventDefault();
+        startGame('hard');
+      }
+      return;
     }
 
-    // Draw Ship
-    ctx.fillStyle = '#00f0ff';
+    if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
+      e.preventDefault();
+      moveLane(-1);
+    }
+    if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
+      e.preventDefault();
+      moveLane(1);
+    }
+
+    if (state === 'gameover') {
+      if (e.code === 'Space' || e.key === 'Enter') {
+        e.preventDefault();
+        startGame(difficulty.label === 'HARD' ? 'hard' : 'easy');
+      }
+      if (e.key === 'Escape' || e.key === 'm' || e.key === 'M') {
+        e.preventDefault();
+        goToMenu();
+      }
+    }
+  });
+
+  canvas.addEventListener('click', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const my = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+    if (state === 'menu') {
+      if (hitButton(menuButtons.easy, mx, my)) startGame('easy');
+      if (hitButton(menuButtons.hard, mx, my)) startGame('hard');
+      return;
+    }
+
+    if (state === 'gameover') {
+      if (hitButton(gameOverButtons.retry, mx, my)) {
+        startGame(difficulty.label === 'HARD' ? 'hard' : 'easy');
+      }
+      if (hitButton(gameOverButtons.menu, mx, my)) goToMenu();
+    }
+  });
+
+  function spawnCar() {
+    const cfg = difficulty;
+    const occupied = new Set();
+    for (const car of cars) {
+      if (car.y < 120) occupied.add(car.lane);
+    }
+
+    const freeLanes = [];
+    for (let i = 0; i < LANE_COUNT; i++) {
+      if (!occupied.has(i)) freeLanes.push(i);
+    }
+    if (freeLanes.length === 0) return;
+
+    const blockCount = freeLanes.length >= 2 && Math.random() < cfg.doubleChance ? 2 : 1;
+    for (let n = 0; n < blockCount; n++) {
+      if (freeLanes.length === 0) break;
+      const idx = Math.floor(Math.random() * freeLanes.length);
+      const lane = freeLanes.splice(idx, 1)[0];
+      cars.push({
+        lane,
+        x: laneCenterX(lane),
+        y: -60,
+        width: 34,
+        height: 52,
+        color: trafficPalette[Math.floor(Math.random() * trafficPalette.length)]
+      });
+    }
+  }
+
+  function drawCityBackdrop() {
+    // Night sky
+    const sky = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    sky.addColorStop(0, '#102437');
+    sky.addColorStop(0.55, '#0b1622');
+    sky.addColorStop(1, '#081018');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Distant skyline blocks
+    ctx.fillStyle = '#0e1a26';
+    for (let i = 0; i < 14; i++) {
+      const w = 28 + (i % 4) * 10;
+      const h = 40 + ((i * 37) % 90);
+      const x = ((i * 55 - cityOffset * 0.15) % (canvas.width + 80)) - 40;
+      ctx.fillRect(x, canvas.height - 120 - h, w, h);
+      // window dots
+      ctx.fillStyle = i % 3 === 0 ? 'rgba(240,180,41,0.25)' : 'rgba(61,255,240,0.12)';
+      for (let wy = 8; wy < h - 8; wy += 10) {
+        for (let wx = 6; wx < w - 6; wx += 8) {
+          if ((wx + wy + i) % 5 !== 0) ctx.fillRect(x + wx, canvas.height - 120 - h + wy, 2, 3);
+        }
+      }
+      ctx.fillStyle = '#0e1a26';
+    }
+
+    // Horizon haze
+    const haze = ctx.createLinearGradient(0, canvas.height - 140, 0, canvas.height - 80);
+    haze.addColorStop(0, 'rgba(255,106,61,0)');
+    haze.addColorStop(1, 'rgba(255,106,61,0.12)');
+    ctx.fillStyle = haze;
+    ctx.fillRect(0, canvas.height - 140, canvas.width, 60);
+  }
+
+  function drawRoad() {
+    drawCityBackdrop();
+
+    // Shoulder gravel
+    ctx.fillStyle = '#151c24';
+    ctx.fillRect(0, 0, ROAD_LEFT - 8, canvas.height);
+    ctx.fillRect(ROAD_LEFT + ROAD_WIDTH + 8, 0, canvas.width, canvas.height);
+
+    // Asphalt
+    const asphalt = ctx.createLinearGradient(ROAD_LEFT, 0, ROAD_LEFT + ROAD_WIDTH, 0);
+    asphalt.addColorStop(0, '#171e27');
+    asphalt.addColorStop(0.5, '#1d2631');
+    asphalt.addColorStop(1, '#171e27');
+    ctx.fillStyle = asphalt;
+    ctx.fillRect(ROAD_LEFT, 0, ROAD_WIDTH, canvas.height);
+
+    // Soft center vignette
+    const vignette = ctx.createRadialGradient(
+      canvas.width / 2, canvas.height * 0.7, 40,
+      canvas.width / 2, canvas.height * 0.7, 260
+    );
+    vignette.addColorStop(0, 'rgba(255,106,61,0.05)');
+    vignette.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = vignette;
+    ctx.fillRect(ROAD_LEFT, 0, ROAD_WIDTH, canvas.height);
+
+    // Solid side lines (highway white/amber)
+    ctx.strokeStyle = '#f6e7c1';
+    ctx.lineWidth = 4;
     ctx.beginPath();
-    ctx.moveTo(ship.x, ship.y - ship.size / 2);
-    ctx.lineTo(ship.x - ship.size / 2, ship.y + ship.size / 2);
-    ctx.lineTo(ship.x + ship.size / 2, ship.y + ship.size / 2);
+    ctx.moveTo(ROAD_LEFT + 3, 0);
+    ctx.lineTo(ROAD_LEFT + 3, canvas.height);
+    ctx.moveTo(ROAD_LEFT + ROAD_WIDTH - 3, 0);
+    ctx.lineTo(ROAD_LEFT + ROAD_WIDTH - 3, canvas.height);
+    ctx.stroke();
+
+    // Amber dashed lane separators
+    ctx.strokeStyle = '#f0b429';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([22, 18]);
+    ctx.lineDashOffset = -roadOffset;
+    for (let i = 1; i < LANE_COUNT; i++) {
+      const x = ROAD_LEFT + i * LANE_WIDTH;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
+    }
+    ctx.setLineDash([]);
+
+    // Reflector dots on shoulders
+    ctx.fillStyle = '#3dfff0';
+    for (let y = -20; y < canvas.height + 20; y += 36) {
+      const yy = (y + roadOffset * 1.1) % (canvas.height + 40) - 20;
+      ctx.beginPath();
+      ctx.arc(ROAD_LEFT - 14, yy, 2.2, 0, Math.PI * 2);
+      ctx.arc(ROAD_LEFT + ROAD_WIDTH + 14, yy, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function drawCar(x, y, w, h, color) {
+    const left = x - w / 2;
+    const top = y - h / 2;
+
+    ctx.fillStyle = 'rgba(0,0,0,0.35)';
+    ctx.beginPath();
+    ctx.ellipse(x, top + h - 2, w * 0.55, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(left + 5, top + h - 2);
+    ctx.lineTo(left + 2, top + h * 0.4);
+    ctx.lineTo(left + w * 0.2, top + 4);
+    ctx.lineTo(left + w * 0.8, top + 4);
+    ctx.lineTo(left + w - 2, top + h * 0.4);
+    ctx.lineTo(left + w - 5, top + h - 2);
     ctx.closePath();
     ctx.fill();
 
-    // Lasers
-    for (let l = lasers.length - 1; l >= 0; l--) {
-      const laser = lasers[l];
-      laser.y -= laser.speed;
+    ctx.fillStyle = 'rgba(0,0,0,0.25)';
+    ctx.fillRect(left + w * 0.42, top + 8, w * 0.16, h * 0.55);
 
-      ctx.fillStyle = '#ffe600';
-      ctx.fillRect(laser.x - 2, laser.y, 4, 10);
+    ctx.fillStyle = 'rgba(20,30,40,0.55)';
+    ctx.beginPath();
+    ctx.moveTo(left + w * 0.22, top + h * 0.28);
+    ctx.lineTo(left + w * 0.78, top + h * 0.28);
+    ctx.lineTo(left + w * 0.7, top + h * 0.48);
+    ctx.lineTo(left + w * 0.3, top + h * 0.48);
+    ctx.closePath();
+    ctx.fill();
 
-      if (laser.y < 0) lasers.splice(l, 1);
+    ctx.fillStyle = '#ff3b5c';
+    ctx.fillRect(left + 5, top + h - 10, 9, 5);
+    ctx.fillRect(left + w - 14, top + h - 10, 9, 5);
+  }
+
+  function drawBigBike(x, y, w, h, color) {
+    const lean = Math.max(-0.18, Math.min(0.18, (x - laneCenterX(player.targetLane)) * -0.01));
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(lean);
+
+    // Shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.35)';
+    ctx.beginPath();
+    ctx.ellipse(0, h / 2 - 2, w * 0.7, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Headlight beam
+    const cone = ctx.createLinearGradient(0, -h / 2, 0, -h / 2 - 80);
+    cone.addColorStop(0, 'rgba(255,242,176,0.32)');
+    cone.addColorStop(1, 'rgba(255,242,176,0)');
+    ctx.fillStyle = cone;
+    ctx.beginPath();
+    ctx.moveTo(-4, -h / 2 + 10);
+    ctx.lineTo(-22, -h / 2 - 75);
+    ctx.lineTo(22, -h / 2 - 75);
+    ctx.lineTo(4, -h / 2 + 10);
+    ctx.closePath();
+    ctx.fill();
+
+    // Rear tire
+    ctx.fillStyle = '#1a1f26';
+    ctx.beginPath();
+    ctx.ellipse(0, h * 0.28, 7, 11, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#f0b429';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Front tire
+    ctx.fillStyle = '#1a1f26';
+    ctx.beginPath();
+    ctx.ellipse(0, -h * 0.28, 6.5, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = '#f0b429';
+    ctx.stroke();
+
+    // Swingarm / fork
+    ctx.strokeStyle = '#c9d2dc';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, h * 0.18);
+    ctx.lineTo(0, -h * 0.18);
+    ctx.stroke();
+
+    // Fuel tank + body (big bike silhouette)
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(-8, 4);
+    ctx.quadraticCurveTo(-12, -6, -6, -18);
+    ctx.lineTo(6, -18);
+    ctx.quadraticCurveTo(12, -6, 8, 4);
+    ctx.lineTo(7, 16);
+    ctx.quadraticCurveTo(0, 22, -7, 16);
+    ctx.closePath();
+    ctx.fill();
+
+    // Seat
+    ctx.fillStyle = '#2a3038';
+    ctx.beginPath();
+    ctx.moveTo(-6, 6);
+    ctx.lineTo(6, 6);
+    ctx.lineTo(5, 16);
+    ctx.lineTo(-5, 16);
+    ctx.closePath();
+    ctx.fill();
+
+    // Rider torso
+    ctx.fillStyle = '#f6e7c1';
+    ctx.beginPath();
+    ctx.ellipse(0, -4, 5, 8, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Helmet
+    ctx.fillStyle = '#3dfff0';
+    ctx.beginPath();
+    ctx.arc(0, -16, 6.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = 'rgba(10,20,30,0.55)';
+    ctx.fillRect(-5, -17, 10, 3);
+
+    // Handlebar
+    ctx.strokeStyle = '#e8eef5';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(-11, -20);
+    ctx.lineTo(11, -20);
+    ctx.stroke();
+
+    // Exhaust
+    ctx.fillStyle = '#8fa3b8';
+    ctx.fillRect(6, 8, 10, 3);
+
+    // Tail light
+    ctx.fillStyle = '#ff3b5c';
+    ctx.fillRect(-2, 18, 4, 3);
+
+    // Headlight
+    ctx.fillStyle = '#fff2b0';
+    ctx.beginPath();
+    ctx.arc(0, -h * 0.34, 3.2, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  function drawButton(btn, label, fill, border) {
+    ctx.fillStyle = fill;
+    ctx.strokeStyle = border;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    // Angled racing plaque
+    ctx.moveTo(btn.x + 10, btn.y);
+    ctx.lineTo(btn.x + btn.w, btn.y);
+    ctx.lineTo(btn.x + btn.w - 10, btn.y + btn.h);
+    ctx.lineTo(btn.x, btn.y + btn.h);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // Hazard corner
+    ctx.fillStyle = border;
+    ctx.fillRect(btn.x + 8, btn.y + 6, 10, 4);
+
+    ctx.fillStyle = '#f6e7c1';
+    ctx.font = '700 12px Orbitron, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(label, btn.x + btn.w / 2, btn.y + btn.h / 2 + 1);
+  }
+
+  function drawMenu() {
+    drawRoad();
+    roadOffset = (roadOffset + 1.4) % 40;
+    cityOffset = (cityOffset + 0.4) % 1000;
+
+    ctx.fillStyle = 'rgba(4, 10, 16, 0.78)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Title plate
+    ctx.fillStyle = 'rgba(240, 180, 41, 0.12)';
+    ctx.fillRect(70, 70, canvas.width - 140, 86);
+    ctx.strokeStyle = '#f0b429';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(70, 70, canvas.width - 140, 86);
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#f0b429';
+    ctx.font = '800 22px Orbitron, sans-serif';
+    ctx.fillText('NEON LANE RACER', canvas.width / 2, 108);
+
+    ctx.fillStyle = '#ff6a3d';
+    ctx.font = '500 10px Share Tech Mono, monospace';
+    ctx.fillText('BIG BIKE  ·  NIGHT HIGHWAY', canvas.width / 2, 136);
+
+    ctx.fillStyle = '#8fa3b8';
+    ctx.font = '500 11px Share Tech Mono, monospace';
+    ctx.fillText('SELECT DIFFICULTY  ·  1 / 2', canvas.width / 2, 188);
+
+    drawButton(menuButtons.easy, 'EASY', 'rgba(61,255,240,0.12)', '#3dfff0');
+    drawButton(menuButtons.hard, 'HARD', 'rgba(255,59,92,0.14)', '#ff3b5c');
+
+    ctx.fillStyle = '#8fa3b8';
+    ctx.font = '500 10px Share Tech Mono, monospace';
+    ctx.fillText('calm traffic', menuButtons.easy.x + menuButtons.easy.w / 2, 290);
+    ctx.fillText('rush hour', menuButtons.hard.x + menuButtons.hard.w / 2, 290);
+  }
+
+  function rectsOverlap(a, b) {
+    return (
+      a.x - a.width / 2 < b.x + b.width / 2 &&
+      a.x + a.width / 2 > b.x - b.width / 2 &&
+      a.y - a.height / 2 < b.y + b.height / 2 &&
+      a.y + a.height / 2 > b.y - b.height / 2
+    );
+  }
+
+  function draw() {
+    if (state === 'menu') {
+      drawMenu();
+      requestAnimationFrame(draw);
+      return;
     }
 
-    // Enemies
-    for (let e = enemies.length - 1; e >= 0; e--) {
-      const enemy = enemies[e];
-      enemy.y += enemy.speed;
+    drawRoad();
+    const cfg = difficulty;
 
-      ctx.fillStyle = '#8a2be2';
-      ctx.fillRect(enemy.x - enemy.size / 2, enemy.y - enemy.size / 2, enemy.size, enemy.size);
+    if (state === 'playing') {
+      speed = cfg.baseSpeed + score / cfg.speedGain;
+      roadOffset = (roadOffset + speed * 1.6) % 40;
+      cityOffset = (cityOffset + speed * 0.25) % 1000;
+      score += speed * cfg.scoreRate;
+      scoreText.textContent = Math.floor(score);
 
-      // Check collision with lasers
-      for (let l = lasers.length - 1; l >= 0; l--) {
-        const laser = lasers[l];
-        const dist = Math.hypot(laser.x - enemy.x, laser.y - enemy.y);
-        if (dist < enemy.size / 2 + 4) {
-          score++;
-          scoreText.textContent = score;
-          enemies.splice(e, 1);
-          lasers.splice(l, 1);
-          break;
-        }
+      const targetX = laneCenterX(player.targetLane);
+      player.x += (targetX - player.x) * 0.22;
+      if (Math.abs(targetX - player.x) < 1) {
+        player.x = targetX;
+        player.lane = player.targetLane;
       }
 
-      if (enemy.y > canvas.height + 20) enemies.splice(e, 1);
+      spawnTimer++;
+      const spawnEvery = Math.max(cfg.spawnMin, cfg.spawnStart - score / cfg.spawnRamp);
+      if (spawnTimer > spawnEvery) {
+        spawnTimer = 0;
+        spawnCar();
+      }
+
+      for (let i = cars.length - 1; i >= 0; i--) {
+        const car = cars[i];
+        car.y += speed;
+
+        if (rectsOverlap(player, car)) state = 'gameover';
+
+        if (car.y - car.height / 2 > canvas.height + 20) cars.splice(i, 1);
+      }
+    }
+
+    for (const car of cars) {
+      drawCar(car.x, car.y, car.width, car.height, car.color);
+    }
+
+    drawBigBike(player.x, player.y, player.width, player.height, '#ff6a3d');
+
+    if (state === 'gameover') {
+      ctx.fillStyle = 'rgba(4, 10, 16, 0.8)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#ff3b5c';
+      ctx.font = '800 20px Orbitron, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText('CRASHED', canvas.width / 2, canvas.height / 2 - 40);
+
+      ctx.fillStyle = '#f6e7c1';
+      ctx.font = '500 12px Share Tech Mono, monospace';
+      ctx.fillText(Math.floor(score) + 'm   ·   ' + cfg.label, canvas.width / 2, canvas.height / 2 - 8);
+
+      drawButton(gameOverButtons.retry, 'RETRY', 'rgba(240,180,41,0.16)', '#f0b429');
+      drawButton(gameOverButtons.menu, 'MENU', 'rgba(143,163,184,0.14)', '#8fa3b8');
     }
 
     requestAnimationFrame(draw);
