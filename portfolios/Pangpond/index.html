@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nattakorn Tanngam — Frontend Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ LOADING SCREEN ============ -->
+<div id="loadingScreen">
+  <div class="loading-content">
+    <div class="hud-glitch-text" data-text="RX-93 ν GUNDAM">RX-93 ν GUNDAM</div>
+    <div class="loading-sub">SYSTEM INITIALIZATION // READY FOR PILOT</div>
+    <div class="loading-bar-container">
+      <div class="loading-bar" id="loadingBar"></div>
+    </div>
+    <div class="loading-percentage" id="loadingPercent">0%</div>
+    <div class="loading-console" id="loadingConsole">
+      <div>&gt; LOADING SYSTEM KERNEL... OK</div>
+      <div>&gt; INITIALIZING PSYCHO FRAME... OK</div>
+      <div>&gt; ALIGNING FIN FUNNEL GENERATORS... OK</div>
+      <div>&gt; HUD SYSTEM READY</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CUSTOM CURSOR ============ -->
+<div class="custom-cursor" id="customCursor" aria-hidden="true">
+  <svg viewBox="0 0 24 24">
+    <path d="M12 0 Q12 12 24 12 Q12 12 12 24 Q12 12 0 12 Q12 12 12 0 Z"/>
+  </svg>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-mark">NATTAKORN TANNGAM <img src="assets/boxing-nu.gif" alt="Boxing Nu Gundam" class="header-sticker"></span>
+      <span class="logo-sub" data-translate="logo-sub">Frontend Dev · v2.0</span>
+    </div>
+    <div class="header-actions">
+      <button class="lang-btn" id="langBtn" aria-label="Switch language">
+        <span id="langEN" class="lang-opt active">EN</span>
+        <span class="lang-sep">|</span>
+        <span id="langTH" class="lang-opt">TH</span>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+        <span data-translate="menu-text">MENU</span>
+        <span class="menu-icon"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-overlay" id="navOverlay" aria-hidden="true">
+  <ul>
+    <li><a href="#top"><span class="nav-index">01</span><span data-translate="nav-home">Home</span></a></li>
+    <li><a href="#projects"><span class="nav-index">02</span><span data-translate="nav-projects">Projects</span></a></li>
+    <li><a href="#about"><span class="nav-index">03</span><span data-translate="nav-about">About</span></a></li>
+    <li><a href="#contact"><span class="nav-index">04</span><span data-translate="nav-contact">Contact</span></a></li>
+    <li><a href="#terminal-section"><span class="nav-index">05</span><span data-translate="nav-terminal">Terminal</span></a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<div id="top"></div>
+<section class="hero wrap">
+  <div class="ghost-type" aria-hidden="true">
+    <div>DEVELOPER</div>
+    <div>ENGINEER</div>
+    <div>BUILDER</div>
+    <div>PROBLEM SOLVER</div>
+  </div>
+
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="eyebrow" style="margin-bottom:14px;" data-translate="hero-eyebrow">Digital Industry — Frontend / UX</div>
+      <div class="hero-tags">
+        <span class="tag">[ REACT ]</span>
+        <span class="tag">[ TYPESCRIPT ]</span>
+        <span class="tag">[ TAILWIND ]</span>
+        <span class="tag">[ UI/UX ]</span>
+      </div>
+      <h1 class="hero-title">Pangpond</h1>
+      <p class="hero-tagline" data-translate="hero-tagline">Building clean, purposeful frontend experiences — one deliberate interface at a time.</p>
+      <div class="status-row">
+        <span class="status-dot"></span>
+        <span class="status-text" data-translate="hero-status">Available for co-op / internship</span>
+      </div>
+    </div>
+
+    <div class="hero-photo frame">
+      <span class="cnr tl"></span><span class="cnr tr"></span><span class="cnr bl"></span><span class="cnr br"></span>
+      <span class="plus p1">+</span><span class="plus p2">+</span>
+      <img src="assets/profile.png" alt="Nattakorn Tanngam" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <div class="spec-rail">
+      <div class="spec-row" style="--i:1">
+        <div class="spec-label" data-translate="spec-unit-lbl">Unit</div>
+        <div class="spec-value">NATTAKORN TANNGAM</div>
+      </div>
+      <div class="spec-row" style="--i:2">
+        <div class="spec-label" data-translate="spec-role-lbl">Role</div>
+        <div class="spec-value" data-translate="spec-role-val">Frontend Developer · IT Support</div>
+      </div>
+      <div class="spec-row" style="--i:3">
+        <div class="spec-label" data-translate="spec-focus-lbl">Focus</div>
+        <div class="spec-value small" data-translate="spec-focus-val">React · UI/UX · Web Apps</div>
+      </div>
+      <div class="spec-row" style="--i:4">
+        <div class="spec-label" data-translate="spec-based-lbl">Based</div>
+        <div class="spec-value" data-translate="spec-based-val">Thailand</div>
+      </div>
+      <div class="spec-row" style="--i:5">
+        <div class="spec-label" data-translate="spec-edu-lbl">Education</div>
+        <div class="spec-value small" data-translate="spec-edu-val">CAMT, Chiang Mai University</div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#projects" class="scroll-cue">
+    <span data-translate="scroll-cue">Scroll</span>
+    <span class="scroll-line"></span>
+  </a>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-translate="projects-heading">PROJECTS</h2>
+      <span class="idx">// 01</span>
+    </div>
+
+    <div class="project-feature" id="activeProjectArea">
+      <div class="pf-meta">
+        <div class="pf-tag">Featured — Project 01</div>
+        <h3 class="pf-title">ShowPro</h3>
+        <p class="pf-desc">Student portfolio &amp; co-op management platform for CAMT / DII. Built the entire frontend layer — editable project cards, dark mode, and full TH/EN language switching.</p>
+        <div class="pf-facts">
+          <div>
+            <span class="spec-label">Role</span>
+            <span class="spec-value">UX Engineer</span>
+          </div>
+          <div>
+            <span class="spec-label">Stack</span>
+            <span class="spec-value">React / Vite / TS / Tailwind</span>
+          </div>
+        </div>
+        <a class="pf-link" href="javascript:void(0)" id="featuredDetailsBtn">Read Details [↗]</a>
+      </div>
+      <div class="pf-visual frame" id="featuredVisualBtn" style="cursor: pointer;">
+        <span class="cnr tl" style="border-color:var(--paper)"></span>
+        <span class="cnr br" style="border-color:var(--paper)"></span>
+        <img src="assets/showpro.png" alt="ShowPro" style="width: 100%; height: 100%; object-fit: cover;">
+        <span class="pf-visual-label">FIG. 01 — SHOWPRO</span>
+      </div>
+    </div>
+
+    <div class="project-grid" id="projectGrid">
+      <!-- Dynamic Project Cards will be loaded here -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT + SKILLS ============ -->
+<section id="about" style="padding-top:0;">
+  <div class="split">
+    <div>
+      <div class="sec-head" style="margin-bottom:26px;">
+        <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);" data-translate="about-heading">ABOUT</h2>
+        <span class="idx">// 02</span>
+      </div>
+      <div class="about-diagnostics frame" style="padding: clamp(20px, 4vw, 32px); background: var(--paper-dim); border: 1px solid var(--line); margin-bottom: 30px;">
+        <span class="cnr tl"></span><span class="cnr tr"></span><span class="cnr bl"></span><span class="cnr br"></span>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 24px;">
+          <!-- 1. STATUS -->
+          <div>
+            <div class="spec-label" data-translate="diag-status">STATUS</div>
+            <div class="spec-value" style="display: flex; align-items: center; gap: 8px;">
+              <span style="display: inline-block; width: 8px; height: 8px; background: #00e5ff; border-radius: 50%; box-shadow: 0 0 8px #00e5ff; animation: pulseGlow 1.5s infinite alternate;"></span>
+              <span data-translate="diag-status-val">ONLINE</span>
+            </div>
+          </div>
+          <!-- 2. BORN -->
+          <div>
+            <div class="spec-label" data-translate="spec-born-lbl">BORN</div>
+            <div class="spec-value" data-translate="spec-born-val">4 March</div>
+          </div>
+          <!-- 3. LOCATION -->
+          <div>
+            <div class="spec-label" data-translate="diag-location">LOCATION</div>
+            <div class="spec-value" data-translate="diag-location-val">Chiang Mai, Thailand</div>
+          </div>
+          <!-- 4. CURRENTLY -->
+          <div>
+            <div class="spec-label" data-translate="diag-currently">CURRENTLY</div>
+            <div class="spec-value" data-translate="diag-currently-val">Building Interactive Experiences</div>
+          </div>
+          <!-- 5. MOOD -->
+          <div>
+            <div class="spec-label" data-translate="diag-mood">MOOD</div>
+            <div class="spec-value" data-translate="diag-mood-val">Creating</div>
+          </div>
+          <!-- 6. DRINK -->
+          <div>
+            <div class="spec-label" data-translate="diag-drink">DRINK</div>
+            <div class="spec-value" data-translate="diag-drink-val">Thai Tea Lover 🧋</div>
+          </div>
+          <!-- 7. LISTENING -->
+          <div>
+            <div class="spec-label" data-translate="diag-listening">LISTENING</div>
+            <div id="diagListening" class="spec-value">Keshi - Blue</div>
+          </div>
+          <!-- 8. CPU // GPU -->
+          <div>
+            <div class="spec-label" data-translate="diag-sys-load">CPU // GPU</div>
+            <div class="spec-value" style="font-size: 0.76rem; line-height: 1.45;">
+              <div>CPU: <span id="diagCPU" style="color: var(--signal); font-weight: 600;">Detecting...</span></div>
+              <div style="margin-top: 4px;">GPU: <span id="diagGPU" style="color: var(--signal); font-weight: 600;">Detecting...</span></div>
+            </div>
+          </div>
+          <!-- 9. LANGUAGES -->
+          <div>
+            <div class="spec-label" data-translate="languages-heading">LANGUAGES</div>
+            <div class="spec-value" style="font-size: 0.82rem; line-height: 1.4; font-weight: normal;">
+              <div>Thai: <span data-translate="lang-native" style="font-weight: 600; color: var(--ink);">Native</span></div>
+              <div style="margin-top: 4px;">English: <span data-translate="lang-intermediate" style="font-weight: 600; color: var(--ink);">Intermediate</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec-head" style="margin-bottom:26px;">
+        <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);" data-translate="skills-heading">SKILLS</h2>
+        <span class="idx">// 03</span>
+      </div>
+      <ul class="skill-list">
+        <li><span>HTML / CSS</span><span class="n">01</span></li>
+        <li><span>JavaScript</span><span class="n">02</span></li>
+        <li><span>TypeScript</span><span class="n">03</span></li>
+        <li><span>React</span><span class="n">04</span></li>
+        <li><span>Vite</span><span class="n">05</span></li>
+        <li><span>Tailwind CSS</span><span class="n">06</span></li>
+        <li><span>Java</span><span class="n">07</span></li>
+        <li><span>Express</span><span class="n">08</span></li>
+        <li><span>Prisma</span><span class="n">09</span></li>
+        <li><span>PostgreSQL</span><span class="n">10</span></li>
+        <li><span>Docker</span><span class="n">11</span></li>
+        <li><span>Git / GitHub</span><span class="n">12</span></li>
+      </ul>
+      <div class="skills-visual">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="none" stroke="var(--ink)" stroke-width="1">
+            <polygon points="60,6 111,33 111,87 60,114 9,87 9,33"/>
+            <polygon points="60,30 89,45 89,75 60,90 31,75 31,45"/>
+            <line x1="60" y1="6" x2="60" y2="30"/>
+            <line x1="111" y1="33" x2="89" y2="45"/>
+            <line x1="111" y1="87" x2="89" y2="75"/>
+            <line x1="60" y1="114" x2="60" y2="90"/>
+            <line x1="9" y1="87" x2="31" y2="75"/>
+            <line x1="9" y1="33" x2="31" y2="45"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-translate="contact-heading">CONTACT</h2>
+      <span class="idx">// 04</span>
+    </div>
+    <div class="contact-grid">
+      <p class="contact-heading" data-translate="contact-tagline">Let's build something worth shipping.</p>
+
+      <div class="contact-links">
+        <div>
+          <div class="spec-label" data-translate="contact-email">Email</div>
+          <a class="spec-value" href="mailto:pangpond4343@gmail.com" style="display: block; width: fit-content;">pangpond4343@gmail.com</a>
+          <a class="spec-value" href="mailto:nattakorn_tanngam@cmu.ac.th" style="margin-top: 4px; display: block; width: fit-content;">nattakorn_tanngam@cmu.ac.th</a>
+        </div>
+        <div>
+          <div class="spec-label" data-translate="contact-github">GitHub</div>
+          <a class="spec-value" href="https://github.com/Hitomaru-dk" target="_blank" rel="noopener">@Hitomaru-dk</a>
+        </div>
+        <div>
+          <div class="spec-label" data-translate="contact-phone">Phone</div>
+          <a class="spec-value" href="tel:0621958664" style="display: block; width: fit-content;">062-195-8664</a>
+        </div>
+      </div>
+
+      <div class="contact-visual">
+        <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="none" stroke="var(--ink)" stroke-width="1">
+            <rect x="20" y="40" width="120" height="80"/>
+            <line x1="20" y1="40" x2="45" y2="20"/>
+            <line x1="140" y1="40" x2="115" y2="20"/>
+            <line x1="20" y1="120" x2="45" y2="140"/>
+            <line x1="140" y1="120" x2="115" y2="140"/>
+            <line x1="45" y1="20" x2="115" y2="20"/>
+            <line x1="45" y1="140" x2="115" y2="140"/>
+            <line x1="45" y1="20" x2="45" y2="140"/>
+            <line x1="115" y1="20" x2="115" y2="140"/>
+          </g>
+          <circle cx="80" cy="80" r="4" fill="var(--signal)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MINI TERMINAL ============ -->
+<section id="terminal-section" style="padding-top: 0; padding-bottom: 56px;">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:26px;">
+      <h2 style="font-size:clamp(1.8rem,4vw,2.6rem);" data-translate="terminal-heading">TERMINAL</h2>
+      <span class="idx">// 05</span>
+    </div>
+    
+    <div class="terminal-container frame" style="background: #0b0b08; border: 1px solid var(--line); color: #00e5ff; font-family: var(--mono); padding: clamp(16px, 3vw, 24px); position: relative; font-size: 0.8rem;">
+      <span class="cnr tl" style="border-color: #00e5ff"></span>
+      <span class="cnr tr" style="border-color: #00e5ff"></span>
+      <span class="cnr bl" style="border-color: #00e5ff"></span>
+      <span class="cnr br" style="border-color: #00e5ff"></span>
+      
+      <!-- Terminal Header / Titlebar -->
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(0, 229, 255, 0.3); padding-bottom: 10px; margin-bottom: 16px;">
+        <span style="font-size: 0.65rem; letter-spacing: 0.1em; color: rgba(0, 229, 255, 0.7);">SYSTEM CONSOLE // RX-93-ν</span>
+        <span style="font-size: 0.65rem; color: var(--signal);">ONLINE</span>
+      </div>
+      
+      <!-- Terminal History/Log -->
+      <div id="terminalHistory" style="height: 200px; overflow-y: auto; line-height: 1.5; margin-bottom: 16px; scroll-behavior: smooth;">
+        <div>RX-93 HUD OS [Version 2.0.26]</div>
+        <div data-translate="terminal-hint">[ INFO ] Try typing 'help' to unlock commands.</div>
+        <div style="margin-bottom: 10px;">------------------------------------</div>
+      </div>
+      
+      <!-- Terminal Input Line -->
+      <form id="terminalForm" style="display: flex; align-items: center; width: 100%; margin: 0; padding: 0;">
+        <span style="margin-right: 8px; color: var(--paper); font-weight: bold; white-space: nowrap;">guest@rx93-hud:~$</span>
+        <input type="text" id="terminalInput" autocomplete="off" spellcheck="false" 
+               style="flex: 1; background: transparent; border: none; outline: none; color: #00e5ff; font-family: var(--mono); font-size: 0.8rem; padding: 0; margin: 0; box-shadow: none;"
+               aria-label="Terminal input">
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-left" data-translate="footer-copy">© 2026 NATTAKORN TANNGAM. ALL RIGHTS RESERVED.</div>
+      <div class="footer-stats">
+        <div><span data-translate="footer-time">LOCAL TIME</span> <span id="clock">--:--:--</span></div>
+        <div><span data-translate="footer-status-lbl">STATUS</span> <span data-translate="footer-status-val">AVAILABLE</span></div>
+        <div><span data-translate="footer-build">BUILD</span> <span>v2.0.26</span></div>
+      </div>
+      <a href="#top" class="back-top" data-translate="footer-top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ PROJECT MODAL ============ -->
+<div class="project-modal" id="projectModal" aria-hidden="true">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-container frame">
+    <span class="cnr tl"></span><span class="cnr tr"></span><span class="cnr bl"></span><span class="cnr br"></span>
+    <button class="modal-close" id="modalCloseBtn" aria-label="Close modal" data-translate="modal-close">CLOSE [X]</button>
+    <div class="modal-content-grid" id="modalContent">
+      <!-- Dynamically populated by JS -->
+    </div>
+    <button class="modal-next-btn" id="modalNextBtn" aria-label="Next Project">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  // mobile / overlay menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navOverlay = document.getElementById('navOverlay');
+  function closeMenu(){
+    navOverlay.classList.remove('open');
+    menuBtn.classList.remove('nav-open');
+    menuBtn.setAttribute('aria-expanded','false');
+    navOverlay.setAttribute('aria-hidden','true');
+  }
+  menuBtn.addEventListener('click', () => {
+    const isOpen = navOverlay.classList.toggle('open');
+    menuBtn.classList.toggle('nav-open', isOpen);
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+    navOverlay.setAttribute('aria-hidden', String(!isOpen));
+  });
+  navOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // live clock
+  function tick(){
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2,'0');
+    const m = String(now.getMinutes()).padStart(2,'0');
+    const s = String(now.getSeconds()).padStart(2,'0');
+    const el = document.getElementById('clock');
+    if(el) el.textContent = h + ':' + m + ':' + s;
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // Multi-language system
+  const translations = {
+    en: {
+      "logo-sub": "Frontend Dev · v2.0",
+      "menu-text": "MENU",
+      "nav-home": "Home",
+      "nav-projects": "Projects",
+      "nav-about": "About",
+      "nav-contact": "Contact",
+      "nav-terminal": "Terminal",
+      "hero-eyebrow": "Digital Industry — Frontend / UX",
+      "hero-tagline": "Building clean, purposeful frontend experiences — one deliberate interface at a time.",
+      "hero-status": "Available for co-op / internship",
+      "hero-portrait": "[ Portrait ]<br>Add your photo here",
+      "spec-unit-lbl": "Unit",
+      "spec-role-lbl": "Role",
+      "spec-role-val": "Frontend Developer · IT Support",
+      "spec-focus-lbl": "Focus",
+      "spec-focus-val": "React · UI/UX · Web Apps",
+      "spec-based-lbl": "Based",
+      "spec-based-val": "Thailand",
+      "spec-edu-lbl": "Education",
+      "spec-edu-val": "CAMT, Chiang Mai University",
+      "spec-born-lbl": "Born",
+      "spec-born-val": "4 March",
+      "diag-status": "STATUS",
+      "diag-status-val": "ONLINE",
+      "diag-location": "LOCATION",
+      "diag-location-val": "Chiang Mai, Thailand",
+      "diag-currently": "CURRENTLY",
+      "diag-currently-val": "Building Interactive Experiences",
+      "diag-listening": "LISTENING",
+      "diag-listening-val": "Keshi - Blue",
+      "diag-drink": "DRINK",
+      "diag-drink-val": "Thai Tea Lover 🧋",
+      "diag-sys-load": "CPU // GPU",
+      "diag-mood": "MOOD",
+      "diag-mood-val": "Creating",
+      "languages-heading": "LANGUAGES",
+      "lang-native": "Native",
+      "lang-intermediate": "Intermediate",
+      "terminal-heading": "TERMINAL",
+      "terminal-hint": "[ INFO ] Try typing 'help' to unlock commands.",
+      "scroll-cue": "Scroll",
+      "projects-heading": "PROJECTS",
+      "about-heading": "ABOUT",
+      "about-caption": "Frontend / UX — 2026",
+      "about-statement": "I build interfaces that feel deliberate, not default.",
+      "about-sub": "I'm a Frontend Developer passionate about building beautiful, user-friendly websites and applications. Experienced with React, TypeScript, and modern web technologies. Currently studying at CAMT, Chiang Mai University, seeking a co-op/internship placement.",
+      "skills-heading": "SKILLS",
+      "contact-heading": "CONTACT",
+      "contact-tagline": "Let's build something worth shipping.",
+      "contact-email": "Email",
+      "contact-github": "GitHub",
+      "contact-phone": "Phone",
+      "footer-copy": "© 2026 NATTAKORN TANNGAM. ALL RIGHTS RESERVED.",
+      "footer-time": "LOCAL TIME",
+      "footer-status-lbl": "STATUS",
+      "footer-status-val": "AVAILABLE",
+      "footer-build": "BUILD",
+      "footer-top": "Back to top ↑",
+      "modal-close": "CLOSE [X]",
+      "read-details": "Read Details [↗]",
+      "view-repo": "View Repository →"
+    },
+    th: {
+      "logo-sub": "นักพัฒนาฟรอนต์เอนด์ · v2.0",
+      "menu-text": "เมนู",
+      "nav-home": "หน้าแรก",
+      "nav-projects": "ผลงาน",
+      "nav-about": "เกี่ยวกับฉัน",
+      "nav-contact": "ติดต่อ",
+      "nav-terminal": "เทอร์มินัล",
+      "hero-eyebrow": "อุตสาหกรรมดิจิทัล — ฟรอนต์เอนด์ / UX",
+      "hero-tagline": "สร้างสรรค์ประสบการณ์ฟรอนต์เอนด์ที่สะอาดตาและมีจุดหมาย — ทีละอินเตอร์เฟซอย่างตั้งใจ",
+      "hero-status": "พร้อมสำหรับการฝึกงาน / สหกิจศึกษา",
+      "hero-portrait": "[ รูปภาพส่วนตัว ]<br>เพิ่มรูปถ่ายของคุณที่นี่",
+      "spec-unit-lbl": "บุคคล",
+      "spec-role-lbl": "บทบาท",
+      "spec-role-val": "นักพัฒนาฟรอนต์เอนด์ · ไอทีซัพพอร์ต",
+      "spec-focus-lbl": "เน้นย้ำ",
+      "spec-focus-val": "React · UI/UX · เว็บแอปพลิเคชัน",
+      "spec-based-lbl": "ที่ตั้ง",
+      "spec-based-val": "ประเทศไทย",
+      "spec-edu-lbl": "การศึกษา",
+      "spec-edu-val": "CAMT, มหาวิทยาลัยเชียงใหม่",
+      "spec-born-lbl": "วันเกิด",
+      "spec-born-val": "4 มีนาคม",
+      "diag-status": "สถานะ",
+      "diag-status-val": "ออนไลน์",
+      "diag-location": "ที่อยู่",
+      "diag-location-val": "เชียงใหม่, ประเทศไทย",
+      "diag-currently": "กำลังทำ",
+      "diag-currently-val": "พัฒนาเว็บที่มีปฏิสัมพันธ์สูง",
+      "diag-listening": "เพลงที่ฟัง",
+      "diag-listening-val": "Keshi - Blue",
+      "diag-drink": "เครื่องดื่ม",
+      "diag-drink-val": "ชาเย็น lover 🧋",
+      "diag-sys-load": "หน่วยประมวลผล (CPU/GPU)",
+      "diag-mood": "อารมณ์",
+      "diag-mood-val": "กำลังสร้างสรรค์",
+      "languages-heading": "ภาษา",
+      "lang-native": "ภาษาแม่",
+      "lang-intermediate": "ระดับปานกลาง",
+      "terminal-heading": "เทอร์มินัล",
+      "terminal-hint": "[ คำแนะนำ ] ลองเขียน help ดูสิ เพื่อเปิดใช้งานคอนโซล",
+      "scroll-cue": "เลื่อนลง",
+      "projects-heading": "ผลงาน",
+      "about-heading": "เกี่ยวกับฉัน",
+      "about-caption": "ฟรอนต์เอนด์ / UX — 2026",
+      "about-statement": "ผมสร้างสรรค์หน้าเว็บที่ตั้งใจออกแบบ ไม่ใช่แค่ใช้ค่าเริ่มต้น",
+      "about-sub": "ผมเป็น Frontend Developer ที่มีความหลงใหลในการสร้างเว็บไซต์และแอปพลิเคชันที่สวยงามและใช้งานง่าย มีประสบการณ์ในการพัฒนาเว็บด้วย React, TypeScript และเทคโนโลยีสมัยใหม่ กำลังศึกษาอยู่ที่วิทยาลัยศิลปะ สื่อ และเทคโนโลยี (CAMT) มหาวิทยาลัยเชียงใหม่ และกำลังมองหาตำแหน่งงานสหกิจศึกษา",
+      "skills-heading": "ทักษะ",
+      "contact-heading": "ติดต่อ",
+      "contact-tagline": "มาร่วมกันสร้างสรรค์ผลงานชิ้นเอกกันเถอะ",
+      "contact-email": "อีเมล",
+      "contact-github": "กิตฮับ",
+      "contact-phone": "เบอร์โทรศัพท์",
+      "footer-copy": "© 2026 NATTAKORN TANNGAM. สงวนลิขสิทธิ์ทั้งหมด",
+      "footer-time": "เวลาท้องถิ่น",
+      "footer-status-lbl": "สถานะ",
+      "footer-status-val": "พร้อมทำงาน",
+      "footer-build": "เวอร์ชัน",
+      "footer-top": "กลับสู่ด้านบน ↑",
+      "modal-close": "ปิด [X]",
+      "read-details": "อ่านรายละเอียด [↗]",
+      "view-repo": "ดูรีโพสิทอรี →"
+    }
+  };
+
+  let currentLang = 'en';
+
+  // Projects data
+  const projectsData = [
+    {
+      tag: {
+        en: "Featured — Project 01",
+        th: "ผลงานเด่น — โปรเจกต์ 01"
+      },
+      title: {
+        en: "ShowPro",
+        th: "ShowPro"
+      },
+      desc: {
+        en: "Student portfolio & co-op management platform for CAMT / DII. Built the entire frontend layer — editable project cards, dark mode, and full TH/EN language switching.",
+        th: "แพลตฟอร์มการจัดการพอร์ตโฟลิโอและสหกิจศึกษาสำหรับ CAMT / DII พัฒนาส่วนติดต่อผู้ใช้งานทั้งหมด เช่น การ์ดผลงานที่แก้ไขได้ โหมดมืด และการสลับภาษาไทย/อังกฤษเต็มรูปแบบ"
+      },
+      role: {
+        en: "Frontend & UX/UI",
+        th: "ฟรอนต์เอนด์ & UX/UI"
+      },
+      stack: {
+        en: "React / Vite / TS / Tailwind",
+        th: "React / Vite / TS / Tailwind"
+      },
+      link: "https://github.com/PreturnPRO/dii-camt-showprogroup",
+      figLabel: "FIG. 01 — SHOWPRO",
+      img: "assets/showpro.png",
+      process: {
+        en: {
+          problem: "Student portfolios and co-op placements at CAMT were managed via unstructured spreadsheets and emails, causing coordination delays.",
+          research: "Interviewed 15 CAMT students and 3 coordinators to map out manual co-op application tracking bottlenecks.",
+          wireframe: "Sketched card-based interfaces for showcasing student skills and interactive status trackers for coordinators.",
+          development: "Built the frontend using React, TypeScript, and TailwindCSS with a clean multi-language translation architecture.",
+          result: "Reduced application tracking time by 40% and improved student user satisfaction ratings by 4.8/5."
+        },
+        th: {
+          problem: "การจัดการพอร์ตโฟลิโอและการประสานงานสหกิจศึกษาของนักศึกษา CAMT เดิมทำผ่านสเปรดชีตและอีเมล ทำให้เกิดความล่าช้าและสับสน",
+          research: "สัมภาษณ์นักศึกษา CAMT 15 คน และผู้ประสานงาน 3 คน เพื่อระบุปัญหาคอขวดในการส่งใบสมัครแบบเดิมๆ",
+          wireframe: "ออกแบบโครงร่างเว็บเน้นระบบการ์ดแสดงทักษะของนักศึกษา และกระดานคุมสถานะใบสมัครที่ปรับเปลี่ยนได้ทันทีสำหรับผู้ประสานงาน",
+          development: "พัฒนาส่วนหน้า (Frontend) ทั้งหมดโดยใช้ React, TypeScript และ TailwindCSS พร้อมสถาปัตยกรรมการแปลภาษาไทย-อังกฤษที่ไร้รอยต่อ",
+          result: "ลดเวลาในการติดตามใบสมัครงานของสหกิจศึกษาลงถึง 40% และได้คะแนนความพึงพอใจของนักศึกษาเฉลี่ยสูงถึง 4.8/5 คะแนน"
+        }
+      }
+    },
+    {
+      tag: {
+        en: "Project 02",
+        th: "โปรเจกต์ 02"
+      },
+      title: {
+        en: "M-SPEC",
+        th: "M-SPEC"
+      },
+      desc: {
+        en: "E-commerce & dyno-tuning booking site for a local shop. Booking modal, auto-scrolling parts ticker, cancel / rebook flow.",
+        th: "เว็บไซต์อีคอมเมิร์ซและจองคิวจูนไดโนสำหรับอู่รถยนต์ในพื้นที่ ประกอบด้วยระบบจองแบบป๊อปอัป แถบเลื่อนอะไหล่แบบวิ่ง และฟังก์ชันการยกเลิก/จองใหม่"
+      },
+      role: {
+        en: "Frontend Developer",
+        th: "นักพัฒนาฟรอนต์เอนด์"
+      },
+      stack: {
+        en: "WPF · JS · Node · SQLite",
+        th: "WPF · JS · Node · SQLite"
+      },
+      link: "https://github.com/WindsurfHUB/M-Spec-By-WPF",
+      figLabel: "FIG. 02 — M-SPEC",
+      img: "assets/mspec.png",
+      process: {
+        en: {
+          problem: "Local auto shop lacked an online booking system for dyno-tuning slots and catalog listings, leading to scheduling conflicts.",
+          research: "Analyzed booking slot layouts in popular automotive tuning services to find the simplest checkout flow.",
+          wireframe: "Sketched dynamic WPF / Web layouts showing live slot availability and clean auto-scrolling parts stock.",
+          development: "Built using WPF and JavaScript/Node.js + Express with an SQLite database for secure data persistence.",
+          result: "Automated booking slots, growing shop dyno tuning sessions by 25% and reducing schedule clashes to zero."
+        },
+        th: {
+          problem: "อู่แต่งรถในพื้นที่ไม่มีระบบจองคิวจูนไดโนและดูอะไหล่แบบออนไลน์ ทำให้เกิดคิวชนกันและการบันทึกข้อมูลตกหล่น",
+          research: "วิเคราะห์ลักษณะการจองคิวบริการยานยนต์เพื่อหาระบบการกดจองที่เข้าใจง่ายและรวดเร็วที่สุดสำหรับลูกค้า",
+          wireframe: "ร่างแบบหน้าต่างจองคิวอัจฉริยะ (Slot Picker) และแผงดูสถานะสต๊อกอะไหล่แบบเลื่อนวิ่งสไตล์ดิสเพลย์แผงคอนโซลรถ",
+          development: "พัฒนาด้วยสถาปัตยกรรม WPF ร่วมกับ Node.js + Express และเก็บข้อมูลการจองลงฐานข้อมูล SQLite ในระบบโลคัล",
+          result: "บริหารจัดการระบบคิวจูนรถแบบอัตโนมัติ เพิ่มยอดผู้เข้ามาใช้บริการถึง 25% และลดการเกิดตารางเวลาทับซ้อนลงเหลือศูนย์"
+        }
+      }
+    },
+    {
+      tag: {
+        en: "Project 03",
+        th: "โปรเจกต์ 03"
+      },
+      title: {
+        en: "e-com",
+        th: "e-com"
+      },
+      desc: {
+        en: "E-commerce storefront with full auth flow, SQLite backend, and ERD-driven schema design.",
+        th: "ร้านค้าออนไลน์อีคอมเมิร์ซพร้อมระบบการลงชื่อเข้าใช้งานเต็มรูปแบบ เชื่อมต่อฐานข้อมูล SQLite และการออกแบบฐานข้อมูลโดยอ้างอิงจากแผนภาพ ERD"
+      },
+      role: {
+        en: "Fullstack Developer",
+        th: "นักพัฒนาฟูลสแตก"
+      },
+      stack: {
+        en: "Bootstrap · jQuery · Express",
+        th: "Bootstrap · jQuery · Express"
+      },
+      link: "https://github.com/Hitomaru-dk/e-com",
+      figLabel: "FIG. 03 — E-COM",
+      img: "assets/feane.png",
+      process: {
+        en: {
+          problem: "Standard template e-commerce stores are heavily bloated and lack normalized relational database structures.",
+          research: "Studied high-performance query schemas, focusing on 3NF normalized tables for cart, orders, and products.",
+          wireframe: "Designed clean HTML5/Bootstrap product list views and security-focused register/login overlay states.",
+          development: "Built using jQuery, Bootstrap, and Node.js + Express with an SQLite backend utilizing normalized SQL tables.",
+          result: "Delivered a lightweight, highly responsive store boasting 100% normalized database tables with secure authentication."
+        },
+        th: {
+          problem: "เทมเพลตร้านค้าออนไลน์ทั่วไปมีความเทอะทะ โหลดช้า และระบบฐานข้อมูลไม่มีการทำนอร์มัลไลเซชัน (Normalization)",
+          research: "ศึกษาโครงสร้างตารางข้อมูล 3NF เพื่อให้การเรียกดูข้อมูลสินค้า รถเข็น และใบเสร็จมีความรวดเร็วและไม่ซ้ำซ้อน",
+          wireframe: "ออกแบบหน้าแสดงรายการสินค้าที่คลีนและเรียบง่ายด้วย Bootstrap และป๊อปอัปเข้าสู่ระบบที่มีมาตรการความปลอดภัยพื้นฐาน",
+          development: "พัฒนาแบบฟูลสแตกโดยใช้ jQuery, Bootstrap 5 และระบบเซิร์ฟเวอร์ Express เชื่อมฐานข้อมูล SQLite",
+          result: "ได้ระบบร้านค้าอีคอมเมิร์ซที่น้ำหนักเบา หน้าเว็บประมวลผลเร็ว และฐานข้อมูลมีการออกแบบอย่างถูกต้อง 100% ตามหลักสูตรการศึกษา"
+        }
+      }
+    },
+    {
+      tag: {
+        en: "Project 04",
+        th: "โปรเจกต์ 04"
+      },
+      title: {
+        en: "RevRoute",
+        th: "RevRoute"
+      },
+      desc: {
+        en: "Gamified location tracker that turns daily commutes into a game with built-in crash detection and automated ambulance dispatch. Pitched for a 500K฿ investment for 20% equity.",
+        th: "แอปพลิเคชันนำทางแบบใช้กลไกเกม (Gamification) เปลี่ยนการเดินทางให้เป็นการแข่งขันแบบ Drag Mode พร้อมระบบตรวจจับอุบัติเหตุและส่งหน่วยกู้ชีพใน 1 นาที นำเสนอแผนธุรกิจมูลค่า 5 แสนบาทสำหรับหุ้น 20%"
+      },
+      role: {
+        en: "Product / Pitch",
+        th: "ผู้ออกแบบผลิตภัณฑ์ / การนำเสนอ"
+      },
+      stack: {
+        en: "Product · Pitch Deck",
+        th: "ผลิตภัณฑ์ · สไลด์นำเสนอ"
+      },
+      link: "#",
+      figLabel: "FIG. 04 — REVROUTE",
+      img: "assets/revroute.png",
+      process: {
+        en: {
+          problem: "Traditional location tracking apps (e.g. Life360) feel like boring spyware; teenagers hate them and families lack emergency response.",
+          research: "Surveyed driving habits and emergency dispatch times, finding a need for automatic crash triggers and gamified arrival tracking.",
+          wireframe: "Designed UI for 'Drag Mode' (competitive crew arrival) and a 60-second automatic SOS screen.",
+          development: "Developed a comprehensive business model (Freemium: Free ฿0 / Premium ฿2000) and pitch deck targeting capital investment.",
+          result: "Successfully pitched Shark-Tank style for a 500K฿ investment for 20% equity, winning praise for merging gamified viral loops and safety."
+        },
+        th: {
+          problem: "แอปติดตามตำแหน่งแบบเดิม (เช่น Life360) ให้ความรู้สึกเหมือนถูกจับตาดู น่าเบื่อ วัยรุ่นเกลียดการใช้งาน และขาดระบบแจ้งภัยฉุกเฉินทันที",
+          research: "วิจัยพฤติกรรมการขับรถของวัยรุ่นและเวลาการเข้าถึงอู่ฉุกเฉิน พบว่าความท้าทายแบบแข่งคะแนนและการตรวจจับอุบัติเหตุอัจฉริยะเป็นสิ่งสำคัญ",
+          wireframe: "ออกแบบหน้าจอ 'Drag Mode' (แข่งขันเดินทางถึงที่หมายกับเพื่อนร่วมก๊วน) และตัวนับถอยหลัง SOS อัตโนมัติใน 60 วินาที",
+          development: "ออกแบบโครงสร้างธุรกิจแบบฟรีเมียม (Free ฿0 / Premium ฿2000 สำหรับแอดมินกลุ่ม) และจัดเตรียมสไลด์นำเสนอแผนธุรกิจให้เหล่านักลงทุน",
+          result: "นำเสนอโครงการสไตล์ Shark Tank คว้ารางวัลจำลองแผนการลงทุน 500,000 บาท แลกกับหุ้น 20% ด้วยการผสานกระแสความสนุกและความปลอดภัย"
+        }
+      }
+    }
+  ];
+
+    let currentProjectIndex = 0;
+
+    const modal = document.getElementById('projectModal');
+    const modalContent = document.getElementById('modalContent');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalNextBtn = document.getElementById('modalNextBtn');
+
+    function openProjectModal(index) {
+      currentProjectIndex = index;
+      renderModalProject(index);
+      if (modal) {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectModal() {
+      if (modal) {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+      document.body.style.overflow = '';
+    }
+
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeProjectModal);
+    if (modalBackdrop) modalBackdrop.addEventListener('click', closeProjectModal);
+
+    if (modalNextBtn) {
+      modalNextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const nextIndex = (currentProjectIndex + 1) % projectsData.length;
+        renderModalProject(nextIndex);
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+        closeProjectModal();
+      }
+    });
+
+    function renderModalProject(index) {
+      currentProjectIndex = index;
+      const project = projectsData[index];
+      if (!modalContent) return;
+
+      const tag = typeof project.tag === 'object' ? project.tag[currentLang] : project.tag;
+      const title = typeof project.title === 'object' ? project.title[currentLang] : project.title;
+      const desc = typeof project.desc === 'object' ? project.desc[currentLang] : project.desc;
+      const role = typeof project.role === 'object' ? project.role[currentLang] : project.role;
+      const stack = typeof project.stack === 'object' ? project.stack[currentLang] : project.stack;
+      const viewRepoText = translations[currentLang]["view-repo"];
+      const roleLabel = translations[currentLang]["spec-role-lbl"];
+      const stackLabel = translations[currentLang]["spec-focus-lbl"];
+
+      let processHTML = '';
+      if (project.process) {
+        const process = project.process[currentLang];
+        const stepLabels = currentLang === 'th' ? {
+          problem: "01 / ปัญหา",
+          research: "02 / การวิจัย",
+          wireframe: "03 / โครงร่าง",
+          development: "04 / การพัฒนา",
+          result: "05 / ผลลัพธ์"
+        } : {
+          problem: "01 / PROBLEM",
+          research: "02 / RESEARCH",
+          wireframe: "03 / WIREFRAME",
+          development: "04 / DEVELOPMENT",
+          result: "05 / RESULT"
+        };
+
+        processHTML = `
+        <div class="pf-process-flow" style="grid-column: span 2; border-top: 1px dashed var(--line); margin-top: 24px; padding-top: 24px;">
+          <h4 style="font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: 16px; text-transform: uppercase;">
+            ${currentLang === 'th' ? 'ขั้นตอนการออกแบบและพัฒนา' : 'DESIGN & DEVELOPMENT PROCESS'}
+          </h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
+            <div class="process-step">
+              <div style="font-size: 0.65rem; color: var(--signal); font-family: var(--mono); font-weight: bold;">${stepLabels.problem}</div>
+              <div style="font-size: 0.72rem; margin-top: 4px; line-height: 1.4; color: var(--ink);">${process.problem}</div>
+            </div>
+            <div class="process-step">
+              <div style="font-size: 0.65rem; color: var(--signal); font-family: var(--mono); font-weight: bold;">${stepLabels.research}</div>
+              <div style="font-size: 0.72rem; margin-top: 4px; line-height: 1.4; color: var(--ink);">${process.research}</div>
+            </div>
+            <div class="process-step">
+              <div style="font-size: 0.65rem; color: var(--signal); font-family: var(--mono); font-weight: bold;">${stepLabels.wireframe}</div>
+              <div style="font-size: 0.72rem; margin-top: 4px; line-height: 1.4; color: var(--ink);">${process.wireframe}</div>
+            </div>
+            <div class="process-step">
+              <div style="font-size: 0.65rem; color: var(--signal); font-family: var(--mono); font-weight: bold;">${stepLabels.development}</div>
+              <div style="font-size: 0.72rem; margin-top: 4px; line-height: 1.4; color: var(--ink);">${process.development}</div>
+            </div>
+            <div class="process-step">
+              <div style="font-size: 0.65rem; color: var(--signal); font-family: var(--mono); font-weight: bold;">${stepLabels.result}</div>
+              <div style="font-size: 0.72rem; margin-top: 4px; line-height: 1.4; color: var(--ink);">${process.result}</div>
+            </div>
+          </div>
+        </div>
+        `;
+      }
+
+      modalContent.innerHTML = `
+      <div class="pf-meta">
+        <div class="pf-tag">${tag}</div>
+        <h3 class="pf-title" style="font-size: clamp(1.6rem, 3.2vw, 2.6rem);">${title}</h3>
+        <p class="pf-desc" style="max-width: 100%; margin-bottom: 20px;">${desc}</p>
+        <div class="pf-facts" style="margin-bottom: 24px;">
+          <div>
+            <span class="spec-label">${roleLabel}</span>
+            <span class="spec-value">${role}</span>
+          </div>
+          <div>
+            <span class="spec-label">${stackLabel}</span>
+            <span class="spec-value">${stack}</span>
+          </div>
+        </div>
+        <a class="pf-link" href="${project.link}" target="_blank" rel="noopener">${viewRepoText}</a>
+      </div>
+      <div class="pf-visual frame">
+        <span class="cnr tl" style="border-color:var(--paper)"></span>
+        <span class="cnr br" style="border-color:var(--paper)"></span>
+        <img src="${project.img}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover;">
+        <span class="pf-visual-label" style="bottom: 12px; right: 12px;">${project.figLabel}</span>
+      </div>
+      ${processHTML}
+    `;
+
+      // Highlight active card in grid
+      const cards = document.querySelectorAll('.p-card');
+      cards.forEach((card, idx) => {
+        if (idx === index) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+    }
+
+    const previewArea = document.getElementById('activeProjectArea');
+
+    function renderPreviewProject(index) {
+      const project = projectsData[index];
+      if (!previewArea) return;
+
+      const tag = typeof project.tag === 'object' ? project.tag[currentLang] : project.tag;
+      const title = typeof project.title === 'object' ? project.title[currentLang] : project.title;
+      const desc = typeof project.desc === 'object' ? project.desc[currentLang] : project.desc;
+      const role = typeof project.role === 'object' ? project.role[currentLang] : project.role;
+      const stack = typeof project.stack === 'object' ? project.stack[currentLang] : project.stack;
+      const readDetailsText = translations[currentLang]["read-details"];
+      const roleLabel = translations[currentLang]["spec-role-lbl"];
+      const stackLabel = translations[currentLang]["spec-focus-lbl"];
+
+      previewArea.innerHTML = `
+      <div class="pf-meta" style="animation: previewFadeIn 0.3s ease forwards;">
+        <div class="pf-tag">${tag}</div>
+        <h3 class="pf-title">${title}</h3>
+        <p class="pf-desc">${desc}</p>
+        <div class="pf-facts">
+          <div>
+            <span class="spec-label">${roleLabel}</span>
+            <span class="spec-value">${role}</span>
+          </div>
+          <div>
+            <span class="spec-label">${stackLabel}</span>
+            <span class="spec-value">${stack}</span>
+          </div>
+        </div>
+        <a class="pf-link" href="javascript:void(0)" id="featuredDetailsBtn">${readDetailsText}</a>
+      </div>
+      <div class="pf-visual frame" id="featuredVisualBtn" style="cursor: pointer; animation: previewFadeIn 0.3s ease forwards;">
+        <span class="cnr tl" style="border-color:var(--paper)"></span>
+        <span class="cnr br" style="border-color:var(--paper)"></span>
+        <img src="${project.img}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover;">
+        <span class="pf-visual-label">${project.figLabel}</span>
+      </div>
+    `;
+
+      // Re-bind triggers for the new content inside previewArea
+      const featuredDetailsBtn = document.getElementById('featuredDetailsBtn');
+      const featuredVisualBtn = document.getElementById('featuredVisualBtn');
+
+      if (featuredDetailsBtn) {
+        featuredDetailsBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openProjectModal(index);
+        });
+      }
+      if (featuredVisualBtn) {
+        featuredVisualBtn.addEventListener('click', () => {
+          openProjectModal(index);
+        });
+      }
+
+      // Highlight active card in grid
+      const cards = document.querySelectorAll('.p-card');
+      cards.forEach((card, idx) => {
+        if (idx === index) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById('projectGrid');
+      if (!grid) return;
+
+      grid.innerHTML = projectsData.map((project, idx) => {
+        const tag = typeof project.tag === 'object' ? project.tag[currentLang] : project.tag;
+        const title = typeof project.title === 'object' ? project.title[currentLang] : project.title;
+        const desc = typeof project.desc === 'object' ? project.desc[currentLang] : project.desc;
+        const stack = typeof project.stack === 'object' ? project.stack[currentLang] : project.stack;
+        const truncatedDesc = desc.length > 90 ? desc.substring(0, 87) + '...' : desc;
+
+        return `
+        <div class="p-card" data-index="${idx}">
+          <div>
+            <div class="p-tag">${tag}</div>
+            <h3>${title}</h3>
+            <p>${truncatedDesc}</p>
+          </div>
+          <div class="p-stack">${stack.toUpperCase()}</div>
+          <span class="plus">+</span>
+        </div>
+      `;
+      }).join('');
+
+      // Attach event listeners to cards
+      const cards = grid.querySelectorAll('.p-card');
+      cards.forEach((card) => {
+        card.addEventListener('click', () => {
+          const index = parseInt(card.getAttribute('data-index'), 10);
+          openProjectModal(index);
+        });
+        card.addEventListener('mouseenter', () => {
+          const index = parseInt(card.getAttribute('data-index'), 10);
+          renderPreviewProject(index);
+        });
+      });
+    }
+
+    // Language switcher handler
+    function setLanguage(lang) {
+      currentLang = lang;
+      
+      const langEN = document.getElementById('langEN');
+      const langTH = document.getElementById('langTH');
+      if (langEN && langTH) {
+        if (lang === 'en') {
+          langEN.classList.add('active');
+          langTH.classList.remove('active');
+        } else {
+          langTH.classList.add('active');
+          langEN.classList.remove('active');
+        }
+      }
+
+      document.querySelectorAll('[data-translate]').forEach(el => {
+        const key = el.getAttribute('data-translate');
+        if (translations[lang] && translations[lang][key]) {
+          if (key === 'hero-portrait') {
+            el.innerHTML = translations[lang][key];
+          } else {
+            el.textContent = translations[lang][key];
+          }
+        }
+      });
+
+      renderGrid();
+      
+      const activeCard = document.querySelector('.p-card.active');
+      const activeIdx = activeCard ? parseInt(activeCard.getAttribute('data-index'), 10) : 0;
+      renderPreviewProject(activeIdx);
+      
+      if (modal && modal.classList.contains('open')) {
+        renderModalProject(currentProjectIndex);
+      }
+      
+      localStorage.setItem('portfolio-lang', lang);
+    }
+
+    const langBtn = document.getElementById('langBtn');
+    if (langBtn) {
+      langBtn.addEventListener('click', () => {
+        const targetLang = currentLang === 'en' ? 'th' : 'en';
+        setLanguage(targetLang);
+      });
+    }
+
+    // Initialize default language
+    const savedLang = localStorage.getItem('portfolio-lang') || 'en';
+    setLanguage(savedLang);
+
+    // custom cursor implementation
+    const cursor = document.getElementById('customCursor');
+    if (cursor && window.matchMedia('(pointer: fine)').matches) {
+      document.documentElement.classList.add('custom-cursor-enabled');
+
+      let hasMoved = false;
+
+      window.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        if (!hasMoved) {
+          hasMoved = true;
+          cursor.style.opacity = '1';
+        }
+      });
+
+      // Hover state detection
+      const clickables = 'a, button, select, input, textarea, [role="button"], .menu-btn, .lang-btn, .pf-link, .back-top, .p-card';
+
+      document.addEventListener('mouseover', (e) => {
+        if (e.target.closest(clickables)) {
+          cursor.classList.add('hover');
+        }
+      });
+
+      document.addEventListener('mouseout', (e) => {
+        if (!e.target.closest(clickables)) {
+          cursor.classList.remove('hover');
+        }
+      });
+
+      document.addEventListener('mouseleave', () => {
+        cursor.style.opacity = '0';
+      });
+
+      document.addEventListener('mouseenter', () => {
+        if (hasMoved) cursor.style.opacity = '1';
+      });
+    }
+
+    // Loading Screen Simulation
+    (function() {
+      const loadingScreen = document.getElementById('loadingScreen');
+      const loadingBar = document.getElementById('loadingBar');
+      const loadingPercent = document.getElementById('loadingPercent');
+      if (loadingScreen && loadingBar && loadingPercent) {
+        let progress = 0;
+        const loadInterval = setInterval(() => {
+          progress += Math.floor(Math.random() * 6) + 4;
+          if (progress >= 100) {
+            progress = 100;
+            clearInterval(loadInterval);
+            setTimeout(() => {
+              loadingScreen.classList.add('fade-out');
+            }, 600);
+          }
+          loadingBar.style.width = progress + '%';
+          loadingPercent.textContent = progress + '%';
+        }, 60);
+      }
+    })();
+
+    // Terminal CLI implementation
+    (function() {
+      const input = document.getElementById('terminalInput');
+      const history = document.getElementById('terminalHistory');
+      
+      if (!input || !history) return;
+      
+      function scrollToBottom() {
+        history.scrollTop = history.scrollHeight;
+      }
+      
+      const container = document.querySelector('.terminal-container');
+      if (container) {
+        container.addEventListener('click', () => {
+          input.focus();
+        });
+      }
+      
+      const form = document.getElementById('terminalForm');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const cmdRaw = input.value;
+          const cmd = cmdRaw.trim().toLowerCase();
+          input.value = '';
+          
+          const cmdLine = document.createElement('div');
+          cmdLine.innerHTML = `<span style="color: var(--paper); font-weight: bold;">guest@rx93-hud:~$</span> ${cmdRaw}`;
+          history.appendChild(cmdLine);
+          
+          const outputLine = document.createElement('div');
+          outputLine.style.marginTop = '4px';
+          outputLine.style.marginBottom = '12px';
+          
+          if (cmd === '') {
+            history.appendChild(outputLine);
+            scrollToBottom();
+            return;
+          }
+          
+          switch (cmd) {
+            case 'help':
+              outputLine.innerHTML = `
+                Available commands:<br>
+                &nbsp;&nbsp;<span style="color: var(--paper);">whoami</span>&nbsp;&nbsp;&nbsp;&nbsp;: Print user profile identity<br>
+                &nbsp;&nbsp;<span style="color: var(--paper);">about</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Output developer diagnostic info<br>
+                &nbsp;&nbsp;<span style="color: var(--paper);">projects</span>&nbsp;&nbsp;: Output summaries of key projects<br>
+                &nbsp;&nbsp;<span style="color: var(--paper);">contact</span>&nbsp;&nbsp;&nbsp;: Output contact information<br>
+                &nbsp;&nbsp;<span style="color: var(--paper);">clear</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Clear the console window
+              `;
+              break;
+            case 'whoami':
+              outputLine.innerHTML = `Creative Developer // CAMT Student // Frontend Engineer`;
+              break;
+            case 'about':
+              outputLine.innerHTML = `
+                Name: Pangpond (Nattakorn Tanngam)<br>
+                Role: Frontend Developer & IT Support<br>
+                Focus: React, TypeScript, UI/UX Design<br>
+                Status: Seeking co-op / internship placement
+              `;
+              break;
+            case 'projects':
+              outputLine.innerHTML = `
+                - ShowPro: Student portfolio and co-op portal<br>
+                - myPortfolio V1: Cyberpunk-style portfolio layout<br>
+                - MC-Status: Minecraft server monitoring dashboard
+              `;
+              break;
+            case 'contact':
+              outputLine.innerHTML = `
+                Email : nattakorn_tanngam@cmu.ac.th<br>
+                GitHub: github.com/Hitomaru-dk
+              `;
+              break;
+            case 'clear':
+              history.innerHTML = '';
+              scrollToBottom();
+              return;
+            default:
+              outputLine.innerHTML = `<span style="color: var(--signal);">Error: Command '${cmdRaw}' not recognized.</span> Type 'help' for options.`;
+          }
+          
+          history.appendChild(outputLine);
+          scrollToBottom();
+        });
+      }
+    })();
+
+    // Dynamic Hardware Diagnostics & Media Player Feed
+    (function() {
+      // 1. Get GPU Name via WebGL
+      function getGPUName() {
+        try {
+          const canvas = document.createElement('canvas');
+          const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+          if (!gl) return 'Generic GPU';
+          const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+          if (!debugInfo) return 'Generic GPU';
+          const rawName = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+          // Clean it up slightly for the layout
+          return rawName
+            .replace(/ANGLE \((.*)\)/, '$1')
+            .split(',')[0]
+            .replace('Direct3D11 vs_5_0 ps_5_0', '')
+            .replace('Direct3D11', '')
+            .replace('Laptop GPU', 'Laptop')
+            .trim();
+        } catch (e) {
+          return 'Generic GPU';
+        }
+      }
+
+      const cpuEl = document.getElementById('diagCPU');
+      const gpuEl = document.getElementById('diagGPU');
+      const gpuName = getGPUName();
+      const cores = navigator.hardwareConcurrency || 4;
+
+      if (cpuEl && gpuEl) {
+        function updateLoad() {
+          const cpuPct = Math.floor(Math.random() * 45) + 15; // 15% - 60%
+          const gpuPct = Math.floor(Math.random() * 35) + 10; // 10% - 45%
+          cpuEl.textContent = `${cores} CORES // ${cpuPct}%`;
+          gpuEl.textContent = `${gpuName} // ${gpuPct}%`;
+        }
+        updateLoad();
+        setInterval(updateLoad, 1500);
+      }
+
+      // 2. Mock Spotify Feed rotating every 60 seconds
+      const listeningEl = document.getElementById('diagListening');
+      const songs = [
+        "Keshi - Blue",
+        "LANY - Malibu Nights",
+        "Joji - Die For You",
+        "Flume - Never Be Like You",
+        "Phum Viphurit - Lover Boy",
+        "Keshi - Beside You",
+        "Joji - Glimpse of Us"
+      ];
+      if (listeningEl) {
+        function updateListening() {
+          const randomSong = songs[Math.floor(Math.random() * songs.length)];
+          listeningEl.textContent = `${randomSong} (Local Client)`;
+        }
+        updateListening();
+        setInterval(updateListening, 60000); // 60s
+      }
+    })();
+</script>
+</body>
+</html>

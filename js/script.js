@@ -120,10 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeToggleBtn = document.getElementById('themeToggleBtn');
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      showToast(`Theme switched to ${newTheme.toUpperCase()} mode`);
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.setAttribute('data-theme', 'light');
+        showToast('Theme switched to LIGHT mode');
+      } else {
+        document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
+        showToast('Theme switched to DARK mode');
+      }
     });
   }
 
@@ -157,6 +163,27 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = document.querySelector(`.tab-btn[data-game-src*="game_${gameKey}"]`);
       if (target) target.click();
     }
+  }
+
+  // --- Game Demo Click-to-Play Overlay ---
+  const startPlayBtn = document.getElementById('startPlayBtn');
+  const playOverlay = document.getElementById('playOverlay');
+  const demoIframe = document.getElementById('gameIframe');
+
+  if (startPlayBtn && playOverlay && demoIframe) {
+    startPlayBtn.addEventListener('click', () => {
+      const src = startPlayBtn.getAttribute('data-game-src') || demoIframe.getAttribute('data-src');
+      if (src) {
+        demoIframe.src = src;
+        demoIframe.classList.remove('hidden');
+      }
+      playOverlay.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        playOverlay.classList.add('hidden');
+      }, 300);
+    });
+  }
+
   // --- Game Showcase Fullscreen Toggle ---
   const fullscreenToggleBtn = document.getElementById('fullscreenToggleBtn');
   const gameViewportWrapper = document.querySelector('.game-viewport-wrapper');
@@ -289,4 +316,4 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.classList.remove('show');
     }, 2800);
   }
-}})
+});

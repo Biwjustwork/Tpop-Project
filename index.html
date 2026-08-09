@@ -1,235 +1,383 @@
 <!DOCTYPE html>
-<html lang="th">
+<html class="dark" lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="PixelPulse Studio - ค่ายพัฒนาเกมอินดี้ขนาดเล็ก (Indie Game Development Studio) 2D Pixel Art & Mini Games บนเว็บ">
-  <title>PixelPulse Studio | ค่ายเกมอินดี้ & Game Showcase</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="PixelPulse Studio - ค่ายพัฒนาเกมอินดี้แนว 2D Pixel Art & Cyberpunk บนเว็บเบราว์เซอร์ สนุกสนาน เล่นฟรี 100%"/>
+  <title>PixelPulse Studio | Forging Web Pixel Games, Free For Everyone</title>
 
-  <!-- Favicon / Fonts -->
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
-  
+  <!-- Favicon / Web Fonts -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container": "#171f33",
+            "surface-dim": "#0b1326",
+            "inverse-on-surface": "#283044",
+            "surface": "#0b1326",
+            "surface-container-high": "#222a3d",
+            "surface-tint": "#c0c1ff",
+            "on-tertiary-fixed": "#002109",
+            "on-background": "#dae2fd",
+            "background": "#0b1326",
+            "primary-fixed-dim": "#c0c1ff",
+            "on-primary-container": "#0d0096",
+            "on-tertiary-fixed-variant": "#005321",
+            "outline-variant": "#464554",
+            "tertiary-fixed": "#6bff8f",
+            "surface-bright": "#31394d",
+            "on-error-container": "#ffdad6",
+            "on-surface-variant": "#c7c4d7",
+            "surface-container-highest": "#2d3449",
+            "surface-variant": "#2d3449",
+            "on-surface": "#dae2fd",
+            "on-secondary-container": "#d6a9ff",
+            "on-secondary-fixed-variant": "#6900b3",
+            "secondary-container": "#6f00be",
+            "outline": "#908fa0",
+            "on-error": "#690005",
+            "error": "#ffb4ab",
+            "on-tertiary-container": "#003111",
+            "error-container": "#93000a",
+            "inverse-primary": "#494bd6",
+            "on-secondary": "#490080",
+            "on-primary": "#1000a9",
+            "tertiary-fixed-dim": "#4ae176",
+            "on-primary-fixed-variant": "#2f2ebe",
+            "primary": "#c0c1ff",
+            "secondary": "#ddb7ff",
+            "on-secondary-fixed": "#2c0051",
+            "primary-container": "#8083ff",
+            "on-tertiary": "#003915",
+            "tertiary": "#4ae176",
+            "primary-fixed": "#e1e0ff",
+            "secondary-fixed": "#f0dbff",
+            "inverse-surface": "#dae2fd",
+            "on-primary-fixed": "#07006c",
+            "secondary-fixed-dim": "#ddb7ff",
+            "tertiary-container": "#00a74b",
+            "surface-container-lowest": "#060e20",
+            "surface-container-low": "#131b2e"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "unit": "4px",
+            "container-max": "1280px",
+            "margin-desktop": "64px",
+            "margin-mobile": "16px",
+            "gutter": "24px"
+          },
+          "fontFamily": {
+            "body-md": ["Hanken Grotesk", "sans-serif"],
+            "display-lg-mobile": ["Space Grotesk", "sans-serif"],
+            "body-lg": ["Hanken Grotesk", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"],
+            "label-sm": ["JetBrains Mono", "monospace"],
+            "display-lg": ["Space Grotesk", "sans-serif"],
+            "pixel": ["'Press Start 2P'", "monospace"]
+          },
+          "fontSize": {
+            "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "display-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500" }],
+            "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
-<body>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container">
 
-  <!-- Navigation Header -->
-  <header class="header" id="mainHeader">
-    <div class="container nav-container">
-      <a href="index.html" class="logo">
-        <div class="logo-icon">
-          <svg viewBox="0 0 24 24"><path d="M21,6H3A1,1,0,0,0,2,7V17a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM11,13H9v2H7V13H5V11H7V9H9v2h2Zm10,0H17V11h4Z"/></svg>
+  <!-- Top Navigation Header -->
+  <header class="bg-surface/90 backdrop-blur-md dark:bg-surface/90 border-b border-outline-variant docked full-width top-0 z-50 sticky transition-all duration-300" id="mainHeader">
+    <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 bg-primary-container/30 border border-primary/50 flex items-center justify-center pixel-corners group-hover:scale-105 transition-transform">
+          <svg class="w-5 h-5 text-tertiary" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21,6H3A1,1,0,0,0,2,7V17a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM11,13H9v2H7V13H5V11H7V9H9v2h2Zm10,0H17V11h4Z"/>
+          </svg>
         </div>
-        <span>PIXELPULSE <span style="color: var(--accent-cyan);">STUDIO</span></span>
+        <span class="font-display-lg text-headline-md tracking-tighter text-primary dark:text-primary group-hover:text-tertiary transition-colors duration-200 uppercase">
+          PixelPulse <span class="text-tertiary">Studio</span>
+        </span>
       </a>
 
-      <nav class="nav-links">
-        <a href="index.html" class="nav-link active">หน้าแรก (Home)</a>
-        <a href="#about" class="nav-link">เกี่ยวกับเรา (About)</a>
-        <a href="#showcase" class="nav-link">ศูนย์รวมเกม (Showcase)</a>
-        <a href="team.html" class="nav-link">ทีมงาน (Team)</a>
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="font-label-sm text-label-sm uppercase text-tertiary border-b-2 border-tertiary pb-1 transition-all duration-200">
+          Home
+        </a>
+        <a href="#games" class="font-label-sm text-label-sm uppercase text-on-surface-variant hover:text-tertiary border-b-2 border-transparent hover:border-tertiary pb-1 transition-all duration-200">
+          Games
+        </a>
+        <a href="aboutUs.html" class="font-label-sm text-label-sm uppercase text-on-surface-variant hover:text-tertiary border-b-2 border-transparent hover:border-tertiary pb-1 transition-all duration-200">
+          About
+        </a>
+        <a href="team.html" class="font-label-sm text-label-sm uppercase text-on-surface-variant hover:text-tertiary border-b-2 border-transparent hover:border-tertiary pb-1 transition-all duration-200">
+          Team
+        </a>
       </nav>
 
-      <div class="nav-actions">
-        <button class="btn-icon" id="soundToggleBtn" title="เปิด/ปิด เสียงเอฟเฟกต์ (Audio SFX)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-          </svg>
-        </button>
-        <button class="btn-icon" id="themeToggleBtn" title="สลับธีม สว่าง/มืด (Theme Toggle)">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
-          </svg>
-        </button>
-        <a href="team.html" class="btn btn-primary">ดูโปรไฟล์ทีม</a>
+      <!-- Action Controls -->
+      <div class="flex items-center gap-3">
+        <a href="team.html" class="font-label-sm text-label-sm uppercase bg-primary-container text-on-primary-container px-5 py-2 block-shadow shadow-on-primary-container hover:bg-primary hover:text-on-primary active:translate-y-0.5 active:shadow-none transition-all pixel-corners">
+          Team Profiles
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <span class="badge badge-purple">👾 INDIE GAME DEVELOPMENT STUDIO</span>
-        <h1 class="hero-title" style="margin-top: 14px;">
-          <span class="sub-pixel">CRAFTING RETRO FUN WITH MODERN CODE</span>
-          ค่ายพัฒนาเกมอินดี้ <br>
-          <span class="text-gradient">PixelPulse Studio</span>
+  <main class="flex-grow">
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden border-b border-outline-variant">
+      <!-- Background Cyberpunk Gradient & Grid -->
+      <div class="absolute inset-0 z-0 bg-surface-dim">
+        <div class="absolute inset-0 bg-cover bg-top w-full h-full opacity-40 mix-blend-screen" style="background-image: url('assets/img/hero_Img.png'); background-position: center top;"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(#4ae176_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
+      </div>
+
+      <div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col items-center gap-6 py-16">
+        <span class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high border border-tertiary/40 text-tertiary font-label-sm text-[11px] uppercase tracking-wider pixel-corners block-shadow shadow-tertiary/20">
+          👾 INDEPENDENT GAME DEVELOPMENT STUDIO
+        </span>
+
+        <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background max-w-4xl uppercase tracking-tighter leading-tight neon-glow">
+          Forging Web Pixel Games,<br/> <span class="text-tertiary">Free For Everyone Worldwide</span>
         </h1>
-        <p class="hero-desc">
-          เราเป็นทีมพัฒนาเกมจำลองขนาดเล็ก (Mini Games) ที่เน้นความสดใส สนุกสนาน และผสมผสานเสน่ห์ของ 2D Pixel Art กับเทคโนโลยีเว็บยุคใหม่ พร้อมให้คุณทดลองเล่นได้ทันทีผ่านเว็บบราวเซอร์!
+
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+          สตูดิโอพัฒนาเกมอินดี้แนว 2D Pixel Art & Cyberpunk รังสรรค์มินิเกมเล่นฟรีผ่านเว็บเบราว์เซอร์ ให้ผู้เล่นทั่วโลกได้เปิดประสบการณ์ความสนุกระดับเรโทรโดยไม่ต้องดาวน์โหลด
         </p>
-        <div class="hero-cta">
-          <a href="#showcase" class="btn btn-primary btn-pixel">🎮 ทดลองเล่นเกมทั้งหมด</a>
-          <a href="team.html" class="btn btn-outline">👥 ทำความรู้จักสมาชิกทีม</a>
+
+        <div class="flex flex-wrap justify-center gap-4 mt-4">
+          <a href="#games" class="font-label-sm text-label-sm uppercase bg-tertiary text-on-tertiary px-8 py-3.5 block-shadow-lg shadow-on-tertiary hover:bg-tertiary-fixed-dim active:translate-y-1 active:shadow-none transition-all pixel-corners flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">sports_esports</span> Explore Games
+          </a>
+          <a href="team.html" class="font-label-sm text-label-sm uppercase border-2 border-outline-variant text-on-surface-variant px-8 py-3.5 hover:border-primary hover:text-primary transition-all pixel-corners flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">groups</span> Our Team
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Games Section (Bento Grid) -->
+    <section class="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="games">
+      <div class="mb-12 flex items-end justify-between border-b border-outline-variant pb-4">
+        <div>
+          <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">SHOWCASE</span>
+          <h2 class="font-headline-md text-headline-md text-primary uppercase tracking-tight mt-1">Our Games</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-1">ผลงานมินิเกมล่าสุดจากทีมนักพัฒนา PixelPulse Studio</p>
         </div>
       </div>
 
-      <div class="hero-visual">
-        <div class="hero-card-display">
-          <div class="pixel-art-demo">
-            <canvas id="heroPixelCanvas" class="pixel-canvas-placeholder"></canvas>
-          </div>
-          <div style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <p style="font-weight: 700; font-size: 0.95rem;">PixelPulse Engine v1.0</p>
-              <p style="color: var(--text-muted); font-size: 0.8rem;">HTML5 Canvas & Web Audio API</p>
+      <!-- Bento Grid Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-unit-6 md:gap-gutter">
+
+        <!-- 1. Featured Game: Chaos Chess (col-span-8) -->
+        <div class="md:col-span-8 bg-surface-container border border-secondary/30 relative overflow-hidden group rounded-xl">
+          <div class="absolute top-0 left-0 w-full h-1 bg-secondary"></div>
+          <div class="flex flex-col md:flex-row h-full">
+            <div class="w-full md:w-1/2 p-8 flex flex-col justify-between z-10 relative bg-surface-container/90 backdrop-blur-sm border-r border-secondary/20">
+              <div>
+                <div class="flex items-center gap-2 mb-4">
+                  <span class="inline-block px-2.5 py-1 bg-secondary-container text-on-secondary-container font-label-sm text-[10px] uppercase pixel-corners block-shadow shadow-on-secondary-container">
+                    CHESS / STRATEGY
+                  </span>
+                  <span class="font-label-sm text-[11px] text-tertiary">โดย บิว (181)</span>
+                </div>
+                <h3 class="font-headline-md text-headline-md text-on-background mb-3 group-hover:text-secondary transition-colors">
+                  Chaos Chess
+                </h3>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                  เกมกระดานหมากรุกวางแผนการรบในสมรภูมิสุดท้าทาย ผสมผสานกลยุทธ์และการตัดสินใจอย่างชาญฉลาดในรูปแบบการเล่น Chaos Chess
+                </p>
+              </div>
+              
+              <a href="games/demo_biw.html" class="self-start font-label-sm text-label-sm uppercase bg-primary text-on-primary px-6 py-2.5 block-shadow shadow-on-primary hover:bg-primary-fixed-dim active:translate-y-0.5 active:shadow-none transition-all pixel-corners flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">play_arrow</span> Play Demo
+              </a>
             </div>
-            <span class="badge">ONLINE</span>
+            
+            <div class="w-full md:w-1/2 min-h-[300px] flex items-center justify-center p-4 bg-surface-dim relative overflow-hidden">
+              <img src="assets/img/cover art/Chaos_Chess.png" alt="Chaos Chess Cover Art" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"/>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- About Us Section -->
-  <section class="section" id="about">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge badge-magenta">ABOUT PIXELPULSE</span>
-        <h2 class="section-title">วิสัยทัศน์และการพัฒนา (Studio Vision)</h2>
-        <p class="section-desc">
-          การรวมตัวกันของนักศึกษาเพื่อสร้างสรรค์ความบันเทิงรูปแบบใหม่ บนสถาปัตยกรรม Front-end Web Architecture
-        </p>
-      </div>
+        <!-- 2. Secondary Game 1: BigBike Garage (col-span-4) -->
+        <div class="md:col-span-4 bg-surface-container border border-outline-variant relative overflow-hidden group hover:border-tertiary transition-colors flex flex-col rounded-xl">
+          <div class="absolute top-0 left-0 w-full h-1 bg-tertiary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+          <div class="h-60 w-full p-3 flex items-center justify-center relative overflow-hidden bg-surface-dim border-b border-outline-variant/40">
+            <img src="assets/img/cover art/BigBike_Garage.png" alt="BigBike Garage Cover Art" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"/>
+          </div>
+          <div class="p-6 flex flex-col flex-grow justify-between border-t border-outline-variant/50">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-label-sm text-[10px] uppercase text-tertiary bg-tertiary/10 px-2 py-0.5 rounded border border-tertiary/20">IDLE CLICKER</span>
+                <span class="font-label-sm text-[11px] text-on-surface-variant">ปังปอนด์ (170)</span>
+              </div>
+              <h3 class="font-headline-md text-headline-md text-on-background mb-2">BigBike Garage</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-4">มินิเกมจำลองอู่ซ่อมบิ๊กไบค์แนว Idle Clicker คลิกซ่อมรถ สะสมรายได้ และอัปเกรดเครื่องมืออู่แบบเรียลไทม์</p>
+            </div>
+            <a href="games/demo_pongpond.html" class="w-full text-center font-label-sm text-label-sm uppercase border-2 border-tertiary text-tertiary px-4 py-2 hover:bg-tertiary hover:text-on-tertiary transition-all pixel-corners">
+              Play Demo
+            </a>
+          </div>
+        </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px;">
-        <div class="glass-card">
-          <div style="font-size: 2rem; margin-bottom: 12px;">🕹️</div>
-          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Mini Games & Edutainment</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem;">
-            มุ่งเน้นการสร้างเกมขนาดเล็กที่เล่นง่าย เข้าถึงได้ทุกเพศทุกวัย พร้อมเสริมสร้างทักษะและการตัดสินใจผ่านเกมเพลย์แบบโต้ตอบ
+        <!-- 3. Secondary Game 2: Neon Lane Racer (col-span-4) -->
+        <div class="md:col-span-4 bg-surface-container border border-outline-variant relative overflow-hidden group hover:border-primary transition-colors flex flex-col rounded-xl">
+          <div class="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+          <div class="h-60 w-full p-3 flex items-center justify-center relative overflow-hidden bg-surface-dim border-b border-outline-variant/40">
+            <img src="assets/img/cover art/Neon lane racer.png" alt="Neon Lane Racer Cover Art" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"/>
+          </div>
+          <div class="p-6 flex flex-col flex-grow justify-between border-t border-outline-variant/50">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-label-sm text-[10px] uppercase text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20">ENDLESS RACER</span>
+                <span class="font-label-sm text-[11px] text-on-surface-variant">โฟล์ค (193)</span>
+              </div>
+              <h3 class="font-headline-md text-headline-md text-on-background mb-2">Neon Lane Racer</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-4">มินิเกมสิงห์นักบิดซิกแซ็กสลับเลนหลบรถยนต์บนทางหลวงยามค่ำคืนสไตล์ Cyberpunk</p>
+            </div>
+            <a href="games/demo_folk.html" class="w-full text-center font-label-sm text-label-sm uppercase border-2 border-primary text-primary px-4 py-2 hover:bg-primary hover:text-on-primary transition-all pixel-corners">
+              Play Demo
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. Secondary Game 3: Load Balancer (col-span-4) -->
+        <div class="md:col-span-4 bg-surface-container border border-outline-variant relative overflow-hidden group hover:border-tertiary transition-colors flex flex-col rounded-xl">
+          <div class="absolute top-0 left-0 w-full h-1 bg-tertiary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+          <div class="h-60 w-full p-3 flex items-center justify-center relative overflow-hidden bg-surface-dim border-b border-outline-variant/40">
+            <img src="assets/img/cover art/API_ROUTE.png" alt="Load Balancer Cover Art" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"/>
+          </div>
+          <div class="p-6 flex flex-col flex-grow justify-between border-t border-outline-variant/50">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-label-sm text-[10px] uppercase text-tertiary bg-tertiary/10 px-2 py-0.5 rounded border border-tertiary/20">ACTION SIMULATION</span>
+                <span class="font-label-sm text-[11px] text-on-surface-variant">พลุ (200)</span>
+              </div>
+              <h3 class="font-headline-md text-headline-md text-on-background mb-2">Load Balancer</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-4">มินิเกมจำลองการเป็นตัวกระจายโหลด API Request Packets ไปยังเซิร์ฟเวอร์หลังบ้าน</p>
+            </div>
+            <a href="games/demo_plu.html" class="w-full text-center font-label-sm text-label-sm uppercase border-2 border-tertiary text-tertiary px-4 py-2 hover:bg-tertiary hover:text-on-tertiary transition-all pixel-corners">
+              Play Demo
+            </a>
+          </div>
+        </div>
+
+        <!-- 5. Join Alpha Test / Call to Action Banner (col-span-12 / Full Width & Centered) -->
+        <div class="col-span-1 md:col-span-12 bg-surface-container-highest border border-outline-variant relative overflow-hidden p-10 md:p-12 flex flex-col items-center justify-center text-center gap-6 rounded-xl">
+          <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -left-20 -top-20 w-80 h-80 bg-tertiary/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div class="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
+            <span class="inline-block px-3 py-1 bg-surface-container-high text-tertiary font-label-sm text-[10px] uppercase tracking-wider pixel-corners mb-3 block-shadow shadow-tertiary/20">
+              COMMUNITY ACCESS
+            </span>
+            <h3 class="font-headline-md text-headline-md md:text-[28px] text-on-background mb-2">Join the Studio Alpha Test</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant max-w-xl mb-0">ลงทะเบียนเพื่อรับสิทธิ์เข้าร่วมทดสอบเกมใหม่ก่อนใคร และรับข่าวสารอัปเดตพิเศษจากสตูดิโอของเรา</p>
+          </div>
+          
+          <div class="relative z-10 w-full max-w-md mx-auto flex flex-col sm:flex-row gap-3 justify-center">
+            <input class="w-full bg-surface-dim border-2 border-outline-variant text-on-background px-4 py-3 font-label-sm text-label-sm focus:border-primary focus:ring-0 focus:outline-none transition-colors pixel-corners" placeholder="ENTER EMAIL_ADDRESS" type="email"/>
+            <button class="font-label-sm text-label-sm uppercase bg-primary text-on-primary px-8 py-3 block-shadow shadow-on-primary hover:bg-primary-fixed-dim active:translate-y-0.5 active:shadow-none transition-all pixel-corners whitespace-nowrap">
+              Submit
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Call to Action Team Section -->
+    <section class="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+      <div class="glass-card-mock p-12 text-center relative overflow-hidden border-tertiary/30">
+        <div class="absolute -left-16 -top-16 w-48 h-48 bg-tertiary/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-2xl mx-auto">
+          <h2 class="font-headline-md text-headline-md md:text-[32px] text-on-background mb-4 uppercase">
+            พร้อมที่จะพบกับทีมนักพัฒนาของเราหรือยัง?
+          </h2>
+          <p class="font-body-lg text-on-surface-variant mb-8">
+            ทำความรู้จักกับสมาชิกในทีม PixelPulse Studio ทั้ง 4 คน ดูผลงานและประวัติรายบุคคล
           </p>
-        </div>
-
-        <div class="glass-card">
-          <div style="font-size: 2rem; margin-bottom: 12px;">⚡</div>
-          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">Plug-and-Play Architecture</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem;">
-            สถาปัตยกรรมโปรเจกต์ที่ออกแบบมาให้เชื่อมโยง Mini Game จากสมาชิกแต่ละคนผ่านระบบ HTML5 iframe และ Vite distribution แบบไร้รอยต่อ
-          </p>
-        </div>
-
-        <div class="glass-card">
-          <div style="font-size: 2rem; margin-bottom: 12px;">🎨</div>
-          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 8px;">2D Pixel Art Aesthetics</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem;">
-            แต่งแต้มลวดลายกราฟิกและ UI สไตล์พิกเซลเรโทร พร้อมลูกเล่นแสงสี Neon Cyberpunk ผสมผสานความย้อนยุคและความทันสมัยอย่างลงตัว
-          </p>
+          <a href="team.html" class="inline-flex items-center gap-2 font-label-sm text-label-sm uppercase bg-tertiary text-on-tertiary px-8 py-3.5 block-shadow-lg shadow-on-tertiary hover:bg-tertiary-fixed-dim active:translate-y-1 active:shadow-none transition-all pixel-corners">
+            <span class="material-symbols-outlined text-[18px]">groups</span> ดูรายชื่อสมาชิกทีมงาน (Team Profile)
+          </a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Game Showcase Section -->
-  <section class="section" id="showcase" style="background: rgba(0,0,0,0.2);">
-    <div class="container">
-      <div class="section-header">
-        <span class="badge">GAME SHOWCASE</span>
-        <h2 class="section-title">ศูนย์รวมเกมจำลอง (Playable Mini Games)</h2>
-        <p class="section-desc">
-          เลือกเล่นเกมจำลองของสมาชิกในทีมได้ทันทีผ่านระบบ Web View Center
-        </p>
-      </div>
-
-      <!-- Game Selection Tabs -->
-      <div class="game-tabs">
-        <button class="tab-btn active" data-game-src="games/game_pongpond/index.html" data-game-title="Pixel Rhythm Catch (โดย ปังปอนด์ - 170)">
-          🎵 Pixel Rhythm Catch (ปังปอนด์)
-        </button>
-        <button class="tab-btn" data-game-src="games/game_plu/index.html" data-game-title="Load Balancer (โดย พลุ - 200)">
-          🖥️ Load Balancer (พลุ)
-        </button>
-        <button class="tab-btn" data-game-src="games/game_folk/index.html" data-game-title="Space Defender (โดย โฟล์ค - 193)">
-          🚀 Space Defender (โฟล์ค)
-        </button>
-        <button class="tab-btn" data-game-src="games/game_biw/index.html" data-game-title="Chaos Chess (โดย บิว - 181)">
-          ⚔️ Chaos Chess (บิว)
-        </button>
-      </div>
-
-      <!-- Viewport Frame -->
-      <div class="game-viewport-wrapper">
-        <div class="game-viewport-header">
-          <div class="window-dots">
-            <div class="dot dot-red"></div>
-            <div class="dot dot-yellow"></div>
-            <div class="dot dot-green"></div>
-          </div>
-          <div class="game-title-info" id="gameTitleDisplay">
-            Pixel Rhythm Catch (โดย ปังปอนด์ - 170)
-          </div>
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="font-size: 0.75rem; color: var(--accent-cyan);" class="pixel-text">HTML5 ENGINE</div>
-            <button class="btn-icon" id="fullscreenToggleBtn" title="ขยายเต็มจอ (Toggle Fullscreen)" style="width: 30px; height: 30px; font-size: 0.9rem; border-radius: 6px; background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); color: var(--accent-cyan); cursor: pointer;">⛶</button>
-          </div>
-        </div>
-
-        <iframe id="gameIframe" src="games/game_pongpond/index.html" class="game-iframe" title="Playable Mini Game"></iframe>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Team Section -->
-  <section class="section">
-    <div class="container">
-      <div class="glass-card" style="text-align: center; padding: 60px 24px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(0, 240, 255, 0.15)); border-color: rgba(0, 240, 255, 0.3);">
-        <h2 class="section-title">พร้อมที่จะพบกับทีมนักพัฒนาของเราหรือยัง?</h2>
-        <p class="section-desc" style="margin-bottom: 30px;">
-          ทำความรู้จักกับสมาชิกในทีม PixelPulse Studio ทั้ง 4 คน ดูผลงานและประวัติรายบุคคล
-        </p>
-        <a href="team.html" class="btn btn-primary btn-pixel">👥 ดูรายชื่อสมาชิกทีมงาน (Team Profile)</a>
-      </div>
-    </div>
-  </section>
+  </main>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="index.html" class="logo">
-            <div class="logo-icon">
-              <svg viewBox="0 0 24 24"><path d="M21,6H3A1,1,0,0,0,2,7V17a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V7A1,1,0,0,0,21,6ZM11,13H9v2H7V13H5V11H7V9H9v2h2Zm10,0H17V11h4Z"/></svg>
-            </div>
-            <span>PIXELPULSE <span style="color: var(--accent-cyan);">STUDIO</span></span>
+  <footer class="bg-surface-dim dark:bg-surface-dim border-t border-outline-variant full-width mt-16 relative z-40">
+    <div class="px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div class="md:col-span-2">
+          <a href="index.html" class="font-display-lg text-headline-md text-primary uppercase tracking-tighter hover:text-tertiary transition-colors">
+            PixelPulse Studio
           </a>
-          <p>เอกสารและเว็บไซต์แสดงผลงานจำลองสำหรับวิชาการพัฒนาโปรเจกต์ซอฟต์แวร์</p>
+          <p class="font-body-md text-on-surface-variant mt-3 max-w-md">
+            ค่ายพัฒนาเกมอินดี้มินิเกม 2D Pixel Art & Cyberpunk บนเว็บเบราว์เซอร์ ให้บริการความบันเทิงเต็มรูปแบบแก่ผู้เล่นทั่วโลก
+          </p>
         </div>
 
-        <div class="footer-col">
-          <h4>การนำทาง (Navigation)</h4>
-          <ul>
-            <li><a href="index.html">หน้าแรก (Home)</a></li>
-            <li><a href="#about">เกี่ยวกับเรา (About)</a></li>
-            <li><a href="#showcase">ศูนย์รวมเกม (Showcase)</a></li>
-            <li><a href="team.html">ทีมงาน (Team)</a></li>
+        <div>
+          <h4 class="font-label-sm text-label-sm text-primary uppercase mb-4 tracking-wider">การนำทาง (Navigation)</h4>
+          <ul class="space-y-2.5 font-body-md text-[14px]">
+            <li><a href="index.html" class="text-on-surface-variant hover:text-tertiary transition-colors">หน้าแรก (Home)</a></li>
+            <li><a href="#games" class="text-on-surface-variant hover:text-tertiary transition-colors">ผลงานเกม (Games)</a></li>
+            <li><a href="aboutUs.html" class="text-on-surface-variant hover:text-tertiary transition-colors">เกี่ยวกับเรา (About)</a></li>
+            <li><a href="team.html" class="text-on-surface-variant hover:text-tertiary transition-colors">ทีมงาน (Team)</a></li>
           </ul>
         </div>
 
-        <div class="footer-col">
-          <h4>แฟ้มสะสมผลงาน (Portfolios)</h4>
-          <ul>
-            <li><a href="portfolios/my-profile.html">PM Profile (181)</a></li>
-            <li><a href="portfolios/pangpond.html">Pangpond Profile (170)</a></li>
-            <li><a href="portfolios/plu.html">Phlu Profile (200)</a></li>
-            <li><a href="portfolios/folk.html">Folk Profile (193)</a></li>
+        <div>
+          <h4 class="font-label-sm text-label-sm text-primary uppercase mb-4 tracking-wider">แฟ้มสะสมผลงาน (Portfolios)</h4>
+          <ul class="space-y-2.5 font-body-md text-[14px]">
+            <li><a href="portfolios/biw/index.html" class="text-on-surface-variant hover:text-tertiary transition-colors">PM Profile (บิว - 181)</a></li>
+            <li><a href="portfolios/Pangpond/index.html" class="text-on-surface-variant hover:text-tertiary transition-colors">Pangpond Profile (170)</a></li>
+            <li><a href="portfolios/plu-source/dist/index.html" class="text-on-surface-variant hover:text-tertiary transition-colors">Phlu Profile (200)</a></li>
+            <li><a href="portfolios/Folk/index.html" class="text-on-surface-variant hover:text-tertiary transition-colors">Folk Profile (193)</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="footer-bottom">
+      <div class="pt-8 border-t border-outline-variant/60 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-label-sm text-on-surface-variant">
         <div>&copy; 2026 PixelPulse Studio. All rights reserved.</div>
-        <div class="pixel-text" style="font-size: 0.7rem; color: var(--accent-cyan);">DEVELOPED FOR PROJECT PRESENTATION</div>
+        <div class="text-tertiary">INDEPENDENT GAME DEVELOPMENT STUDIO</div>
       </div>
     </div>
   </footer>
 
-  <!-- Central JavaScript -->
+  <!-- Central JavaScript Logic -->
   <script src="js/script.js"></script>
 </body>
 </html>

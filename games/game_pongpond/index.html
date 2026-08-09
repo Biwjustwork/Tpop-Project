@@ -8,16 +8,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#06080f;color:#fff;font-family:'Outfit',sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;overflow-x:hidden;user-select:none}
-.page{max-width:540px;width:100%;padding:16px 12px 24px;display:flex;flex-direction:column;gap:14px}
+.page{max-width:820px;width:100%;padding:16px 12px 24px;display:flex;flex-direction:column;gap:14px}
 .header{text-align:center;padding:12px 0 2px}
 .header h1{font-family:'Press Start 2P',monospace;font-size:15px;background:linear-gradient(90deg,#00f0ff,#ff007f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
 .header p{font-size:11px;color:#5a6a80;margin-top:6px;font-family:'Press Start 2P',monospace}
-.stats-bar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.stat-box{background:linear-gradient(135deg,rgba(15,21,35,.9),rgba(20,28,50,.8));border:1px solid rgba(0,240,255,.15);border-radius:10px;padding:12px 8px;text-align:center}
-.stat-box .label{font-size:10px;color:#5a6a80;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.stat-box .value{font-family:'Press Start 2P',monospace;font-size:12px;color:#00f0ff;text-shadow:0 0 8px rgba(0,240,255,.5)}
-.stat-box .value.gold{color:#ffe600;text-shadow:0 0 8px rgba(255,230,0,.5)}
-.stat-box .value.pink{color:#ff007f;text-shadow:0 0 8px rgba(255,0,127,.5)}
+.content-area{display:grid;grid-template-columns:180px 1fr;gap:14px;align-items:start}
+.side-panel{display:flex;flex-direction:column;gap:8px;position:sticky;top:16px}
+.side-stat{background:linear-gradient(135deg,rgba(15,21,35,.95),rgba(20,28,50,.85));border:1px solid rgba(0,240,255,.18);border-radius:10px;padding:14px 10px;text-align:center}
+.side-stat .label{font-size:9px;color:#5a6a80;text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px;font-family:'Press Start 2P',monospace}
+.side-stat .value{font-family:'Press Start 2P',monospace;font-size:14px;text-shadow:0 0 10px}
+.side-stat .value.gold{color:#ffe600;text-shadow:0 0 12px rgba(255,230,0,.6)}
+.side-stat .value.pink{color:#ff007f;text-shadow:0 0 12px rgba(255,0,127,.6)}
+.side-stat .value.cyan{color:#00f0ff;text-shadow:0 0 12px rgba(0,240,255,.6)}
+.side-reset{background:transparent;color:#455470;border:1px solid #243147;font-family:'Press Start 2P',monospace;font-size:7px;padding:8px 10px;border-radius:6px;cursor:pointer;transition:all .2s;width:100%}
+.side-reset:hover{color:#ff4444;border-color:#ff4444;box-shadow:0 0 10px rgba(255,68,68,.3)}
+@media(max-width:600px){.content-area{grid-template-columns:1fr;}.side-panel{flex-direction:row;flex-wrap:wrap;justify-content:center;position:static}.side-stat{flex:1;min-width:80px}.side-reset{flex:0 0 auto;min-width:80px}}
 .bike-area{position:relative;background:linear-gradient(180deg,#090d16,#0d1628);border:2px solid rgba(0,240,255,.18);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 12px;cursor:pointer;transition:box-shadow .2s,transform .1s;overflow:hidden;min-height:260px}
 .bike-area:hover{box-shadow:0 0 25px rgba(0,240,255,.2);border-color:rgba(0,240,255,.4)}
 .bike-area:active{transform:scale(.98);box-shadow:0 0 35px rgba(0,240,255,.35)}
@@ -45,13 +50,6 @@ body{background:#06080f;color:#fff;font-family:'Outfit',sans-serif;display:flex;
 .level-dots .dot{width:7px;height:7px;border-radius:2px;background:#161d2d;border:1px solid #243147}
 .level-dots .dot.filled{background:#00f0ff;border-color:#00f0ff;box-shadow:0 0 4px rgba(0,240,255,.6)}
 .level-dots .dot.filled.max{background:#ff007f;border-color:#ff007f;box-shadow:0 0 4px rgba(255,0,127,.6)}
-.bottom-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:4px}
-.bottom-bar a,.bottom-bar button{font-family:'Press Start 2P',monospace;font-size:8px;padding:9px 14px;border-radius:6px;text-decoration:none;transition:box-shadow .3s,transform .15s;letter-spacing:.3px;border:none;cursor:pointer}
-.bottom-bar a:hover,.bottom-bar button:hover{box-shadow:0 0 14px rgba(0,240,255,.5);transform:translateY(-1px)}
-.link-back{background:linear-gradient(135deg,#8a2be2,#ff007f);color:#fff}
-.link-port{background:linear-gradient(135deg,#00f0ff,#8a2be2);color:#06080f}
-.btn-reset{background:transparent;color:#455470;border:1px solid #243147 !important;font-size:7px !important;padding:7px 10px !important}
-.btn-reset:hover{color:#ff4444;border-color:#ff4444 !important;box-shadow:0 0 10px rgba(255,68,68,.3) !important}
 .particles-layer{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden}
 .spark{position:absolute;width:4px;height:4px;border-radius:1px;animation:sparkAnim .55s ease-out forwards;pointer-events:none}
 @keyframes sparkAnim{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(0)}}
@@ -63,24 +61,22 @@ body{background:#06080f;color:#fff;font-family:'Outfit',sans-serif;display:flex;
 <h1>BIGBIKE GARAGE</h1>
 <p>🔧 IDLE CLICKER 🔧</p>
 </div>
-<div class="stats-bar">
-<div class="stat-box"><div class="label">💰 เงิน</div><div class="value gold" id="moneyVal">0</div></div>
-<div class="stat-box"><div class="label">👆 ต่อคลิก</div><div class="value" id="cpcVal">1</div></div>
-<div class="stat-box"><div class="label">⏱ ต่อวินาที</div><div class="value pink" id="cpsVal">0</div></div>
-</div>
 <div class="bike-area" id="bikeArea">
 <div class="particles-layer" id="particlesLayer"></div>
 <canvas id="bikeCanvas" width="300" height="170"></canvas>
 <div class="click-hint">TAP TO REPAIR</div>
 </div>
+<div class="content-area">
+<div class="side-panel">
+<div class="side-stat"><div class="label">💰 เงิน</div><div class="value gold" id="moneyVal">0</div></div>
+<button class="side-reset" id="resetBtn">RESET</button>
+<div class="side-stat"><div class="label">⏱ ต่อวินาที</div><div class="value pink" id="cpsVal">0</div></div>
+<div class="side-stat"><div class="label">👆 ต่อคลิก</div><div class="value cyan" id="cpcVal">+1</div></div>
+</div>
 <div class="upgrades">
 <div class="upgrades-title">⬆ UPGRADES</div>
 <div id="upgradeList"></div>
 </div>
-<div class="bottom-bar">
-<a href="../../portfolios/pangpond.html" class="link-back">← โปรไฟล์</a>
-<button class="btn-reset" id="resetBtn">RESET</button>
-<a href="https://nattakorn.vercel.app/" target="_blank" rel="noopener" class="link-port">🌐 Portfolio</a>
 </div>
 </div>
 <script>

@@ -757,3 +757,134 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Custom Mock & Landing Utilities (Shared across index.html and team.html)
+   ========================================================================== */
+.block-shadow {
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.5);
+}
+.block-shadow-sm {
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.5);
+}
+.block-shadow-lg {
+  box-shadow: 4px 4px 0px var(--tw-shadow-color, rgba(0, 0, 0, 0.5));
+}
+.block-shadow:active {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  transform: translate(2px, 2px);
+}
+.pixel-corners {
+  clip-path: polygon(
+    4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px
+  );
+}
+.chip-cutout {
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+}
+.neon-glow {
+  text-shadow: 0 0 12px rgba(74, 225, 118, 0.4), 0 0 4px currentColor;
+}
+.scanlines {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0),
+    rgba(255,255,255,0) 50%,
+    rgba(0,0,0,0.15) 50%,
+    rgba(0,0,0,0.15)
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+}
+.glass-card-mock {
+  background: rgba(23, 31, 51, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(70, 69, 84, 0.4);
+  border-radius: 0.75rem;
+}
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #171f33;
+  color: #dae2fd;
+  border: 1px solid #4ae176;
+  padding: 12px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  z-index: 9999;
+}
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* --- Fullscreen Game Viewport Styles --- */
+.game-viewport-wrapper:fullscreen,
+.game-viewport-wrapper:-webkit-full-screen,
+.game-viewport-wrapper:-moz-full-screen,
+.game-viewport-wrapper:-ms-fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background-color: #060e20 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+}
+
+.game-viewport-wrapper:fullscreen > div,
+.game-viewport-wrapper:-webkit-full-screen > div,
+.game-viewport-wrapper:-moz-full-screen > div,
+.game-viewport-wrapper:-ms-fullscreen > div {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  aspect-ratio: auto !important;
+  border-radius: 0 !important;
+  border: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.game-viewport-wrapper:fullscreen iframe,
+.game-viewport-wrapper:-webkit-full-screen iframe,
+.game-viewport-wrapper:-moz-full-screen iframe,
+.game-viewport-wrapper:-ms-fullscreen iframe {
+  width: 100vw !important;
+  height: calc(100vh - 48px) !important;
+  max-width: 100vw !important;
+  max-height: calc(100vh - 48px) !important;
+  flex-grow: 1 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.game-viewport-wrapper:fullscreen .mt-auto,
+.game-viewport-wrapper:-webkit-full-screen .mt-auto,
+.game-viewport-wrapper:-moz-full-screen .mt-auto,
+.game-viewport-wrapper:-ms-fullscreen .mt-auto {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100vw !important;
+  height: 48px !important;
+  z-index: 9999 !important;
+  background-color: rgba(23, 31, 51, 0.95) !important;
+  border-top: 1px solid rgba(70, 69, 84, 0.6) !important;
+}
