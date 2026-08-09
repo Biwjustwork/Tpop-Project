@@ -30,7 +30,7 @@ indie-game-studio/
     │   └── index.html
     ├── game_plu/              # ไฟล์มินิเกมของพลุ (Load Balancer)
     │   └── index.html
-    └── game_folk/             # ไฟล์มินิเกมของโฟล์ค (Retro Space Defender)
+    └── game_folk/             # ไฟล์มินิเกมของโฟล์ค (Neon Lane Racer)
         └── index.html
 ```
 
