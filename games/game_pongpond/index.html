@@ -1,160 +1,413 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Rhythm Catch - Pangpond Game</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #080a12;
-      color: #fff;
-      font-family: 'Press Start 2P', monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
-    }
-    #gameContainer {
-      position: relative;
-      border: 3px solid #00f0ff;
-      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-      background: #0d111e;
-    }
-    canvas { display: block; background: #070913; }
-    .ui-overlay {
-      position: absolute;
-      top: 12px;
-      left: 16px;
-      right: 16px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      pointer-events: none;
-      color: #00f0ff;
-      text-shadow: 0 0 5px #00f0ff;
-    }
-    .instructions {
-      margin-top: 12px;
-      font-size: 0.6rem;
-      color: #8e9bb0;
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BigBike Garage — PixelPulse Studio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Outfit:wght@400;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#06080f;color:#fff;font-family:'Outfit',sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;overflow-x:hidden;user-select:none}
+.page{max-width:540px;width:100%;padding:16px 12px 24px;display:flex;flex-direction:column;gap:14px}
+.header{text-align:center;padding:12px 0 2px}
+.header h1{font-family:'Press Start 2P',monospace;font-size:15px;background:linear-gradient(90deg,#00f0ff,#ff007f);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px}
+.header p{font-size:11px;color:#5a6a80;margin-top:6px;font-family:'Press Start 2P',monospace}
+.stats-bar{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.stat-box{background:linear-gradient(135deg,rgba(15,21,35,.9),rgba(20,28,50,.8));border:1px solid rgba(0,240,255,.15);border-radius:10px;padding:12px 8px;text-align:center}
+.stat-box .label{font-size:10px;color:#5a6a80;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.stat-box .value{font-family:'Press Start 2P',monospace;font-size:12px;color:#00f0ff;text-shadow:0 0 8px rgba(0,240,255,.5)}
+.stat-box .value.gold{color:#ffe600;text-shadow:0 0 8px rgba(255,230,0,.5)}
+.stat-box .value.pink{color:#ff007f;text-shadow:0 0 8px rgba(255,0,127,.5)}
+.bike-area{position:relative;background:linear-gradient(180deg,#090d16,#0d1628);border:2px solid rgba(0,240,255,.18);border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px 12px;cursor:pointer;transition:box-shadow .2s,transform .1s;overflow:hidden;min-height:260px}
+.bike-area:hover{box-shadow:0 0 25px rgba(0,240,255,.2);border-color:rgba(0,240,255,.4)}
+.bike-area:active{transform:scale(.98);box-shadow:0 0 35px rgba(0,240,255,.35)}
+.bike-area canvas{image-rendering:pixelated;display:block}
+.click-hint{font-size:10px;color:#00f0ff;margin-top:10px;font-family:'Press Start 2P',monospace;letter-spacing:.5px;text-shadow:0 0 6px rgba(0,240,255,.6);animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.03)}}
+.float-text{position:absolute;font-family:'Press Start 2P',monospace;font-size:15px;color:#ffe600;text-shadow:0 0 10px rgba(255,230,0,.9),0 0 20px rgba(255,100,0,.6);pointer-events:none;animation:floatUp .75s ease-out forwards;z-index:10}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-55px) scale(1.25)}}
+.upgrades{display:flex;flex-direction:column;gap:8px}
+.upgrades-title{font-family:'Press Start 2P',monospace;font-size:11px;color:#8e9bb0;text-align:center;margin-bottom:2px}
+.upgrade-card{background:linear-gradient(135deg,rgba(15,21,35,.95),rgba(20,28,50,.85));border:1px solid rgba(0,240,255,.1);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:12px;transition:border-color .2s,box-shadow .2s}
+.upgrade-card:hover{border-color:rgba(0,240,255,.3)}
+.upgrade-card.affordable{border-color:rgba(0,240,255,.4);box-shadow:0 0 12px rgba(0,240,255,.12)}
+.upgrade-card.maxed{border-color:rgba(255,0,127,.3);opacity:.75}
+.upgrade-icon{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.upgrade-info{flex:1;min-width:0}
+.upgrade-info .name{font-weight:700;font-size:13px;margin-bottom:2px}
+.upgrade-info .desc{font-size:11px;color:#6b7c96;margin-bottom:4px}
+.upgrade-info .effect{font-size:9px;color:#00f0ff;font-family:'Press Start 2P',monospace}
+.upgrade-btn{background:linear-gradient(135deg,#00f0ff,#0088cc);color:#06080f;border:none;border-radius:6px;padding:8px 12px;font-family:'Press Start 2P',monospace;font-size:8px;cursor:pointer;transition:all .2s;white-space:nowrap;font-weight:700}
+.upgrade-btn:hover:not(:disabled){box-shadow:0 0 14px rgba(0,240,255,.6);transform:translateY(-1px)}
+.upgrade-btn:disabled{background:#161d2d;color:#35425c;cursor:not-allowed;box-shadow:none;transform:none}
+.upgrade-btn.maxed-btn{background:linear-gradient(135deg,#ff007f,#8a2be2);color:#fff;cursor:default}
+.level-dots{display:flex;gap:3px;margin-top:5px}
+.level-dots .dot{width:7px;height:7px;border-radius:2px;background:#161d2d;border:1px solid #243147}
+.level-dots .dot.filled{background:#00f0ff;border-color:#00f0ff;box-shadow:0 0 4px rgba(0,240,255,.6)}
+.level-dots .dot.filled.max{background:#ff007f;border-color:#ff007f;box-shadow:0 0 4px rgba(255,0,127,.6)}
+.bottom-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:4px}
+.bottom-bar a,.bottom-bar button{font-family:'Press Start 2P',monospace;font-size:8px;padding:9px 14px;border-radius:6px;text-decoration:none;transition:box-shadow .3s,transform .15s;letter-spacing:.3px;border:none;cursor:pointer}
+.bottom-bar a:hover,.bottom-bar button:hover{box-shadow:0 0 14px rgba(0,240,255,.5);transform:translateY(-1px)}
+.link-back{background:linear-gradient(135deg,#8a2be2,#ff007f);color:#fff}
+.link-port{background:linear-gradient(135deg,#00f0ff,#8a2be2);color:#06080f}
+.btn-reset{background:transparent;color:#455470;border:1px solid #243147 !important;font-size:7px !important;padding:7px 10px !important}
+.btn-reset:hover{color:#ff4444;border-color:#ff4444 !important;box-shadow:0 0 10px rgba(255,68,68,.3) !important}
+.particles-layer{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden}
+.spark{position:absolute;width:4px;height:4px;border-radius:1px;animation:sparkAnim .55s ease-out forwards;pointer-events:none}
+@keyframes sparkAnim{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(0)}}
+</style>
 </head>
 <body>
-
-<div id="gameContainer">
-  <div class="ui-overlay">
-    <div>SCORE: <span id="scoreText">0</span></div>
-    <div>DEV: PANGPOND (170)</div>
-  </div>
-  <canvas id="gameCanvas" width="600" height="400"></canvas>
+<div class="page">
+<div class="header">
+<h1>BIGBIKE GARAGE</h1>
+<p>🔧 IDLE CLICKER 🔧</p>
 </div>
-<p class="instructions">🎮 Use LEFT & RIGHT Arrow keys / Mouse to move the paddle & catch falling pixel notes!</p>
-
+<div class="stats-bar">
+<div class="stat-box"><div class="label">💰 เงิน</div><div class="value gold" id="moneyVal">0</div></div>
+<div class="stat-box"><div class="label">👆 ต่อคลิก</div><div class="value" id="cpcVal">1</div></div>
+<div class="stat-box"><div class="label">⏱ ต่อวินาที</div><div class="value pink" id="cpsVal">0</div></div>
+</div>
+<div class="bike-area" id="bikeArea">
+<div class="particles-layer" id="particlesLayer"></div>
+<canvas id="bikeCanvas" width="300" height="170"></canvas>
+<div class="click-hint">TAP TO REPAIR</div>
+</div>
+<div class="upgrades">
+<div class="upgrades-title">⬆ UPGRADES</div>
+<div id="upgradeList"></div>
+</div>
+<div class="bottom-bar">
+<a href="../../portfolios/pangpond.html" class="link-back">← โปรไฟล์</a>
+<button class="btn-reset" id="resetBtn">RESET</button>
+<a href="https://nattakorn.vercel.app/" target="_blank" rel="noopener" class="link-port">🌐 Portfolio</a>
+</div>
+</div>
 <script>
-  const canvas = document.getElementById('gameCanvas');
-  const ctx = canvas.getContext('2d');
-  const scoreText = document.getElementById('scoreText');
-
-  let score = 0;
-  let paddleWidth = 90;
-  let paddleHeight = 14;
-  let paddleX = (canvas.width - paddleWidth) / 2;
-
-  let rightPressed = false;
-  let leftPressed = false;
-
-  const notes = [];
-  const noteColors = ['#00f0ff', '#ff007f', '#8a2be2', '#ffe600'];
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Right' || e.key === 'ArrowRight') rightPressed = true;
-    if (e.key === 'Left' || e.key === 'ArrowLeft') leftPressed = true;
-  });
-
-  document.addEventListener('keyup', (e) => {
-    if (e.key === 'Right' || e.key === 'ArrowRight') rightPressed = false;
-    if (e.key === 'Left' || e.key === 'ArrowLeft') leftPressed = false;
-  });
-
-  canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const relativeX = e.clientX - rect.left;
-    if (relativeX > 0 && relativeX < canvas.width) {
-      paddleX = relativeX - paddleWidth / 2;
-    }
-  });
-
-  function spawnNote() {
-    notes.push({
-      x: Math.random() * (canvas.width - 20),
-      y: -20,
-      size: 16,
-      speed: 2.5 + Math.random() * 2,
-      color: noteColors[Math.floor(Math.random() * noteColors.length)]
-    });
-  }
-
-  setInterval(spawnNote, 800);
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw background grid lines
-    ctx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
-    for (let x = 0; x < canvas.width; x += 20) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
-    }
-    for (let y = 0; y < canvas.height; y += 20) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
-    }
-
-    // Move paddle
-    if (rightPressed && paddleX < canvas.width - paddleWidth) paddleX += 7;
-    if (leftPressed && paddleX > 0) paddleX -= 7;
-
-    // Draw Paddle
-    ctx.fillStyle = '#00f0ff';
-    ctx.fillRect(paddleX, canvas.height - paddleHeight - 10, paddleWidth, paddleHeight);
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = '#00f0ff';
-
-    // Update and draw notes
-    for (let i = notes.length - 1; i >= 0; i--) {
-      const n = notes[i];
-      n.y += n.speed;
-
-      ctx.fillStyle = n.color;
-      ctx.fillRect(n.x, n.y, n.size, n.size);
-
-      // Check catch
-      if (
-        n.y + n.size >= canvas.height - paddleHeight - 10 &&
-        n.x + n.size >= paddleX &&
-        n.x <= paddleX + paddleWidth
-      ) {
-        score += 10;
-        scoreText.textContent = score;
-        notes.splice(i, 1);
-        continue;
-      }
-
-      // Remove offscreen
-      if (n.y > canvas.height) {
-        notes.splice(i, 1);
-      }
-    }
-
-    requestAnimationFrame(draw);
-  }
-
-  draw();
+(function(){
+var SAVE_KEY='bbgarage_save';
+var upgrades=[
+{id:'tools',name:'🔧 เครื่องมือช่าง',desc:'ประแจ ไขควง คีมคุณภาพสูง',icon:'🔧',maxLv:10,baseCost:15,costMult:1.75,cpcAdd:1,cpsAdd:0,colors:['#00f0ff','#0088cc']},
+{id:'lift',name:'🏗️ ลิฟต์ยกรถ',desc:'ยกรถไฮโดรลิค ซ่อมสะดวกขึ้น',icon:'🏗️',maxLv:10,baseCost:75,costMult:1.9,cpcAdd:0,cpsAdd:2,colors:['#ffe600','#ff8800']},
+{id:'helper',name:'👨‍🔧 ช่างฝึกหัด',desc:'ผู้ช่วยช่วยซ่อมอัตโนมัติ',icon:'👨‍🔧',maxLv:10,baseCost:280,costMult:2.1,cpcAdd:2,cpsAdd:5,colors:['#8a2be2','#ff007f']},
+{id:'ads',name:'📺 ป้ายโฆษณา',desc:'ติดป้ายนีออนเรียกลูกค้าพุ่ง',icon:'📺',maxLv:10,baseCost:1100,costMult:2.4,cpcAdd:5,cpsAdd:15,colors:['#ff007f','#ff4444']}
+];
+var state={money:0,levels:{}};
+upgrades.forEach(function(u){state.levels[u.id]=0});
+function loadGame(){
+try{
+var d=JSON.parse(localStorage.getItem(SAVE_KEY));
+if(d&&typeof d.money==='number'){
+state.money=d.money;
+upgrades.forEach(function(u){if(typeof d.levels[u.id]==='number')state.levels[u.id]=d.levels[u.id]});
+}
+}catch(e){}
+}
+function saveGame(){
+localStorage.setItem(SAVE_KEY,JSON.stringify({money:state.money,levels:state.levels}));
+}
+function getCpc(){
+var v=1;upgrades.forEach(function(u){v+=u.cpcAdd*state.levels[u.id]});return v;
+}
+function getCps(){
+var v=0;upgrades.forEach(function(u){v+=u.cpsAdd*state.levels[u.id]});return v;
+}
+function getUpgradeCost(u){
+return Math.floor(u.baseCost*Math.pow(u.costMult,state.levels[u.id]));
+}
+function formatNum(n){
+if(n>=1e12)return(n/1e12).toFixed(1)+'T';
+if(n>=1e9)return(n/1e9).toFixed(1)+'B';
+if(n>=1e6)return(n/1e6).toFixed(1)+'M';
+if(n>=1e3)return(n/1e3).toFixed(1)+'K';
+return Math.floor(n).toString();
+}
+var moneyEl=document.getElementById('moneyVal');
+var cpcEl=document.getElementById('cpcVal');
+var cpsEl=document.getElementById('cpsVal');
+var bikeArea=document.getElementById('bikeArea');
+var particlesLayer=document.getElementById('particlesLayer');
+var upgradeList=document.getElementById('upgradeList');
+var resetBtn=document.getElementById('resetBtn');
+var cv=document.getElementById('bikeCanvas');
+var cx=cv.getContext('2d');
+function updateUI(){
+moneyEl.textContent=formatNum(state.money);
+cpcEl.textContent='+'+formatNum(getCpc());
+cpsEl.textContent='+'+formatNum(getCps())+'/s';
+renderUpgrades();
+}
+function renderUpgrades(){
+var html='';
+upgrades.forEach(function(u){
+var lv=state.levels[u.id];
+var maxed=lv>=u.maxLv;
+var cost=getUpgradeCost(u);
+var canBuy=state.money>=cost&&!maxed;
+var cardClass='upgrade-card'+(canBuy?' affordable':'')+(maxed?' maxed':'');
+var dots='<div class="level-dots">';
+for(var i=0;i<u.maxLv;i++){
+dots+='<div class="dot'+(i<lv?(maxed?' filled max':' filled'):'')+'"></div>';
+}
+dots+='</div>';
+var effectText='';
+if(u.cpcAdd>0)effectText+='+'+u.cpcAdd+'/click ';
+if(u.cpsAdd>0)effectText+='+'+u.cpsAdd+'/sec';
+var btnText=maxed?'MAX':formatNum(cost)+' 💰';
+var btnClass=maxed?'upgrade-btn maxed-btn':'upgrade-btn';
+var btnDisabled=(!canBuy&&!maxed)?'disabled':'';
+html+='<div class="'+cardClass+'">';
+html+='<div class="upgrade-icon" style="background:linear-gradient(135deg,'+u.colors[0]+','+u.colors[1]+')">'+u.icon+'</div>';
+html+='<div class="upgrade-info">';
+html+='<div class="name">'+u.name+' <span style="color:#5a6a80;font-size:11px">Lv.'+lv+'</span></div>';
+html+='<div class="desc">'+u.desc+'</div>';
+html+='<div class="effect">'+effectText+'</div>';
+html+=dots;
+html+='</div>';
+html+='<button class="'+btnClass+'" data-id="'+u.id+'" '+btnDisabled+'>'+btnText+'</button>';
+html+='</div>';
+});
+upgradeList.innerHTML=html;
+var btns=upgradeList.querySelectorAll('.upgrade-btn:not(.maxed-btn)');
+btns.forEach(function(btn){
+btn.addEventListener('click',function(e){
+e.stopPropagation();
+var id=btn.getAttribute('data-id');
+buyUpgrade(id);
+});
+});
+}
+function buyUpgrade(id){
+var u=upgrades.find(function(x){return x.id===id});
+if(!u)return;
+var cost=getUpgradeCost(u);
+if(state.levels[u.id]>=u.maxLv)return;
+if(state.money<cost)return;
+state.money-=cost;
+state.levels[u.id]++;
+saveGame();
+updateUI();
+drawBike();
+}
+function spawnFloatText(x,y,text){
+var el=document.createElement('div');
+el.className='float-text';
+el.textContent=text;
+var rx=(Math.random()-.5)*24;
+el.style.left=(x+rx)+'px';
+el.style.top=y+'px';
+bikeArea.appendChild(el);
+setTimeout(function(){el.remove()},750);
+}
+function spawnSparks(x,y){
+for(var i=0;i<8;i++){
+var s=document.createElement('div');
+s.className='spark';
+var angle=Math.random()*Math.PI*2;
+var dist=25+Math.random()*45;
+s.style.left=x+'px';
+s.style.top=y+'px';
+s.style.setProperty('--sx',Math.cos(angle)*dist+'px');
+s.style.setProperty('--sy',Math.sin(angle)*dist+'px');
+var colors=['#ffe600','#ff007f','#00f0ff','#00ffaa','#ff8800'];
+s.style.background=colors[Math.floor(Math.random()*colors.length)];
+particlesLayer.appendChild(s);
+setTimeout(function(){s.remove()},550);
+}
+}
+var bikeBounce=0;
+bikeArea.addEventListener('click',function(e){
+var earned=getCpc();
+state.money+=earned;
+bikeBounce=5;
+var rect=bikeArea.getBoundingClientRect();
+var x=e.clientX-rect.left;
+var y=e.clientY-rect.top;
+spawnFloatText(x-20,y-25,'+'+formatNum(earned));
+spawnSparks(x,y);
+saveGame();
+updateUI();
+drawBike();
+});
+resetBtn.addEventListener('click',function(){
+if(confirm('รีเซ็ตข้อมูลทั้งหมดและเริ่มใหม่?')){
+state.money=0;
+upgrades.forEach(function(u){state.levels[u.id]=0});
+localStorage.removeItem(SAVE_KEY);
+updateUI();
+drawBike();
+}
+});
+function drawBike(){
+cx.clearRect(0,0,cv.width,cv.height);
+var totalLv=0;upgrades.forEach(function(u){totalLv+=state.levels[u.id]});
+var s=3;
+var bounceY=bikeBounce>0?Math.sin(bikeBounce)*2:0;
+var ox=50,oy=18+bounceY;
+var p=function(x,y,w,h,c){cx.fillStyle=c;cx.fillRect(ox+x*s,oy+y*s,w*s,h*s)};
+if(totalLv>0){
+var glow=Math.min(totalLv/15,.75);
+cx.save();
+cx.shadowBlur=18+glow*25;
+cx.shadowColor='rgba(0,240,255,'+glow+')';
+cx.fillStyle='rgba(0,240,255,.01)';
+cx.fillRect(ox+10*s,oy+10*s,50*s,35*s);
+cx.restore();
+}
+p(6,42,62,4,'#090d16');
+p(8,43,58,2,'#141f33');
+if(state.levels['lift']>0){
+var ll=state.levels['lift'];
+var liftY=oy+42*s;
+var lh=Math.min(ll*2+2,20);
+cx.fillStyle='#b8860b';cx.fillRect(ox+4*s,liftY,64*s,4);
+cx.fillStyle='#ffd700';cx.fillRect(ox+5*s,liftY+1,62*s,2);
+cx.fillStyle='#555';cx.fillRect(ox+8*s,liftY-lh,4,lh);cx.fillRect(ox+60*s,liftY-lh,4,lh);
+cx.fillStyle='#990000';cx.fillRect(ox+7*s,liftY-lh-3,6,4);cx.fillRect(ox+59*s,liftY-lh-3,6,4);
+}
+var tire='#10141e';
+var tireDark='#080b12';
+var tireMid='#1c2333';
+var cyanBody='#00d2ff';
+var cyanHi='#80e8ff';
+var cyanDark='#0066cc';
+var cyanDeep='#003377';
+var frameCol='#2a3447';
+var frameDark='#171e2c';
+var chrome='#c2d4e7';
+var chromeDark='#607288';
+var gold='#ffb700';
+var wheelR=function(cx0,cy0){
+p(cx0-2,cy0-6,5,1,tire);p(cx0-4,cy0-5,9,1,tire);
+p(cx0-5,cy0-4,11,1,tire);p(cx0-6,cy0-3,13,1,tire);
+p(cx0-6,cy0-2,13,5,tire);
+p(cx0-6,cy0+3,13,1,tire);p(cx0-5,cy0+4,11,1,tire);
+p(cx0-4,cy0+5,9,1,tire);p(cx0-2,cy0+6,5,1,tire);
+p(cx0-2,cy0-5,5,1,tireMid);p(cx0-4,cy0-4,9,1,tireMid);
+p(cx0-5,cy0-3,2,7,tireMid);p(cx0+4,cy0-3,2,7,tireMid);
+p(cx0-4,cy0+4,9,1,tireMid);p(cx0-2,cy0+5,5,1,tireMid);
+p(cx0-3,cy0-3,7,7,tireDark);
+p(cx0-2,cy0-4,5,1,cyanBody);p(cx0-4,cy0-2,1,5,cyanBody);
+p(cx0+4,cy0-2,1,5,cyanBody);p(cx0-2,cy0+4,5,1,cyanBody);
+p(cx0-3,cy0-3,1,1,cyanHi);p(cx0+3,cy0-3,1,1,cyanHi);
+p(cx0-3,cy0+3,1,1,cyanHi);p(cx0+3,cy0+3,1,1,cyanHi);
+p(cx0-1,cy0-2,3,5,chromeDark);p(cx0-2,cy0-1,5,3,chromeDark);
+p(cx0-1,cy0-1,3,3,chrome);
+p(cx0,cy0,1,1,'#ffffff');
+};
+wheelR(10,32);
+wheelR(58,32);
+p(17,28,34,3,frameDark);
+p(19,29,31,1,frameCol);
+p(16,25,8,4,frameDark);
+p(17,26,6,2,chromeDark);
+p(22,23,16,10,frameDark);
+p(24,24,13,8,frameCol);
+p(25,25,11,6,'#151b26');
+p(27,26,7,4,chromeDark);
+p(28,27,5,2,chrome);
+p(36,25,8,7,frameDark);
+p(37,26,6,5,frameCol);
+p(12,29,6,3,chromeDark);
+p(13,30,4,1,chrome);
+p(54,23,5,11,gold);
+p(55,22,3,12,chrome);
+p(56,21,1,13,'#ffffff');
+p(51,20,5,3,frameDark);
+p(52,19,4,2,chromeDark);
+p(51,16,3,3,'#111');
+p(52,15,2,2,'#333');
+p(49,15,3,2,chrome);
+p(48,14,2,2,'#111');
+p(54,16,4,3,cyanDark);
+p(55,15,4,3,cyanBody);
+p(56,14,4,3,cyanHi);
+p(58,16,2,2,'#ffffff');
+p(57,15,2,1,'#ffffff');
+p(32,15,16,8,cyanDark);
+p(33,14,16,8,cyanBody);
+p(35,13,13,6,cyanHi);
+p(37,12,9,3,'#ffffff');
+p(28,14,6,6,cyanDark);
+p(29,13,6,6,cyanBody);
+p(30,13,4,3,cyanHi);
+p(23,14,6,5,cyanDark);
+p(24,13,6,5,cyanBody);
+p(25,13,4,2,cyanHi);
+p(16,13,8,4,cyanDark);
+p(17,12,8,4,cyanBody);
+p(18,12,6,2,cyanHi);
+p(12,13,5,3,cyanDark);
+p(13,12,5,3,cyanBody);
+p(14,12,3,1,cyanHi);
+p(10,14,3,2,'#ff0033');
+p(11,14,2,1,'#ff6688');
+p(34,22,14,6,cyanDark);
+p(35,21,14,6,cyanBody);
+p(37,22,11,4,cyanHi);
+p(38,23,8,2,'#ffffff');
+p(47,21,4,7,cyanDark);
+p(48,20,4,7,cyanBody);
+p(49,21,2,4,cyanHi);
+p(30,27,24,3,chromeDark);
+p(32,28,21,2,chrome);
+p(34,28,18,1,'#ffffff');
+p(52,29,5,2,'#111');
+p(53,30,4,1,'#333');
+if(state.levels['tools']>0){
+var tl=state.levels['tools'];
+cx.fillStyle='#111928';cx.fillRect(8,oy+10*s,15,54);
+cx.fillStyle='#1a2436';cx.fillRect(10,oy+11*s,11,50);
+cx.fillStyle='#00f0ff';cx.fillRect(12,oy+13*s,7,2);cx.fillRect(12,oy+16*s,7,2);cx.fillRect(12,oy+19*s,7,2);
+cx.fillStyle='#ffe600';cx.fillRect(13,oy+22*s,5,2);
+if(tl>=3){cx.fillStyle='#ff007f';cx.fillRect(12,oy+25*s,7,2);cx.fillStyle='#8a2be2';cx.fillRect(12,oy+28*s,7,2)}
+if(tl>=6){cx.fillStyle='#00ffaa';cx.fillRect(12,oy+31*s,7,2)}
+cx.fillStyle='#0088aa';cx.fillRect(9,oy+9*s,13,3);
+}
+if(state.levels['helper']>0){
+var hl=state.levels['helper'];
+var hx=ox+67*s,hy=oy+14*s;
+cx.fillStyle='#ffcba4';cx.fillRect(hx,hy,10,10);cx.fillRect(hx+2,hy-3,6,4);
+cx.fillStyle='#222';cx.fillRect(hx+1,hy-4,8,3);cx.fillRect(hx,hy-5,10,2);
+cx.fillStyle='#2255cc';cx.fillRect(hx,hy+10,10,13);cx.fillStyle='#3366dd';cx.fillRect(hx+2,hy+11,6,11);
+cx.fillStyle='#151b26';cx.fillRect(hx,hy+23,4,9);cx.fillRect(hx+6,hy+23,4,9);
+cx.fillStyle='#ffcba4';cx.fillRect(hx-4,hy+12,4,5);cx.fillRect(hx+10,hy+11,4,6);
+cx.fillStyle='#00f0ff';cx.fillRect(hx+14,hy+11,5,2);cx.fillStyle='#aaa';cx.fillRect(hx+14,hy+13,2,5);
+if(hl>=5){
+var h2x=hx+17;
+cx.fillStyle='#ffcba4';cx.fillRect(h2x,hy+2,10,10);
+cx.fillStyle='#444';cx.fillRect(h2x+1,hy-2,8,3);
+cx.fillStyle='#cc2222';cx.fillRect(h2x,hy+12,10,13);
+cx.fillStyle='#151b26';cx.fillRect(h2x,hy+25,4,8);cx.fillRect(h2x+6,hy+25,4,8);
+}
+}
+if(state.levels['ads']>0){
+var al=state.levels['ads'];var ax=2,ay=oy-4;
+cx.fillStyle='#444';cx.fillRect(ax,ay,40,5);cx.fillRect(ax+3,ay+5,3,68);cx.fillRect(ax+34,ay+5,3,68);
+cx.fillStyle='#111928';cx.fillRect(ax+2,ay,36,26);cx.fillStyle='#0a0f1a';cx.fillRect(ax+4,ay+2,32,22);
+var blink=Math.sin(Date.now()/250)>.0;
+if(blink||al>=5){cx.fillStyle='#ff007f';cx.fillRect(ax+6,ay+4,12,5);cx.fillStyle='#ffe600';cx.fillRect(ax+6,ay+11,15,3);cx.fillStyle='#00f0ff';cx.fillRect(ax+6,ay+16,9,3)}
+if(al>=3){cx.fillStyle='#8a2be2';cx.fillRect(ax+21,ay+4,12,5);cx.fillStyle='#ff4444';cx.fillRect(ax+21,ay+11,9,3)}
+if(al>=7){cx.save();cx.shadowBlur=8;cx.shadowColor='#ff007f';cx.fillStyle='#ff007f';cx.fillRect(ax+5,ay+25,30,3);cx.restore()}
+}
+}
+function loop(){
+if(bikeBounce>0)bikeBounce-=.5;
+drawBike();
+requestAnimationFrame(loop);
+}
+setInterval(function(){
+var cps=getCps();
+if(cps>0){
+state.money+=cps/10;
+updateUI();
+}
+},100);
+setInterval(saveGame,4000);
+loadGame();
+updateUI();
+loop();
+})();
 </script>
-
 </body>
 </html>
