@@ -28,7 +28,7 @@ indie-game-studio/
 └── games/                     # โฟลเดอร์รวม Mini Games ของสมาชิกทุกคน
     ├── game_pongpond/         # ไฟล์มินิเกมของปังปอนด์ (Pixel Rhythm Catch)
     │   └── index.html
-    ├── game_plu/              # ไฟล์มินิเกมของพลุ (Cyber Runner Jump)
+    ├── game_plu/              # ไฟล์มินิเกมของพลุ (Load Balancer)
     │   └── index.html
     └── game_folk/             # ไฟล์มินิเกมของโฟล์ค (Retro Space Defender)
         └── index.html
@@ -42,7 +42,7 @@ indie-game-studio/
 | :--- | :--- | :--- | :--- |
 | **181** | **(PM / Lead Dev)** | **Project Manager & Game Architect** | บริหารจัดการ Git Repository, ออกแบบโครงสร้างหลัก (`index.html`, `team.html`, `style.css`), รวมไฟล์โปรเจกต์ และทำหน้า Portfolio ของตนเอง |
 | **170** | **ณัฐกรณ์ แท่นงาม (ปังปอนด์)** | **Game Developer & SA** | พัฒนา Mini Game ในโฟลเดอร์ `games/game_pongpond/`, ทำหน้า `portfolios/pangpond.html` |
-| **200** | **สุวรรณชัย ชัยสุวรรณศรี (พลุ)** | **Lead UI/UX & Game Developer** | พัฒนา Mini Game ในโฟลเดอร์ `games/game_plu/`, ทำหน้า `portfolios/plu.html` |
+| **200** | **สุวรรณชัย ชัยสุวรรณศรี (พลุ)** | **Backend Developer** | พัฒนา Mini Game ในโฟลเดอร์ `games/game_plu/` (Load Balancer จำลองระบบกระจายโหลด API), ทำหน้า `portfolios/plu.html` |
 | **193** | **ศรัณย์ กระจ่างแก้ว (โฟล์ค)** | **Interactive Gameplay Developer** | พัฒนา Mini Game ในโฟลเดอร์ `games/game_folk/`, ทำหน้า `portfolios/folk.html` |
 
 ---

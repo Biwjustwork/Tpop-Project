@@ -31,14 +31,15 @@
     <div class="container">
       <div class="glass-card" style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap;">
         <div class="member-avatar" style="width: 140px; height: 140px; margin-bottom: 0;">
-          <div class="avatar-svg" style="display: flex; align-items: center; justify-content: center; font-size: 3.5rem;">🎨</div>
+          <div class="avatar-svg" style="display: flex; align-items: center; justify-content: center; font-size: 3.5rem;">🖥️</div>
         </div>
         <div style="flex: 1;">
           <span class="badge" style="margin-bottom: 8px;">STUDENT ID: 200</span>
+          <a href="https://phlucode.github.io/my-portfolio/" target="_blank" rel="noopener noreferrer" class="badge badge-purple" style="margin-bottom: 8px; margin-left: 8px;">🔗 My Portfolio ↗</a>
           <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 4px;">สุวรรณชัย ชัยสุวรรณศรี (พลุ)</h1>
-          <p style="color: var(--accent-magenta); font-weight: 600; margin-bottom: 16px;">Lead UI/UX & Game Developer</p>
+          <p style="color: var(--accent-cyan); font-weight: 600; margin-bottom: 16px;">Backend Developer</p>
           <p style="color: var(--text-muted); font-size: 1rem; max-width: 680px;">
-            ผู้พัฒนา Mini Game <strong style="color: var(--accent-magenta);">Cyber Runner Jump</strong> ในโฟลเดอร์ `games/game_plu/` รับผิดชอบการออกแบบประสบการณ์ผู้ใช้ UI Component และ Animation 2D
+            ผู้พัฒนา Mini Game <strong style="color: var(--accent-cyan);">Load Balancer</strong> ในโฟลเดอร์ `games/game_plu/` จำลองการทำงานฝั่งเซิร์ฟเวอร์ ทั้งการกระจายโหลด (Load Balancing), จัดคิว Request และเฝ้าระวัง Uptime ของระบบ
           </p>
         </div>
       </div>
@@ -46,20 +47,20 @@
       <!-- Skills & Game Preview -->
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; margin-top: 36px;">
         <div class="glass-card">
-          <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--accent-magenta);">🏃 My Game Contribution</h3>
+          <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--accent-cyan);">🖥️ My Game Contribution</h3>
           <p style="color: var(--text-muted); margin-bottom: 16px; font-size: 0.95rem;">
-            เกม <strong>Cyber Runner Jump</strong> เป็นเกมสไตล์ Endless Runner 2D หลบสิ่งกีดขวางด้วยจังหวะการกระโดด
+            เกม <strong>Load Balancer</strong> จำลองงานฝั่ง Backend — Request แต่ละก้อนไหลเข้ามา ผู้เล่นต้อง Route ไปยัง Server ที่ถูกต้องให้ทัน (200 OK) ถ้าปล่อยหลุดจะกลายเป็น 503 และหาก Uptime หมดระบบจะ Crash (500)
           </p>
-          <a href="../index.html#showcase" class="btn btn-primary btn-pixel" style="width: 100%; background: var(--accent-magenta); color: #fff;">▶ เล่นเกมของพลุ</a>
+          <a href="../index.html?game=plu#showcase" class="btn btn-primary btn-pixel" style="width: 100%;">▶ เล่นเกมของพลุ</a>
         </div>
 
         <div class="glass-card">
-          <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--accent-cyan);">🎨 UI/UX & Design Skills</h3>
+          <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--accent-green);">⚙️ Backend Development Skills</h3>
           <ul style="color: var(--text-muted); font-size: 0.95rem; line-height: 2;">
-            <li>✨ Cyberpunk & Glassmorphism Design</li>
-            <li>✨ Interactive Micro-animations & CSS Keyframes</li>
-            <li>✨ Physics Gravity Loop in JavaScript Canvas</li>
-            <li>✨ Responsive Mobile Grid Layouts</li>
+            <li>🔌 API Request Routing & Load Balancing</li>
+            <li>📦 Request Queue & State Management</li>
+            <li>🟢 HTTP Status Codes (200 / 400 / 503 / 500)</li>
+            <li>📊 Server Uptime & Health Monitoring</li>
           </ul>
         </div>
       </div>
