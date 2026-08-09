@@ -23,7 +23,7 @@ indie-game-studio/
 ├── portfolios/                # แฟ้มสะสมผลงานรายบุคคล
 │   ├── my-profile.html        # หน้า Portfolio ของ PM (181)
 │   ├── pangpond.html          # หน้า Portfolio ของปังปอนด์ (170)
-│   ├── plu.html               # หน้า Portfolio ของพลุ (200)
+│   ├── plu-source/            # โค้ดต้นฉบับ Portfolio ของพลุ (200) - React + Vite (เว็บจริง deploy บน GitHub Pages)
 │   └── folk.html              # หน้า Portfolio ของโฟล์ค (193)
 └── games/                     # โฟลเดอร์รวม Mini Games ของสมาชิกทุกคน
     ├── game_pongpond/         # ไฟล์มินิเกมของปังปอนด์ (Pixel Rhythm Catch)
@@ -42,7 +42,7 @@ indie-game-studio/
 | :--- | :--- | :--- | :--- |
 | **181** | **(PM / Lead Dev)** | **Project Manager & Game Architect** | บริหารจัดการ Git Repository, ออกแบบโครงสร้างหลัก (`index.html`, `team.html`, `style.css`), รวมไฟล์โปรเจกต์ และทำหน้า Portfolio ของตนเอง |
 | **170** | **ณัฐกรณ์ แท่นงาม (ปังปอนด์)** | **Game Developer & SA** | พัฒนา Mini Game ในโฟลเดอร์ `games/game_pongpond/`, ทำหน้า `portfolios/pangpond.html` |
-| **200** | **สุวรรณชัย ชัยสุวรรณศรี (พลุ)** | **Backend Developer** | พัฒนา Mini Game ในโฟลเดอร์ `games/game_plu/` (Load Balancer จำลองระบบกระจายโหลด API), ทำหน้า `portfolios/plu.html` |
+| **200** | **สุวรรณชัย ชัยสุวรรณศรี (พลุ)** | **Backend Developer** | พัฒนา Mini Game ในโฟลเดอร์ `games/game_plu/` (Load Balancer จำลองระบบกระจายโหลด API), ทำหน้า Portfolio ส่วนตัว (React + Vite) — source ใน `portfolios/plu-source/`, เว็บจริงที่ https://phlucode.github.io/my-portfolio/ |
 | **193** | **ศรัณย์ กระจ่างแก้ว (โฟล์ค)** | **Interactive Gameplay Developer** | พัฒนา Mini Game ในโฟลเดอร์ `games/game_folk/`, ทำหน้า `portfolios/folk.html` |
 
 ---
