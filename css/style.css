@@ -888,3 +888,109 @@ img {
   background-color: rgba(23, 31, 51, 0.95) !important;
   border-top: 1px solid rgba(70, 69, 84, 0.6) !important;
 }
+
+/* ==========================================================================
+   Advanced Animation System (Scroll Reveal, 3D Tilt & Counter FX)
+   ========================================================================== */
+
+/* --- Scroll Reveal Base Styles --- */
+[data-reveal] {
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal="fade-up"] {
+  transform: translateY(36px);
+  filter: blur(4px);
+}
+
+[data-reveal="fade-down"] {
+  transform: translateY(-36px);
+  filter: blur(4px);
+}
+
+[data-reveal="slide-left"] {
+  transform: translateX(-40px);
+  filter: blur(4px);
+}
+
+[data-reveal="slide-right"] {
+  transform: translateX(40px);
+  filter: blur(4px);
+}
+
+[data-reveal="zoom-in"] {
+  transform: scale(0.9);
+  filter: blur(4px);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+  filter: blur(0);
+}
+
+/* --- Interactive 3D Card Tilt Effect --- */
+[data-tilt] {
+  transform-style: preserve-3d;
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+  position: relative;
+}
+
+[data-tilt]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px circle at var(--tilt-x, 50%) var(--tilt-y, 50%),
+    rgba(0, 240, 255, 0.12),
+    transparent 40%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+[data-tilt]:hover::after {
+  opacity: 1;
+}
+
+/* --- Number Counter Glow Pulse Animation --- */
+@keyframes counterGlowPulse {
+  0% {
+    text-shadow: 0 0 5px currentColor;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 20px currentColor, 0 0 35px currentColor;
+    transform: scale(1.05);
+  }
+  100% {
+    text-shadow: 0 0 10px currentColor;
+    transform: scale(1);
+  }
+}
+
+.counter-animating {
+  display: inline-block;
+  animation: counterGlowPulse 1.2s infinite ease-in-out;
+}
+
+.counter-complete {
+  transition: text-shadow 0.5s ease;
+}
+
+/* --- Animated Progress / Skill Fill Bar --- */
+.progress-fill-bar {
+  width: 0%;
+  transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
