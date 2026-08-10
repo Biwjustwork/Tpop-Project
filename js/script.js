@@ -204,6 +204,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Game Viewport Theater / Fit Window Mode Toggle ---
+  const theaterToggleBtn = document.getElementById('theaterToggleBtn');
+  if (theaterToggleBtn && gameViewportWrapper) {
+    const toggleTheater = () => {
+      const isTheater = gameViewportWrapper.classList.toggle('theater-mode');
+      document.body.classList.toggle('theater-active', isTheater);
+      
+      theaterToggleBtn.innerHTML = isTheater
+        ? `<span class="material-symbols-outlined text-[20px]">close_fullscreen</span> Exit Theater`
+        : `<span class="material-symbols-outlined text-[20px]">open_in_full</span> Theater Mode`;
+
+      if (isTheater) {
+        showToast('📺 Theater Mode Enabled (Press ESC to exit)');
+      }
+    };
+
+    theaterToggleBtn.addEventListener('click', toggleTheater);
+
+    // Escape key listener to exit theater mode
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && gameViewportWrapper.classList.contains('theater-mode')) {
+        toggleTheater();
+      }
+    });
+  }
+
   // --- Header Scroll Effect ---
   const header = document.querySelector('.header');
   if (header) {
