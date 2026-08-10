@@ -161,8 +161,9 @@
     <div class="absolute top-20 right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
     <div class="absolute bottom-20 left-20 w-96 h-96 bg-tertiary/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
+
     <!-- Hero Section -->
-    <section class="flex flex-col items-center text-center gap-6 w-full max-w-3xl pt-8">
+    <section class="flex flex-col items-center text-center gap-6 w-full max-w-3xl pt-8" data-reveal="fade-down">
       <div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container border border-outline-variant chip-cutout mb-2">
         <span class="w-2 h-2 bg-tertiary block neon-glow"></span>
         <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">STUDIO CORE</span>
@@ -179,10 +180,10 @@
     </section>
 
     <!-- Team Members Grid (2x2 Grid) -->
-    <section class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+    <section class="w-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-4" data-reveal-group>
 
       <!-- Member Card 1: Project Lead (บิว - 181) -->
-      <article class="bg-surface-container border border-secondary/40 relative flex flex-col group overflow-hidden block-shadow-sm transition-all duration-300 hover:-translate-y-1 rounded-xl">
+      <article data-reveal="fade-up" data-tilt class="bg-surface-container border border-secondary/40 relative flex flex-col group overflow-hidden block-shadow-sm transition-all duration-300 hover:-translate-y-1 rounded-xl">
         <div class="absolute top-0 left-0 w-full h-1 bg-secondary group-hover:bg-primary transition-colors"></div>
         
         <!-- Avatar Graphic Box -->
@@ -210,7 +211,7 @@
           </div>
 
           <p class="font-body-md text-body-md text-on-surface-variant mt-1">
-            บริหารจัดการโปรเจกต์ Git Repository, ออกแบบโครงสร้างสถาปัตยกรรมหลักของเว็บไซต์ (<code class="text-tertiary">index.html</code>, <code class="text-tertiary">team.html</code>) และพัฒนาเกม Chaos Chess
+            บริหารจัดการโปรเจกต์ Git Repository, ออกแบบโครงสร้างสถาปัตยกรรมหลักของเว็บไซต์ และพัฒนาเกม Chaos Chess
           </p>
 
           <div class="mt-auto pt-4 flex flex-wrap gap-2 border-t border-outline-variant/40">
@@ -227,7 +228,7 @@
       </article>
 
       <!-- Member Card 2: Pangpond (170) -->
-      <article class="bg-surface-container border border-tertiary/40 relative flex flex-col group overflow-hidden block-shadow-sm transition-all duration-300 hover:-translate-y-1 rounded-xl">
+      <article data-reveal="fade-up" data-tilt class="bg-surface-container border border-tertiary/40 relative flex flex-col group overflow-hidden block-shadow-sm transition-all duration-300 hover:-translate-y-1 rounded-xl">
         <div class="absolute top-0 left-0 w-full h-1 bg-tertiary group-hover:bg-primary transition-colors"></div>
         
         <!-- Avatar Graphic Box -->
@@ -272,7 +273,7 @@
       </article>
 
       <!-- Member Card 3: Plu (200) -->
-      <article class="bg-surface-container border border-primary/40 relative flex flex-col group overflow-hidden block-shadow-sm transition-all duration-300 hover:-translate-y-1 rounded-xl">
+      <article data-reveal="fade-up" data-tilt class="bg-surface-container border border-primary/40 relative flex flex-col group overflow-hidden block-shadow-sm transition-all duration-300 hover:-translate-y-1 rounded-xl">
         <div class="absolute top-0 left-0 w-full h-1 bg-primary group-hover:bg-tertiary transition-colors"></div>
         
         <!-- Avatar Graphic Box -->
@@ -284,7 +285,7 @@
           </div>
 
           <div class="absolute bottom-3 right-4 font-label-sm text-[11px] text-primary bg-primary/10 px-2.5 py-1 rounded border border-primary/30">
-            BACKEND DEV
+            GAME DEV & BACKEND DEV
           </div>
         </div>
 
@@ -294,7 +295,7 @@
               <h3 class="font-headline-md text-[22px] text-primary group-hover:text-primary-fixed-dim transition-colors">
                 สุวรรณชัย ชัยสุวรรณศรี <span class="text-sm font-label-sm text-on-surface-variant">(พลุ - 200)</span>
               </h3>
-              <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mt-1">Backend Developer & Systems Engine</p>
+              <p class="font-label-sm text-label-sm text-primary uppercase tracking-widest mt-1">Game Devoloper & Backend Developer</p>
             </div>
             <span class="material-symbols-outlined text-primary opacity-70 group-hover:opacity-100 transition-opacity">terminal</span>
           </div>
@@ -317,7 +318,7 @@
       </article>
 
       <!-- Member Card 4: Folk (193) -->
-      <article class="bg-surface-container border border-tertiary-fixed/40 relative flex flex-col group overflow-hidden block-shadow-sm transition-all duration-300 hover:-translate-y-1 rounded-xl">
+      <article data-reveal="fade-up" data-tilt class="bg-surface-container border border-tertiary-fixed/40 relative flex flex-col group overflow-hidden block-shadow-sm transition-all duration-300 hover:-translate-y-1 rounded-xl">
         <div class="absolute top-0 left-0 w-full h-1 bg-tertiary-fixed group-hover:bg-secondary transition-colors"></div>
         
         <!-- Avatar Graphic Box -->
@@ -339,7 +340,7 @@
               <h3 class="font-headline-md text-[22px] text-primary group-hover:text-tertiary-fixed transition-colors">
                 ศรัณย์ กระจ่างแก้ว <span class="text-sm font-label-sm text-on-surface-variant">(โฟล์ค - 193)</span>
               </h3>
-              <p class="font-label-sm text-label-sm text-tertiary-fixed uppercase tracking-widest mt-1">Interactive Gameplay Developer</p>
+              <p class="font-label-sm text-label-sm text-tertiary-fixed uppercase tracking-widest mt-1">Game Developer & Interactive Gameplay Developer</p>
             </div>
             <span class="material-symbols-outlined text-tertiary-fixed opacity-70 group-hover:opacity-100 transition-opacity">two_wheeler</span>
           </div>
@@ -364,7 +365,7 @@
     </section>
 
     <!-- Join / CTA Section -->
-    <section class="w-full max-w-4xl mt-12 bg-surface-container-high border border-outline-variant p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 rounded-xl">
+    <section data-reveal="zoom-in" data-tilt class="w-full max-w-4xl mt-12 bg-surface-container-high border border-outline-variant p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 rounded-xl">
       <div class="absolute -right-20 -top-20 w-64 h-64 border border-tertiary/20 rounded-full pointer-events-none"></div>
       <div class="absolute -right-10 -top-10 w-48 h-48 border border-tertiary/40 rounded-full pointer-events-none"></div>
       
@@ -383,6 +384,7 @@
         </a>
       </div>
     </section>
+
 
   </main>
 

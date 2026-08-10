@@ -161,20 +161,20 @@
         <div class="absolute inset-0 bg-[radial-gradient(#4ae176_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
       </div>
 
-      <div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col items-center gap-6 py-16">
-        <span class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high border border-tertiary/40 text-tertiary font-label-sm text-[11px] uppercase tracking-wider pixel-corners block-shadow shadow-tertiary/20">
+      <div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col items-center gap-6 py-16" data-reveal-group>
+        <span data-reveal="fade-down" class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container-high border border-tertiary/40 text-tertiary font-label-sm text-[11px] uppercase tracking-wider pixel-corners block-shadow shadow-tertiary/20">
           👾 INDEPENDENT GAME DEVELOPMENT STUDIO
         </span>
 
-        <h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background max-w-4xl uppercase tracking-tighter leading-tight neon-glow">
+        <h1 data-reveal="fade-up" class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background max-w-4xl uppercase tracking-tighter leading-tight neon-glow">
           Forging Web Pixel Games,<br/> <span class="text-tertiary">Free For Everyone Worldwide</span>
         </h1>
 
-        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+        <p data-reveal="fade-up" class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
           สตูดิโอพัฒนาเกมอินดี้แนว 2D Pixel Art & Cyberpunk รังสรรค์มินิเกมเล่นฟรีผ่านเว็บเบราว์เซอร์ ให้ผู้เล่นทั่วโลกได้เปิดประสบการณ์ความสนุกระดับเรโทรโดยไม่ต้องดาวน์โหลด
         </p>
 
-        <div class="flex flex-wrap justify-center gap-4 mt-4">
+        <div data-reveal="fade-up" class="flex flex-wrap justify-center gap-4 mt-4">
           <a href="#games" class="font-label-sm text-label-sm uppercase bg-tertiary text-on-tertiary px-8 py-3.5 block-shadow-lg shadow-on-tertiary hover:bg-tertiary-fixed-dim active:translate-y-1 active:shadow-none transition-all pixel-corners flex items-center gap-2">
             <span class="material-symbols-outlined text-[18px]">sports_esports</span> Explore Games
           </a>
@@ -187,7 +187,7 @@
 
     <!-- Our Games Section (Bento Grid) -->
     <section class="py-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" id="games">
-      <div class="mb-12 flex items-end justify-between border-b border-outline-variant pb-4">
+      <div class="mb-12 flex items-end justify-between border-b border-outline-variant pb-4" data-reveal="fade-up">
         <div>
           <span class="font-label-sm text-label-sm text-tertiary uppercase tracking-widest">SHOWCASE</span>
           <h2 class="font-headline-md text-headline-md text-primary uppercase tracking-tight mt-1">Our Games</h2>
@@ -196,10 +196,10 @@
       </div>
 
       <!-- Bento Grid Layout -->
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-unit-6 md:gap-gutter">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-unit-6 md:gap-gutter" data-reveal-group>
 
         <!-- 1. Featured Game: Chaos Chess (col-span-8) -->
-        <div class="md:col-span-8 bg-surface-container border border-secondary/30 relative overflow-hidden group rounded-xl">
+        <div data-reveal="fade-up" data-tilt class="md:col-span-8 bg-surface-container border border-secondary/30 relative overflow-hidden group rounded-xl">
           <div class="absolute top-0 left-0 w-full h-1 bg-secondary"></div>
           <div class="flex flex-col md:flex-row h-full">
             <div class="w-full md:w-1/2 p-8 flex flex-col justify-between z-10 relative bg-surface-container/90 backdrop-blur-sm border-r border-secondary/20">
@@ -230,7 +230,7 @@
         </div>
 
         <!-- 2. Secondary Game 1: BigBike Garage (col-span-4) -->
-        <div class="md:col-span-4 bg-surface-container border border-outline-variant relative overflow-hidden group hover:border-tertiary transition-colors flex flex-col rounded-xl">
+        <div data-reveal="fade-up" data-tilt class="md:col-span-4 bg-surface-container border border-outline-variant relative overflow-hidden group hover:border-tertiary transition-colors flex flex-col rounded-xl">
           <div class="absolute top-0 left-0 w-full h-1 bg-tertiary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
           <div class="h-60 w-full p-3 flex items-center justify-center relative overflow-hidden bg-surface-dim border-b border-outline-variant/40">
             <img src="assets/img/cover art/BigBike_Garage.png" alt="BigBike Garage Cover Art" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"/>
@@ -251,7 +251,7 @@
         </div>
 
         <!-- 3. Secondary Game 2: Neon Lane Racer (col-span-4) -->
-        <div class="md:col-span-4 bg-surface-container border border-outline-variant relative overflow-hidden group hover:border-primary transition-colors flex flex-col rounded-xl">
+        <div data-reveal="fade-up" data-tilt class="md:col-span-4 bg-surface-container border border-outline-variant relative overflow-hidden group hover:border-primary transition-colors flex flex-col rounded-xl">
           <div class="absolute top-0 left-0 w-full h-1 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
           <div class="h-60 w-full p-3 flex items-center justify-center relative overflow-hidden bg-surface-dim border-b border-outline-variant/40">
             <img src="assets/img/cover art/Neon lane racer.png" alt="Neon Lane Racer Cover Art" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"/>
@@ -272,7 +272,7 @@
         </div>
 
         <!-- 4. Secondary Game 3: Load Balancer (col-span-4) -->
-        <div class="md:col-span-4 bg-surface-container border border-outline-variant relative overflow-hidden group hover:border-tertiary transition-colors flex flex-col rounded-xl">
+        <div data-reveal="fade-up" data-tilt class="md:col-span-4 bg-surface-container border border-outline-variant relative overflow-hidden group hover:border-tertiary transition-colors flex flex-col rounded-xl">
           <div class="absolute top-0 left-0 w-full h-1 bg-tertiary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
           <div class="h-60 w-full p-3 flex items-center justify-center relative overflow-hidden bg-surface-dim border-b border-outline-variant/40">
             <img src="assets/img/cover art/API_ROUTE.png" alt="Load Balancer Cover Art" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"/>
@@ -293,7 +293,7 @@
         </div>
 
         <!-- 5. Join Alpha Test / Call to Action Banner (col-span-12 / Full Width & Centered) -->
-        <div class="col-span-1 md:col-span-12 bg-surface-container-highest border border-outline-variant relative overflow-hidden p-10 md:p-12 flex flex-col items-center justify-center text-center gap-6 rounded-xl">
+        <div data-reveal="zoom-in" data-tilt class="col-span-1 md:col-span-12 bg-surface-container-highest border border-outline-variant relative overflow-hidden p-10 md:p-12 flex flex-col items-center justify-center text-center gap-6 rounded-xl">
           <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
           <div class="absolute -left-20 -top-20 w-80 h-80 bg-tertiary/10 rounded-full blur-3xl pointer-events-none"></div>
           
@@ -317,8 +317,8 @@
     </section>
 
     <!-- Call to Action Team Section -->
-    <section class="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-      <div class="glass-card-mock p-12 text-center relative overflow-hidden border-tertiary/30">
+    <section class="py-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto" data-reveal="fade-up">
+      <div data-tilt class="glass-card-mock p-12 text-center relative overflow-hidden border-tertiary/30">
         <div class="absolute -left-16 -top-16 w-48 h-48 bg-tertiary/10 rounded-full blur-2xl pointer-events-none"></div>
         <div class="relative z-10 max-w-2xl mx-auto">
           <h2 class="font-headline-md text-headline-md md:text-[32px] text-on-background mb-4 uppercase">

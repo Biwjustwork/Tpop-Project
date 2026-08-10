@@ -204,6 +204,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Game Viewport Theater / Fit Window Mode Toggle ---
+  const theaterToggleBtn = document.getElementById('theaterToggleBtn');
+  if (theaterToggleBtn && gameViewportWrapper) {
+    const toggleTheater = () => {
+      const isTheater = gameViewportWrapper.classList.toggle('theater-mode');
+      document.body.classList.toggle('theater-active', isTheater);
+      
+      theaterToggleBtn.innerHTML = isTheater
+        ? `<span class="material-symbols-outlined text-[20px]">close_fullscreen</span> Exit Theater`
+        : `<span class="material-symbols-outlined text-[20px]">open_in_full</span> Theater Mode`;
+
+      if (isTheater) {
+        showToast('📺 Theater Mode Enabled (Press ESC to exit)');
+      }
+    };
+
+    theaterToggleBtn.addEventListener('click', toggleTheater);
+
+    // Escape key listener to exit theater mode
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && gameViewportWrapper.classList.contains('theater-mode')) {
+        toggleTheater();
+      }
+    });
+  }
+
   // --- Header Scroll Effect ---
   const header = document.querySelector('.header');
   if (header) {
@@ -316,4 +342,147 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.classList.remove('show');
     }, 2800);
   }
+
+  // ==========================================================================
+  // Interactive Animation Engine (Scroll Reveal, Counter, 3D Tilt, Cyber FX)
+  // ==========================================================================
+
+  // --- 1. Scroll Reveal with IntersectionObserver ---
+  const revealObserverOptions = {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  };
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.getAttribute('data-reveal-delay') || 0;
+        
+        setTimeout(() => {
+          el.classList.add('is-revealed');
+        }, parseInt(delay, 10));
+
+        observer.unobserve(el);
+      }
+    });
+  }, revealObserverOptions);
+
+  // Auto-register elements with [data-reveal]
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // Auto-stagger children inside containers with [data-reveal-group]
+  document.querySelectorAll('[data-reveal-group]').forEach(group => {
+    const step = parseInt(group.getAttribute('data-reveal-step') || '120', 10);
+    const children = group.querySelectorAll('[data-reveal]');
+    children.forEach((child, index) => {
+      if (!child.hasAttribute('data-reveal-delay')) {
+        child.setAttribute('data-reveal-delay', index * step);
+      }
+    });
+  });
+
+  // --- 2. Animated Number Counter ---
+  const counterObserverOptions = {
+    threshold: 0.3
+  };
+
+  const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
+  const animateCounter = (el) => {
+    const targetAttr = el.getAttribute('data-counter-target');
+    if (!targetAttr) return;
+
+    // Extract numeric part, prefix, and suffix (e.g., "100K+", "4+", "100%", "99.9%")
+    const match = targetAttr.match(/^([^0-9.]*)([0-9.]+)(.*)$/);
+    if (!match) return;
+
+    const prefix = match[1] || '';
+    const targetNum = parseFloat(match[2]);
+    const suffix = match[3] || '';
+    const isFloat = targetNum % 1 !== 0;
+    const duration = 1800; // ms
+    const startTime = performance.now();
+
+    el.classList.add('counter-animating');
+
+    const updateFrame = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutExpo(progress);
+      const currentVal = targetNum * easedProgress;
+
+      const formattedVal = isFloat ? currentVal.toFixed(1) : Math.floor(currentVal);
+      el.textContent = `${prefix}${formattedVal}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(updateFrame);
+      } else {
+        el.textContent = `${prefix}${targetNum}${suffix}`;
+        el.classList.remove('counter-animating');
+        el.classList.add('counter-complete');
+      }
+    };
+
+    requestAnimationFrame(updateFrame);
+  };
+
+  const counterObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, counterObserverOptions);
+
+  document.querySelectorAll('[data-counter-target]').forEach(el => {
+    counterObserver.observe(el);
+  });
+
+  // --- 3. Interactive 3D Card Tilt Effect ---
+  const tiltCards = document.querySelectorAll('[data-tilt]');
+  tiltCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -8; // Max 8 deg
+      const rotateY = ((x - centerX) / centerX) * 8;  // Max 8 deg
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+      
+      const tiltXPercent = ((x / rect.width) * 100).toFixed(1);
+      const tiltYPercent = ((y / rect.height) * 100).toFixed(1);
+      card.style.setProperty('--tilt-x', `${tiltXPercent}%`);
+      card.style.setProperty('--tilt-y', `${tiltYPercent}%`);
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+  });
+
+
+  // --- 4. Skill & Progress Fill Bars ---
+  const progressObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        const targetWidth = bar.getAttribute('data-progress-width') || '100%';
+        bar.style.width = targetWidth;
+        observer.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.progress-fill-bar').forEach(bar => progressObserver.observe(bar));
 });
+
+
